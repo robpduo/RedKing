@@ -3,7 +3,9 @@ package com.revature.models;
 import org.hibernate.engine.internal.Cascade;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 @Entity
 @Table( name = "players" )
@@ -28,11 +30,10 @@ public class Player {
     public Player() {
     }
 
-    public Player( int playerId, double money, User user, Card[] card ) {
+    public Player( int playerId, double money, User user) {
         this.playerId = playerId;
         this.money = money;
         this.user = user;
-        this.card = card;
     }
 
     public int getPlayerId() {
@@ -73,7 +74,7 @@ public class Player {
                 "playerId=" + playerId +
                 ", money=" + money +
                 ", user=" + user +
-                ", card=" + Arrays.toString(card) +
+                ", card=" + card +
                 '}';
     }
 }
