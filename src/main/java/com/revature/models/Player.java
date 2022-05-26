@@ -1,5 +1,7 @@
 package com.revature.models;
 
+import org.hibernate.engine.internal.Cascade;
+
 import javax.persistence.*;
 import java.util.Arrays;
 
@@ -15,17 +17,17 @@ public class Player {
     @Column( name = "money" )
     private double money;
 
-    //many to on relationship
-    @OneToOne(cascade = CascadeType.ALL, fetch=FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
-    private int user;
+    private User user;
 
+    @ManyToOne( cascade = CascadeType.ALL )
     private Card[] card;
 
     public Player() {
     }
 
-    public Player( int playerId, double money, int user, Card[] card ) {
+    public Player( int playerId, double money, User user, Card[] card ) {
         this.playerId = playerId;
         this.money = money;
         this.user = user;
@@ -48,11 +50,11 @@ public class Player {
         this.money = money;
     }
 
-    public double getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser( int user ) {
+    public void setUser( User user ) {
         this.user = user;
     }
 
