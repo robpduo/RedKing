@@ -1,5 +1,6 @@
 package com.revature.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.engine.internal.Cascade;
 
 import javax.persistence.*;
@@ -8,22 +9,26 @@ import java.util.Arrays;
 import java.util.List;
 
 @Entity
-@Table(name="players")
+@Table(name = "players")
 public class Player {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name="player_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "player_id")
     private int playerId;
 
-    @Column(name="money")
+    @Column(name = "money")
     private double money;
 
-    @OneToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name="users_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "users_id")
     private User user;
 
-//    @ManyToOne( cascade = CascadeType.ALL )
-//    @JoinColumn( name = "hand" )
-//    List<Card> card;
+    @OneToMany(mappedBy = "player", cascade = CascadeType.ALL)
+    @JsonIgnore //ignore getters and setters
+    List<Card> hand;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "deck_id")
+    private Deck deck;
 }
