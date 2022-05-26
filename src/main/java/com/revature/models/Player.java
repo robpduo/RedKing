@@ -17,11 +17,12 @@ public class Player {
     @Column( name = "money" )
     private double money;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
+    @ManyToOne( cascade = CascadeType.ALL )
+    @JoinColumn( name = "user_id" )
     private User user;
 
     @ManyToOne( cascade = CascadeType.ALL )
+    @JoinColumn( name = "hand" )
     private Card[] card;
 
     public Player() {
