@@ -3,24 +3,24 @@ package com.revature.models;
 import javax.persistence.*;
 
 @Entity
-@Table( name = "users" )
+@Table(name="users")
 public class User {
 
     @Id
-    @GeneratedValue( strategy = GenerationType.AUTO )
-    @Column( name = "user_id" )
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name="user_id")
     private int userId;
 
-    @Column( name = "email" )
+    @Column(name="email")
     private String email;
 
-    @Column( name = "first_name" )
+    @Column(name="first_name")
     private String firstName;
 
-    @Column( name = "last_name" )
+    @Column(name="last_name")
     private String lastName;
 
-    @Column( name = "password" )
+    @Column(name="password")
     private String password;
 
     public User() {

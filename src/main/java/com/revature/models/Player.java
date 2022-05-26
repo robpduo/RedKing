@@ -8,73 +8,22 @@ import java.util.Arrays;
 import java.util.List;
 
 @Entity
-@Table( name = "players" )
+@Table(name="players")
 public class Player {
 
     @Id
-    @GeneratedValue( strategy = GenerationType.AUTO )
-    @Column( name = "player_id" )
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name="player_id")
     private int playerId;
 
-    @Column( name = "money" )
+    @Column(name="money")
     private double money;
 
-    @ManyToOne( cascade = CascadeType.ALL )
-    @JoinColumn( name = "user_id" )
+    @OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name="users_id")
     private User user;
 
-    @ManyToOne( cascade = CascadeType.ALL )
-    @JoinColumn( name = "hand" )
-    private Card[] card;
-
-    public Player() {
-    }
-
-    public Player( int playerId, double money, User user) {
-        this.playerId = playerId;
-        this.money = money;
-        this.user = user;
-    }
-
-    public int getPlayerId() {
-        return playerId;
-    }
-
-    public void setPlayerId( int playerId ) {
-        this.playerId = playerId;
-    }
-
-    public double getMoney() {
-        return money;
-    }
-
-    public void setMoney( double money ) {
-        this.money = money;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser( User user ) {
-        this.user = user;
-    }
-
-    public Card[] getCard() {
-        return card;
-    }
-
-    public void setCard( Card[] card ) {
-        this.card = card;
-    }
-
-    @Override
-    public String toString() {
-        return "Player{" +
-                "playerId=" + playerId +
-                ", money=" + money +
-                ", user=" + user +
-                ", card=" + card +
-                '}';
-    }
+//    @ManyToOne( cascade = CascadeType.ALL )
+//    @JoinColumn( name = "hand" )
+//    List<Card> card;
 }
