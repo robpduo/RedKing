@@ -1,13 +1,12 @@
 package com.revature.controllers;
 
 import com.revature.models.Deck;
+import com.revature.models.LoginHelper;
 import com.revature.models.User;
 import com.revature.services.DeckService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/deck")
@@ -20,10 +19,9 @@ public class DeckController {
         this.ds = ds;
     }
 
-    @GetMapping("/shuffle")
+    @PostMapping("/initialize")
     @ResponseBody
-    public User handleLogin() {
-        Deck deck = ds.initializeDeck();
-        return null;
+    public Deck handleLogin( @RequestBody User u) {
+        return ds.initializeDeck(u);
     }
 }

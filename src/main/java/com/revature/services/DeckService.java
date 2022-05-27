@@ -1,6 +1,9 @@
 package com.revature.services;
 
 import com.revature.models.*;
+import com.revature.repository.DeckRepo;
+import com.revature.repository.UserRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -10,8 +13,14 @@ import java.util.List;
 @Service
 @Transactional
 public class DeckService {
+    private DeckRepo dr;
 
-    public Deck initializeDeck() {
+    @Autowired
+    public DeckService(DeckRepo dr) {
+        this.dr = dr;
+    }
+
+    public Deck initializeDeck(User user) {
         Deck deck = new Deck();
         List<Card> lCards= new ArrayList<>();
 
@@ -22,7 +31,11 @@ public class DeckService {
         }
 
         Collections.shuffle(lCards);
+
         deck.setCards(lCards);
-        return deck;
+        deck.setUser(user);
+        deck.setDeckSize(52);
+
+        return dr.save(deck);
     }
 }
