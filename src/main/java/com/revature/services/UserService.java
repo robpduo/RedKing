@@ -26,8 +26,8 @@ public class UserService {
      * @param lastName - user's last name
      * @return User Object
      */
-    public User registerUser(String email, String password, String firstName, String lastName) {
-        User u = new User(0, email, firstName, lastName, password);
+    public User registerUser(String email, String password, String firstName, String lastName, double money) {
+        User u = new User(email, firstName, lastName, password, money);
         return ur.save(u);
     }
 

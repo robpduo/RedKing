@@ -18,10 +18,6 @@ public class Card {
     private Suit suit;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "player_id")
-    private Player player;
-
-    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "deck_id")
     private Deck deck;
 
@@ -31,16 +27,14 @@ public class Card {
         this.suit = suit;
     }
 
+    public Card( Rank rank, Suit suit ) {
+        this.rank = rank;
+        this.suit = suit;
+    }
+
     public Card() {
     }
 
-    public Player getPlayer() {
-        return player;
-    }
-
-    public void setPlayer( Player player ) {
-        this.player = player;
-    }
 
     public int getCardId() {
         return cardId;

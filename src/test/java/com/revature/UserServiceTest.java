@@ -30,9 +30,9 @@ public class UserServiceTest {
     public void testRegisterUser() {
         UserService us = new UserService(ur);
 
-        User u = new User(0, "test@gmail.com", "test_first", "test_last", "test_password");
+        User u = new User("test@gmail.com", "test_first", "test_last", "test_password", 0);
         Mockito.when(ur.save(Mockito.any())).thenReturn(u);
-        Assert.assertEquals(u, us.registerUser("test@gmail.com", "test_first", "test_last", "test_password"));
+        Assert.assertEquals(u, us.registerUser("test@gmail.com", "test_first", "test_last", "test_password", 0));
 
     }
 

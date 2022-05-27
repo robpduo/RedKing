@@ -18,24 +18,31 @@ public class Deck {
     @Column(name = "deck_size")
     private int deckSize;
 
-    @OneToMany(mappedBy = "deck", cascade = CascadeType.ALL)
-    @JsonIgnore
-    List<Player> players;
-
+    //One Deck to Many Cards
     @OneToMany(mappedBy = "deck", cascade = CascadeType.ALL )
     @JsonIgnore
     List<Card> cards;
 
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser( User user ) {
+        this.user = user;
+    }
+
     public Deck() {
         this.cards = new ArrayList<>();
-        this.players = new ArrayList<>();
     }
 
     public Deck( int deckId, int deckSize ) {
         this.deckId = deckId;
         this.deckSize = deckSize;
         this.cards = new ArrayList<>();
-        this.players = new ArrayList<>();
     }
 
     public int getDeckId() {
@@ -54,12 +61,19 @@ public class Deck {
         this.deckSize = deckSize;
     }
 
+    public List<Card> getCards() {
+        return cards;
+    }
+
+    public void setCards( List<Card> cards ) {
+        this.cards = cards;
+    }
+
     @Override
     public String toString() {
         return "Deck{" +
                 "deckId=" + deckId +
                 ", deckSize=" + deckSize +
-                ", players=" + players +
                 ", cards=" + cards +
                 '}';
     }
