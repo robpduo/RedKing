@@ -27,11 +27,20 @@ public class UserService {
      * @return User Object
      */
     public User registerUser(String email, String password, String firstName, String lastName) {
-        User u = new User(0, email, password, firstName, lastName);
+        User u = new User(0, email, firstName, lastName, password);
         return ur.save(u);
     }
 
-
+    /**
+     * Check user
+     * @param email
+     * @param password
+     * @return
+     */
+    public User loginUser(String email, String password) {
+        User u = ur.findByEmailAndPassword(email, password);
+        return u;
+    }
 
 
 }
