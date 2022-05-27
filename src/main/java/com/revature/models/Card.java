@@ -25,14 +25,6 @@ public class Card {
     @JoinColumn(name = "deck_id")
     private Deck deck;
 
-    public Player getPlayer() {
-        return player;
-    }
-
-    public void setPlayer( Player player ) {
-        this.player = player;
-    }
-
     public Card( int cardId, Rank rank, Suit suit ) {
         this.cardId = cardId;
         this.rank = rank;
@@ -40,6 +32,14 @@ public class Card {
     }
 
     public Card() {
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer( Player player ) {
+        this.player = player;
     }
 
     public int getCardId() {

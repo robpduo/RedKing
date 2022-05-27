@@ -31,4 +31,59 @@ public class Player {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "deck_id")
     private Deck deck;
+
+    public Player() {
+        this.hand = new ArrayList<>();
+    }
+
+    public Player(int playerId, double money, User user, Deck deck ) {
+        this.playerId = playerId;
+        this.money = money;
+        this.user = user;
+        this.deck = deck;
+        this.hand = new ArrayList<>();
+    }
+
+    public int getPlayerId() {
+        return playerId;
+    }
+
+    public void setPlayerId( int playerId ) {
+        this.playerId = playerId;
+    }
+
+    public double getMoney() {
+        return money;
+    }
+
+    public void setMoney( double money ) {
+        this.money = money;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser( User user ) {
+        this.user = user;
+    }
+
+    public Deck getDeck() {
+        return deck;
+    }
+
+    public void setDeck( Deck deck ) {
+        this.deck = deck;
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "playerId=" + playerId +
+                ", money=" + money +
+                ", user=" + user +
+                ", hand=" + hand +
+                ", deck=" + deck +
+                '}';
+    }
 }
