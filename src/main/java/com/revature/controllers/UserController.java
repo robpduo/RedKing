@@ -23,7 +23,7 @@ public class UserController {
     @PostMapping("/register")
     @ResponseBody
     public User handleRegister( @RequestBody User u ) {
-        User ;
-        return u;
+        User newUser = u;
+        return us.registerUser(u.getEmail(), u.getPassword(), u.getFirstName(), u.getLastName());
     }
 }
