@@ -54,7 +54,7 @@ public class UserServiceTest {
         User user = new User("test@gmail.com", "test_first", "test_last", "test_password", 0);
 
 
-        when(ur.findByEmailAndPassword( Mockito.any(), Mockito.any())).thenReturn(user);
+        when(ur.findByEmailAndPassword( Mockito.anyString(), Mockito.anyString())).thenReturn(user);
         User testUser = us.loginUser("test@gmail.com", "test_password");
         Assertions.assertEquals(user, testUser);
 
