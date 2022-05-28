@@ -16,7 +16,7 @@
   5. git push (push the changes that you merged into develop)
 
 ## Merge Conflicts
-  When you get a merge conflict, open VS Code and see what changes need to be approved <br/>
+  When you get a merge conflict, open VS Code and see what changes need to be approved <br/> <br/>
   ![image](https://user-images.githubusercontent.com/101683611/170808502-61732634-3ad2-442b-914b-a1eb5898a8b8.png)
 
   
