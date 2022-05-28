@@ -7,6 +7,7 @@ import com.revature.services.UserService;
 import org.assertj.core.api.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -75,9 +76,20 @@ public class DeckServiceTest {
 
     @Test
     public void testGenUniqueId() {
-        ds =new DeckService(dr);
+        ds = new DeckService(dr);
 
         Mockito.when(dr.findDeckByDeckId(Mockito.anyInt())).thenReturn(null);
         Assertions.assertEquals(0, ds.generateUniqueId());
+    }
+
+    @Test
+    public void testGetDeck() {
+        ds = new DeckService(dr);
+        Deck deck = new Deck();
+
+        deck.setDeckId(777);
+        Mockito.when(dr.findDeckByDeckId(Mockito.anyInt())).thenReturn(deck);
+        Assertions.assertEquals(777, ds.getDeck(777).getDeckId());
+
     }
 }
