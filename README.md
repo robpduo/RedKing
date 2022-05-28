@@ -33,9 +33,9 @@
     Deal Card: Param: deck. Ret: card. <br/>
   
 ## Pending Work
-  Update User Account Info
-  Deposit Money <!-- Can be used by the user or the system -->
-  Withdraw Money <!-- Used For betting -->
+  Update User Account Info <br/>
+  Deposit Money (Can be used by the user or the system) <br/>
+  Withdraw Money (Used For betting) <br/>
   
 ## Node.js
   npx create-react-app name-of-app --template typescript<br/>
