@@ -35,3 +35,5 @@ out/
 
 ### VS Code ###
 .vscode/
+
+dir_to_ignore/node_modules
