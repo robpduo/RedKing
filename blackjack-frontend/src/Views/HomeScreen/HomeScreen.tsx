@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import './HomeScreen.css';
 
-import { Navbar} from "../../Components/Navbar/Navbar"
+import { Navbar } from '../../Components/Navbar/Navbar';
 
 // import { useSelector, useDispatch } from 'react-redux';
 // import { RootState, AppDispatch } from '../../store';
@@ -14,22 +14,12 @@ export const HomeScreen: React.FC = () => {
 
   // const navigator = useNavigate();
 
-  useEffect(() => {
-    // if (!userInfo.user) {
-    //   navigator('/login');
-    // }
-  }, []);
-
   return (
     <>
       {/* <Navbar /> */}
-      <div className="userInfo">
-        <h3>
-        Welcome to BlacKing
-        </h3>
-
+      <div className="homeScreen">
+        <h3>Welcome to BlacKing</h3>
       </div>
-
     </>
   );
 };

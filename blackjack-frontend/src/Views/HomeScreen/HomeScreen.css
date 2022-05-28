@@ -1,3 +1,5 @@
-.userInfo {
+.homeScreen {
   color: #000;
+  background-image: url('../../2.png') !important;
+  width: 100%;
 }

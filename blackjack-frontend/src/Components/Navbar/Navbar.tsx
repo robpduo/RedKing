@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import './Navbar.css';
 
-import { Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 // import { useSelector, useDispatch } from 'react-redux';
 
 // inside ReimbursementPage
@@ -15,11 +15,9 @@ export const Navbar: React.FC = () => {
   //   dispatch(logoutUser());
   // };
 
-  useEffect(() => {
-    // if (!user) {
-    //   navigator('/login');
-    // }
-  }, []);
+  // useEffect(() => {
+
+  // }, []);
 
   return (
     <nav className="mNavBar">
@@ -28,31 +26,20 @@ export const Navbar: React.FC = () => {
       </Link>
 
       <ul className="navMenu">
-
         <li className="navItem">
-          <Link
-            to="/home"
-            className="navLink"
-          >
+          <Link to="/home" className="navLink">
             Play
           </Link>
         </li>
 
         <li className="navItem">
-          <Link
-            to="/home"
-            className="navLink"
-          >
+          <Link to="/home" className="navLink">
             Quit
           </Link>
         </li>
 
         <li className="logout">
-          <button
-            className="eLogoutBtn"
-          >
-            Logout
-          </button>
+          <button className="eLogoutBtn">Logout</button>
         </li>
       </ul>
     </nav>

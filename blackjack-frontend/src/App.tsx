@@ -1,13 +1,18 @@
 import React from 'react';
 import './App.css';
 
-import { HomeScreen } from "./Views/HomeScreen/HomeScreen";
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+
+import { HomeScreen } from './Views/HomeScreen/HomeScreen';
 
 function App() {
   return (
-    <div className="App">
-        <HomeScreen />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="*" element={<Navigate to="/home" replace />} />
+        <Route path="/home" element={<HomeScreen />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

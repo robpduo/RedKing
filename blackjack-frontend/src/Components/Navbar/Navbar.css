@@ -6,8 +6,7 @@
   --text-white: #fbfbfb;
 }
 
-.mNavBar,
-.eNavBar {
+.mNavBar {
   height: 80px;
 
   display: flex;
@@ -75,7 +74,6 @@
   outline: none;
 }
 
-.mLogoutBtn,
 .eLogoutBtn {
   background-color: transparent;
   color: var(--text-white);
@@ -104,13 +102,4 @@
   transform: scale(0.98);
   transition: 0.5s;
   background-color: var(--btn-blue);
-}
-
-.mLogoutBtn {
-  border: 1px solid var(--accent) !important;
-}
-.mLogoutBtn:hover {
-  transform: scale(0.98);
-  transition: 0.5s;
-  background-color: var(--accent);
 }
