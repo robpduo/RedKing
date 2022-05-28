@@ -1,0 +1,116 @@
+:root {
+  --bg: #000;
+  --grey: #2d2e2e;
+  --btn-blue: #3891a6;
+  --accent: #23ce6b;
+  --text-white: #fbfbfb;
+}
+
+.mNavBar,
+.eNavBar {
+  height: 80px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 1.2rem;
+  position: sticky;
+  top: 0;
+  width: 100%;
+}
+.mNavBar,
+.eNavBar {
+  background-color: transparent;
+}
+
+.profilePic {
+  border-radius: 100%;
+  object-fit: cover;
+  margin-left: 2rem;
+  text-align: center;
+  color: var(--text-white);
+}
+
+.navMenu {
+  display: grid;
+  grid-template-columns: repeat(5, auto);
+  grid-gap: 10px;
+  list-style: none;
+  justify-content: end;
+
+  text-align: center;
+  width: 100%;
+  margin: 0 2rem;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  margin-right: 8px;
+  margin-left: 8px;
+  padding: 16px;
+}
+
+.navLink {
+  color: var(--text-white);
+  font-size: 1rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+.mNavLink:hover {
+  color: var(--accent);
+  transition: 0.5s;
+}
+.eNavLink:hover {
+  color: var(--btn-blue);
+  transition: 0.5s;
+}
+
+.logout {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  outline: none;
+}
+
+.mLogoutBtn,
+.eLogoutBtn {
+  background-color: transparent;
+  color: var(--text-white);
+
+  border-radius: 10px;
+
+  font-weight: bold;
+  font-size: 1rem;
+
+  width: 80px;
+  height: 35px;
+
+  text-align: center;
+  text-decoration: none;
+
+  display: inline-block;
+  cursor: pointer;
+  outline: none;
+}
+
+.eLogoutBtn {
+  border: 1px solid var(--btn-blue) !important;
+}
+
+.eLogoutBtn:hover {
+  transform: scale(0.98);
+  transition: 0.5s;
+  background-color: var(--btn-blue);
+}
+
+.mLogoutBtn {
+  border: 1px solid var(--accent) !important;
+}
+.mLogoutBtn:hover {
+  transform: scale(0.98);
+  transition: 0.5s;
+  background-color: var(--accent);
+}
