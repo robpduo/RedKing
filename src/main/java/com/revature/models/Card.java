@@ -32,6 +32,12 @@ public class Card {
         this.suit = suit;
     }
 
+    public Card( Rank rank, Suit suit, Deck deck ) {
+        this.deck = deck;
+        this.rank = rank;
+        this.suit = suit;
+    }
+
     public Card() {
     }
 
