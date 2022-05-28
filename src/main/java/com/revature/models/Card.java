@@ -27,6 +27,12 @@ public class Card {
         this.suit = suit;
     }
 
+    public Card( Rank rank, Suit suit, Deck deck ) {
+        this.deck = deck;
+        this.rank = rank;
+        this.suit = suit;
+    }
+
     public Card( Rank rank, Suit suit ) {
         this.rank = rank;
         this.suit = suit;
@@ -34,7 +40,6 @@ public class Card {
 
     public Card() {
     }
-
 
     public int getCardId() {
         return cardId;

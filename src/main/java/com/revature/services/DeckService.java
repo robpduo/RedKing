@@ -31,9 +31,11 @@ public class DeckService {
         Deck deck = new Deck();
         List<Card> lCards = new ArrayList<>();
 
+        deck.setDeckId(generateUniqueId());
+
         for (Suit suit : Suit.values()) {
             for (Rank rank : Rank.values()) {
-                lCards.add(new Card(rank, suit));
+                lCards.add(new Card(rank, suit, deck));
             }
         }
 
@@ -42,7 +44,18 @@ public class DeckService {
         deck.setCards(lCards);
         deck.setUser(user);
         deck.setDeckSize(52);
+
         return dr.save(deck);
+    }
+
+    /**
+     * Retrieve a deck by Id
+     *
+     * @param id of the deck to be retrieved
+     * @return deck
+     */
+    public Deck getDeck( int id ) {
+        return dr.findDeckByDeckId(id);
     }
 
     /**
@@ -56,11 +69,23 @@ public class DeckService {
         Card card = new Card();
 
         if (deck.getDeckSize() > 0) {
-            card = deck.getCards().remove(deck.getDeckSize());
+            card = deck.getCards().get(deck.getDeckSize() - 1);
+            deck.getCards().remove(deck.getDeckSize() - 1);
             deck.setDeckSize(deck.getDeckSize() - 1);
         }
+
         System.out.println("Local: " + card);
-        //System.out.println("Spring: " + dr.findCardByRankAndSuit(card.getRank(), card.getSuit()));
+        System.out.println("Size of Deck" + deck.getDeckSize());
+        System.out.println("Size of Cards List: " + deck.getCards().size());
         return card;
+    }
+
+    public int generateUniqueId () {
+        int id = 0;
+
+        while (dr.findDeckByDeckId(id) != null) {
+            id += 1;
+        }
+        return id;
     }
 }
