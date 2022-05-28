@@ -1,5 +1,6 @@
 package com.revature.controllers;
 
+import com.revature.models.Card;
 import com.revature.models.Deck;
 import com.revature.models.LoginHelper;
 import com.revature.models.User;
@@ -23,5 +24,18 @@ public class DeckController {
     @ResponseBody
     public Deck handleLogin( @RequestBody User u) {
         return ds.initializeDeck(u);
+    }
+
+    @GetMapping("/dealCard")
+    @ResponseBody
+    public Card handleDealCard () {
+        Deck deck = new Deck();
+        return ds.dealCard(deck);
+    }
+
+    @GetMapping("/getDeck")
+    @ResponseBody
+    public Deck handleGetDeck ( @RequestBody Deck deck) {
+        return ds.getDeck(deck.getDeckId());
     }
 }

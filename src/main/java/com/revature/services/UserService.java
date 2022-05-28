@@ -41,6 +41,4 @@ public class UserService {
         User u = ur.findByEmailAndPassword(email, password);
         return u;
     }
-
-
 }

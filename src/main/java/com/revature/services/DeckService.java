@@ -46,6 +46,15 @@ public class DeckService {
     }
 
     /**
+     * Retrieve a deck by Id
+     * @param id of the deck to be retrieved
+     * @return deck
+     */
+    public Deck getDeck (int id) {
+        return dr.findDeckByDeckId(id);
+    }
+
+    /**
      * Removes a card from the top of the deck and return the card that was removed
      * Remove card from database
      *
@@ -60,6 +69,7 @@ public class DeckService {
             deck.setDeckSize(deck.getDeckSize() - 1);
         }
         System.out.println("Local: " + card);
+        System.out.println("Card from Deck: " + deck.getCards().get(0).getRank() + " " + deck.getCards().get(0).getSuit());
         //System.out.println("Spring: " + dr.findCardByRankAndSuit(card.getRank(), card.getSuit()));
         return card;
     }
