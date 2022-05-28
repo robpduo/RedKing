@@ -37,3 +37,4 @@ out/
 .vscode/
 
 ### IGNORE FOLDERS ###
+dir_to_ignore/node_modules
