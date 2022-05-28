@@ -80,6 +80,10 @@ public class DeckService {
         return card;
     }
 
+    /**
+     * Generates a unique Id for the deck
+     * @return
+     */
     public int generateUniqueId () {
         int id = 0;
 
