@@ -24,7 +24,7 @@
 
   
 ## Services
-  Users<br/>
+  Users<br/><br/>
     Login: Param: email, passowrd. Ret: user.<br/>
     Register: Param: email, password, firstName, lastName, money. Ret: user <br/>
   <br/>
