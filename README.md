@@ -32,7 +32,7 @@
     Initialize: Param: user. Ret: deck (shuffled)<br/>
     Deal Card: Param: deck. Ret: card. <br/>
   
-## Pending Work
+## Pending Services
   Update User Account Info <br/>
   Deposit Money (Can be used by the user or the system) <br/>
   Withdraw Money (Used For betting) <br/>
