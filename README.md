@@ -18,6 +18,9 @@
 ## Merge Conflicts
   When you get a merge conflict, open VS Code and see what changes need to be approved <br/> <br/>
   ![image](https://user-images.githubusercontent.com/101683611/170808502-61732634-3ad2-442b-914b-a1eb5898a8b8.png)
+  
+  Click on the changes you want to accept
+  Please don't change the models in the Backend or Frontend(IUser, IDeck, ICard) unless everyone agrees, if the models change then all methods that rely on it will    break and there will be a merge conflict for unmerged branches 
 
   
 ## Services
