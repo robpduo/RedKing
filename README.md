@@ -9,5 +9,5 @@
     Initialize: Param: user. Ret: deck (shuffled)
   
 ## Node.js
-  npx create-react-app name-of-app --template typescript
-  npm i axios
+  npx create-react-app name-of-app --template typescript<br/>
+  npm i axios<br/>
