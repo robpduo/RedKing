@@ -16,7 +16,7 @@
   1. Open Terminal
   2. CD into blackjack-frontend
   3. Run each of these commands in the terminal<br/>
-    npm install<br/>
+    (npm install)<br/>
     npm i axios<br/>
     npm i react-router-dom<br/>
     npm i react-redux<br/>
