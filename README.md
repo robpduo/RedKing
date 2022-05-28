@@ -12,3 +12,4 @@
   npx create-react-app name-of-app --template typescript<br/>
   npm i axios<br/>
   npm i react-router-dom<br/>
+  npm i react-redux<br/>
