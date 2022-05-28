@@ -12,7 +12,7 @@
     git add . -> git commit -m " " -> git push origin feature/<your-feature>
   2. git checkout develop
   3. git pull (always do a pull before you merge, you will get an error if you try to merge when the develop branch is behind)
-  4. git merge feature/<your-feature>
+  4. git merge your-branch-name
   5. git push (push the changes that you merged into develop)
 
 ## Merge Conflicts
