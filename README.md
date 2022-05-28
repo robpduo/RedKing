@@ -32,6 +32,11 @@
     Initialize: Param: user. Ret: deck (shuffled)<br/>
     Deal Card: Param: deck. Ret: card. <br/>
   
+## Pending Work
+  Update User Account Info
+  Deposit Money <!-- Can be used by the user or the system -->
+  Withdraw Money <!-- Used For betting -->
+  
 ## Node.js
   npx create-react-app name-of-app --template typescript<br/>
 
