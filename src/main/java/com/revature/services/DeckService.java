@@ -59,12 +59,7 @@ public class DeckService {
             card = deck.getCards().remove(deck.getDeckSize());
             deck.setDeckSize(deck.getDeckSize() - 1);
         }
-<<<<<<< HEAD
-        //TODO: REMOVE CARD FROM CARD TABLE
-=======
         System.out.println("Local: " + card);
-        //System.out.println("Spring: " + dr.findCardByRankAndSuit(card.getRank(), card.getSuit()));
->>>>>>> 76cd266e2ecc8b1e1a6141b8302e6fc30cf9faaa
         return card;
     }
 }
