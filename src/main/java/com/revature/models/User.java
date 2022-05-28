@@ -1,6 +1,7 @@
 package com.revature.models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -22,6 +23,10 @@ public class User {
 
     @Column(name = "password")
     private String password;
+
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "player_id", referencedColumnName = "user_id")
+//    private Player player;
 
     public User() {
     }

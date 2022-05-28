@@ -20,8 +20,7 @@ public class Player {
     @Column(name = "money")
     private double money;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "users_id")
+    @OneToOne(mappedBy = "player")
     private User user;
 
     @OneToMany(mappedBy = "player", cascade = CascadeType.ALL)
