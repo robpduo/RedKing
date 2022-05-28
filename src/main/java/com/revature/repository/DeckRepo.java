@@ -11,6 +11,5 @@ public interface DeckRepo extends JpaRepository<Deck, Integer> {
 
     public List<Deck> findAll();
     public Deck findDeckByDeckId (int id);
-    //public Card findCardByRankAndSuit( Rank r, Suit s );
 
 }

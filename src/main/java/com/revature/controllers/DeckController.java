@@ -22,20 +22,20 @@ public class DeckController {
 
     @PostMapping("/initialize")
     @ResponseBody
-    public Deck handleLogin( @RequestBody User u) {
+    public Deck handleLogin( @RequestBody User u ) {
         return ds.initializeDeck(u);
     }
 
     @GetMapping("/dealCard")
     @ResponseBody
-    public Card handleDealCard () {
-        Deck deck = new Deck();
-        return ds.dealCard(deck);
+    public Card handleDealCard( @RequestBody Deck deck ) {
+        //System.out.println("Card Array Size: " + ds.getDeck(deck.getDeckId()).getCards().);
+        return ds.dealCard(ds.getDeck(deck.getDeckId()));
     }
 
     @GetMapping("/getDeck")
     @ResponseBody
-    public Deck handleGetDeck ( @RequestBody Deck deck) {
+    public Deck handleGetDeck( @RequestBody Deck deck ) {
         return ds.getDeck(deck.getDeckId());
     }
 }
