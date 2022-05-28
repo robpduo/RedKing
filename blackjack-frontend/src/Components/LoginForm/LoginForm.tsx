@@ -5,8 +5,9 @@ import './LoginForm.css';
 // import 'react-toastify/dist/ReactToastify.css';
 
 import { useDispatch } from 'react-redux';
-// import { toggleError, loginUser } from '../../slices/UserSlice';
-// import { AppDispatch } from '../../store';
+
+import { loginUser } from '../../Slices/UserSlice';
+import { AppDispatch } from '../../Store';
 
 // will go inside LoginPage
 export const LoginForm: React.FC<any> = (spinner: any) => {
@@ -27,19 +28,11 @@ export const LoginForm: React.FC<any> = (spinner: any) => {
   // form submit handler
   const handleLogin = (event: React.MouseEvent<HTMLButtonElement>) => {
     let credentials = {
-      emailOrUsername: email,
+      email: email,
       password: password,
     };
+    console.log('coming from loginForm line 34 ', credentials);
 
-    toast('Username/password incorrect', {
-      position: 'top-center',
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
     dispatch(loginUser(credentials));
   };
 
@@ -47,14 +40,13 @@ export const LoginForm: React.FC<any> = (spinner: any) => {
     <div className="login">
       {/* text container */}
       <div className="textContainer">
-        <h1 className="loginHeader">Revature Reimbursements</h1>
-        {/* <h2 className="login-header">Sign in to view your reimbursements</h2> */}
+        <h1 className="loginHeader">BlacKing</h1>
       </div>
 
       <form className="loginForm">
         {/* for email */}
         <div className="inputDiv">
-          <h4 className="inputH4">Email or Username</h4>
+          <h4 className="inputH4">Email</h4>
 
           <input
             autoComplete="off"
@@ -80,14 +72,6 @@ export const LoginForm: React.FC<any> = (spinner: any) => {
           />
         </div>
       </form>
-
-      {/* {spinner ? (
-        <button className="loginButton" onClick={handleLogin}>
-          login
-        </button>
-      ) : (
-        <Spinner />
-      )} */}
 
       <button className="loginButton" onClick={handleLogin}>
         login

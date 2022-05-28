@@ -10,6 +10,5 @@ import java.util.List;
 public interface DeckRepo extends JpaRepository<Deck, Integer> {
 
     public List<Deck> findAll();
-    public Deck findDeckByDeckId (int id);
 
 }
