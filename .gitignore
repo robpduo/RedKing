@@ -5,6 +5,9 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+
+!**/BlackJackApp/node_modules
+
 ### STS ###
 .apt_generated
 .classpath
@@ -36,5 +39,8 @@ out/
 ### VS Code ###
 .vscode/
 
+<<<<<<< HEAD
 ### IGNORE FOLDERS ###
+=======
+>>>>>>> main
 dir_to_ignore/node_modules
