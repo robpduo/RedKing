@@ -13,3 +13,4 @@
   npm i axios<br/>
   npm i react-router-dom<br/>
   npm i react-redux<br/>
+  npm i @reduxjs/toolkit<br/>
