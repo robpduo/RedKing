@@ -1,4 +1,4 @@
-# Black-Jack Application
+# Development Process
 
 ## Things to remember
   Always git pull before creating a new branch
