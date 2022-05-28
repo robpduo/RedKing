@@ -10,4 +10,4 @@
   
 ## Node.js
   npx create-react-app name-of-app --template typescript
-  
+  npm i axios
