@@ -73,10 +73,7 @@ public class DeckService {
             deck.getCards().remove(deck.getDeckSize() - 1);
             deck.setDeckSize(deck.getDeckSize() - 1);
         }
-
-        System.out.println("Local: " + card);
-        System.out.println("Size of Deck" + deck.getDeckSize());
-        System.out.println("Size of Cards List: " + deck.getCards().size());
+        //TODO: REMOVE CARD FROM CARD TABLE
         return card;
     }
 

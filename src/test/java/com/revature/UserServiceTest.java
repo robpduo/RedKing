@@ -44,7 +44,6 @@ public class UserServiceTest {
         when(ur.save(Mockito.any())).thenReturn(u);
 
         Assertions.assertEquals(u, us.registerUser("test@gmail.com", "test_first", "test_last", "test_password", 0));
-
     }
 
     @Test
@@ -53,10 +52,8 @@ public class UserServiceTest {
         LoginHelper lh = new LoginHelper("test@gmail.com", "test_password");
         User user = new User("test@gmail.com", "test_first", "test_last", "test_password", 0);
 
-
         when(ur.findByEmailAndPassword( Mockito.anyString(), Mockito.anyString())).thenReturn(user);
         User testUser = us.loginUser("test@gmail.com", "test_password");
         Assertions.assertEquals(user, testUser);
-
     }
 }

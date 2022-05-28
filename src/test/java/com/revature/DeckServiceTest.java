@@ -49,4 +49,27 @@ public class DeckServiceTest {
         Mockito.when(dr.save(Mockito.any())).thenReturn(testDeck);
         Assertions.assertEquals(testDeck, ds.initializeDeck(u));
     }
+
+    @Test
+    public void testDealCard() {
+        ds = new DeckService(dr);
+        Deck testDeck = new Deck();
+
+        //Create a list of 1 card
+        List<Card> lCards = new ArrayList<>();
+        Card testCard = new Card(Rank.ACE, Suit.CLOVERS, testDeck);
+
+        testCard.setCardId(1);
+        lCards.add(0, testCard);
+
+        //Create a temp user
+        User u = new User("test@gmail.com", "test_first", "test_last", "test_password", 0);
+
+        //add user and cards to deck
+        testDeck.setCards(lCards);
+        testDeck.setUser(u);
+        testDeck.setDeckSize(lCards.size());
+
+        Assertions.assertEquals(Rank.ACE, ds.dealCard(testDeck).getRank());
+    }
 }
