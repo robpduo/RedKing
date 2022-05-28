@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './LoginForm.css';
 
-// import { ToastContainer, toast } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
-
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import { loginUser } from '../../Slices/UserSlice';
 import { AppDispatch } from '../../Store';
@@ -15,6 +13,7 @@ export const LoginForm: React.FC<any> = (spinner: any) => {
   const [password, setPassword] = useState<string>('');
 
   const dispatch: AppDispatch = useDispatch();
+  const navigator = useNavigate();
 
   // input change handler
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,6 +33,7 @@ export const LoginForm: React.FC<any> = (spinner: any) => {
     console.log('coming from loginForm line 34 ', credentials);
 
     dispatch(loginUser(credentials));
+    navigator('/playgame');
   };
 
   return (
@@ -76,20 +76,6 @@ export const LoginForm: React.FC<any> = (spinner: any) => {
       <button className="loginButton" onClick={handleLogin}>
         login
       </button>
-
-      {/* <ToastContainer
-        position="top-center"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-        progressStyle={{ color: '#23ce6b' }}
-      /> */}
     </div>
   );
 };
