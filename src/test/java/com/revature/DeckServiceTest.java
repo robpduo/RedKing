@@ -72,4 +72,12 @@ public class DeckServiceTest {
 
         Assertions.assertEquals(Rank.ACE, ds.dealCard(testDeck).getRank());
     }
+
+    @Test
+    public void testGenUniqueId() {
+        ds =new DeckService(dr);
+
+        Mockito.when(dr.findDeckByDeckId(Mockito.anyInt())).thenReturn(null);
+        Assertions.assertEquals(0, ds.generateUniqueId());
+    }
 }
