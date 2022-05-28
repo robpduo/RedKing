@@ -1,6 +1,5 @@
 package com.revature.controllers;
 
-import com.revature.models.Card;
 import com.revature.models.Deck;
 import com.revature.models.LoginHelper;
 import com.revature.models.User;
@@ -22,20 +21,7 @@ public class DeckController {
 
     @PostMapping("/initialize")
     @ResponseBody
-    public Deck handleLogin( @RequestBody User u ) {
+    public Deck handleLogin( @RequestBody User u) {
         return ds.initializeDeck(u);
-    }
-
-    @GetMapping("/dealCard")
-    @ResponseBody
-    public Card handleDealCard( @RequestBody Deck deck ) {
-        //System.out.println("Card Array Size: " + ds.getDeck(deck.getDeckId()).getCards().);
-        return ds.dealCard(ds.getDeck(deck.getDeckId()));
-    }
-
-    @GetMapping("/getDeck")
-    @ResponseBody
-    public Deck handleGetDeck( @RequestBody Deck deck ) {
-        return ds.getDeck(deck.getDeckId());
     }
 }
