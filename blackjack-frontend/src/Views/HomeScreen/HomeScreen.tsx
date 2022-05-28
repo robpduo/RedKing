@@ -5,7 +5,7 @@ import { Navbar } from '../../Components/Navbar/Navbar';
 
 // import { useSelector, useDispatch } from 'react-redux';
 // import { RootState, AppDispatch } from '../../store';
-// import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 // go inside App for Route
 export const HomeScreen: React.FC = () => {
@@ -19,6 +19,9 @@ export const HomeScreen: React.FC = () => {
       {/* <Navbar /> */}
       <div className="homeScreen">
         <h3>Welcome to BlacKing</h3>
+
+        <Link to="/register">Register</Link>
+        <Link to="/login">Login</Link>
       </div>
     </>
   );
