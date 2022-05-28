@@ -20,6 +20,11 @@ public class DeckService {
         this.dr = dr;
     }
 
+    /**
+     * Creates a deck of 52 cards and shuffles it
+     * @param user
+     * @return deck of shuffled 52 cards
+     */
     public Deck initializeDeck(User user) {
         Deck deck = new Deck();
         List<Card> lCards= new ArrayList<>();
@@ -37,5 +42,22 @@ public class DeckService {
         deck.setDeckSize(52);
 
         return dr.save(deck);
+    }
+
+    /**
+     * Removes a card from the top of the deck and return the card that was removed
+     * Remove card from database
+     * @param deck
+     * @return a card from the top of the deck
+     */
+    public Card dealCard (Deck deck) {
+        Card card = new Card();
+
+        if (deck.getDeckSize() > 0) {
+            card = deck.getCards().remove(deck.getDeckSize());
+            deck.setDeckSize(deck.getDeckSize() - 1);
+        }
+
+        return card;
     }
 }
