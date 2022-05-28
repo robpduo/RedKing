@@ -24,12 +24,13 @@
 
   
 ## Services
-  Users
-    Login: Param: email, passowrd. Ret: user.
-    Register: Param: email, password, firstName, lastName, money. Ret: user 
-  
-  Deck
-    Initialize: Param: user. Ret: deck (shuffled)
+  Users<br/>
+    Login: Param: email, passowrd. Ret: user.<br/>
+    Register: Param: email, password, firstName, lastName, money. Ret: user <br/>
+  <br/>
+  Deck<br/>
+    Initialize: Param: user. Ret: deck (shuffled)<br/>
+    Deal Card: Param: deck. Ret: card. <br/>
   
 ## Node.js
   npx create-react-app name-of-app --template typescript<br/>
