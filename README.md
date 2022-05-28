@@ -30,6 +30,7 @@
   <br/>
   Deck<br/>
     Initialize: Param: user. Ret: deck (shuffled)<br/>
+    Deal Card: Param: deck. Ret: card. <br/>
   
 ## Node.js
   npx create-react-app name-of-app --template typescript<br/>
