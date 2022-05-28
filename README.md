@@ -12,6 +12,7 @@
   npx create-react-app name-of-app --template typescript<br/>
 
   ### Install Node Modules to be used in React
+  (May not have to install all these modules because I may have pushed everything up)
   1. Open Terminal
   2. CD into blackjack-frontend
   3. Run each of these commands in the terminal
