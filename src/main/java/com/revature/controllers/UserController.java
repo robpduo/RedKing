@@ -1,6 +1,7 @@
 package com.revature.controllers;
 
 import com.revature.exceptions.InvalidEmailOrPasswordException;
+import com.revature.exceptions.UserEmailAlreadyExistsException;
 import com.revature.models.Deck;
 import com.revature.models.LoginHelper;
 import com.revature.models.User;
@@ -26,8 +27,10 @@ public class UserController {
 
     @PostMapping("/register")
     @ResponseBody
-    public User handleRegister( @RequestBody User u ) {
-        return us.registerUser(u.getEmail(), u.getPassword(), u.getFirstName(), u.getLastName(), u.getMoney());
+    public User handleRegister( @RequestBody User rbUser ) throws UserEmailAlreadyExistsException {
+        User u = new User();
+        u = us.registerUser(rbUser.getEmail(), rbUser.getPassword(), rbUser.getFirstName(), rbUser.getLastName(), rbUser.getMoney());
+        return u;
     }
 
     @PostMapping("/login")
