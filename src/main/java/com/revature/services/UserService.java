@@ -57,5 +57,12 @@ public class UserService {
         return u;
     }
 
-
+    /**
+     * Changes the user's account information by account Id
+     * @param newUser
+     * @return
+     */
+    public User updateUser( User newUser ) {
+        return ur.save(newUser);
+    }
 }

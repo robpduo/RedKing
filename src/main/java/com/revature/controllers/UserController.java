@@ -28,16 +28,18 @@ public class UserController {
     @PostMapping("/register")
     @ResponseBody
     public User handleRegister( @RequestBody User rbUser ) throws UserEmailAlreadyExistsException {
-        User u = new User();
-        u = us.registerUser(rbUser.getEmail(), rbUser.getPassword(), rbUser.getFirstName(), rbUser.getLastName(), rbUser.getMoney());
-        return u;
+        return us.registerUser(rbUser.getEmail(), rbUser.getPassword(), rbUser.getFirstName(), rbUser.getLastName(), rbUser.getMoney());
     }
 
     @PostMapping("/login")
     @ResponseBody
     public User handleLogin( @RequestBody LoginHelper lh ) throws InvalidEmailOrPasswordException {
-        User u = new User();
-        u = us.loginUser(lh.getEmail(), lh.getPassword());
-        return u;
+        return us.loginUser(lh.getEmail(), lh.getPassword());
+    }
+
+    @PostMapping("/update")
+    @ResponseBody
+    public User handleUpdate ( @RequestBody User newUser ) {
+        return us.updateUser( newUser );
     }
 }

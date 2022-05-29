@@ -81,4 +81,14 @@ public class UserServiceTest {
             User testUser = us.loginUser("test@gmail.com", "test_password");
         });
     }
+
+    @Test
+    public void testUpdateUser() {
+        us = new UserService(ur);
+        User user = new User("test@gmail.com", "test_first", "test_last", "test_password", 0);
+        user.setUserId(1);
+
+        Mockito.when(ur.save(Mockito.any())).thenReturn(user);
+        Assertions.assertEquals(user, us.updateUser(user));
+    }
 }
