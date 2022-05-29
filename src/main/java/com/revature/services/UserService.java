@@ -68,9 +68,15 @@ public class UserService {
         return ur.save(newUser);
     }
 
+    /**
+     * Determines if the amount to be deposited is valid and adds the amount to the user's total money
+     * @param dh
+     * @return an account with an updated money field
+     * @throws InvalidDepositAmount
+     */
     public User deposit( DepositHelper dh ) throws InvalidDepositAmount {
         //check if deposit amount is greater than 0
-        if ( dh.getAmount() <= 0 ) {
+        if (dh.getAmount() <= 0) {
             throw new InvalidDepositAmount();
         }
         //get User by id and update deposit amount
