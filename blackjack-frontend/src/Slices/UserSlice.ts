@@ -29,7 +29,7 @@ export const loginUser = createAsyncThunk(
         credentials
       );
 
-      console.log('coming from line 32 ', res.data);
+      console.log('coming from loginUser async line 32 ', res.data);
 
       return res.data;
     } catch (e) {
@@ -38,17 +38,32 @@ export const loginUser = createAsyncThunk(
   }
 );
 
-// // export const logoutUser = createAsyncThunk(
-// //     'user/logout',
-// //     async (thunkAPI) => {
-// //         try {
-// //             axios.defaults.withCredentials = true;
-// //             const res = await axios.put('http://localhost:8000/users/logout');
-// //             window.location.reload();
-// //         } catch (e) {
-// //         }
-// //     }
-// // )
+type Register = {
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+};
+
+// called from LoginForm component
+export const registerUser = createAsyncThunk(
+  'user/register',
+  async (credentials: Register, thunkAPI) => {
+    try {
+      // axios.defaults.withCredentials = true;
+      const res = await axios.post(
+        'http://localhost:8000/user/register',
+        credentials
+      );
+
+      console.log('coming from registerUser async line 59 ', res.data);
+
+      return res.data;
+    } catch (e) {
+      return thunkAPI.rejectWithValue('something went wrong');
+    }
+  }
+);
 
 // //Create the slice
 export const UserSlice = createSlice({
@@ -72,6 +87,20 @@ export const UserSlice = createSlice({
       // state.loading = false;
     });
     builder.addCase(loginUser.rejected, (state, action) => {
+      // state.error = true;
+      // state.loading = false;
+    });
+
+    // builder.addCase(registerUser.pending, (state, action) => {
+    //   // state.loading = true;
+    // });
+    builder.addCase(registerUser.fulfilled, (state, action) => {
+      //The payload in this case, is the return from our asyncThunk from above
+      state.user = action.payload;
+      // state.error = false;
+      // state.loading = false;
+    });
+    builder.addCase(registerUser.rejected, (state, action) => {
       // state.error = true;
       // state.loading = false;
     });
