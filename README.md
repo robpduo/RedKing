@@ -24,14 +24,14 @@
   Please don't change the models in the Backend or Frontend(IUser, IDeck, ICard) unless everyone agrees, if the models change then all methods that rely on it will    break and there will be a merge conflict for unmerged branches 
 
   
-## Services
-  Users<br/>
+## Services Impolemented
+  Users Services<br/>
     Login: Param: email, passowrd. Ret: user.<br/>
     Register: Param: email, password, firstName, lastName, money. Ret: user <br/>
     Update: Param: user. Ret: updated user <br/>
     Deposit: Param: deckId, amount. Ret: user with updated amount <br/>
   <br/>
-  Deck<br/>
+  Deck Services<br/>
     Initialize: Param: user. Ret: deck (shuffled)<br/>
     Deal Card: Param: deck. Ret: card. <br/>
   
