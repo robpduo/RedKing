@@ -1,5 +1,6 @@
 package com.revature;
 
+import com.revature.exceptions.InvalidEmailOrPasswordException;
 import com.revature.models.LoginHelper;
 import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.Assertions;
@@ -47,7 +48,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void testLoginUser() {
+    public void testLoginUser() throws InvalidEmailOrPasswordException {
         us = new UserService(ur);
         LoginHelper lh = new LoginHelper("test@gmail.com", "test_password");
         User user = new User("test@gmail.com", "test_first", "test_last", "test_password", 0);
