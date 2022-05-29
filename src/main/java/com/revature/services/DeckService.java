@@ -50,7 +50,6 @@ public class DeckService {
 
     /**
      * Retrieve a deck by Id
-     *
      * @param id of the deck to be retrieved
      * @return deck
      */
@@ -61,12 +60,13 @@ public class DeckService {
     /**
      * Removes a card from the top of the deck and return the card that was removed
      * Remove card from database
-     *
-     * @param deck
+     * @param d
      * @return a card from the top of the deck
      */
-    public Card dealCard( Deck deck ) {
+    public Card dealCard( Deck d ) {
         Card card = new Card();
+
+        Deck deck = dr.findDeckByDeckId(d.getDeckId());
 
         if (deck.getDeckSize() > 0) {
             card = deck.getCards().get(deck.getDeckSize() - 1);
@@ -74,9 +74,7 @@ public class DeckService {
             deck.setDeckSize(deck.getDeckSize() - 1);
         }
 
-        System.out.println("Local: " + card);
-        System.out.println("Size of Deck" + deck.getDeckSize());
-        System.out.println("Size of Cards List: " + deck.getCards().size());
+        dr.save(deck);
         return card;
     }
 
