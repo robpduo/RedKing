@@ -1,8 +1,10 @@
 package com.revature.controllers;
 
+import com.revature.exceptions.InvalidDepositAmount;
 import com.revature.exceptions.InvalidEmailOrPasswordException;
 import com.revature.exceptions.UserEmailAlreadyExistsException;
 import com.revature.models.Deck;
+import com.revature.models.DepositHelper;
 import com.revature.models.LoginHelper;
 import com.revature.models.User;
 import com.revature.repository.UserRepo;
@@ -41,5 +43,11 @@ public class UserController {
     @ResponseBody
     public User handleUpdate ( @RequestBody User newUser ) {
         return us.updateUser( newUser );
+    }
+
+    @PostMapping("/deposit")
+    @ResponseBody
+    public User handleDeposit ( @RequestBody DepositHelper dh ) throws InvalidDepositAmount {
+        return us.deposit( dh );
     }
 }
