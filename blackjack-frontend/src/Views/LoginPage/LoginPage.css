@@ -1,0 +1,18 @@
+.loginPage {
+
+
+  display: flex;
+  align-items: center !important;
+  justify-content: center !important;
+
+  background: white;
+
+}
+/* 
+.loginPage:not(:hover) {
+    filter: invert(100%);
+} */
+
+.loginPage:hover {
+      filter: invert(100%);
+}

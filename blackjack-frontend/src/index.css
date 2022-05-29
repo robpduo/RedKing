@@ -1,8 +1,19 @@
+:root {
+   --bg: #000;
+   --grey: #2d2e2e;
+  --btn-blue: #3891a6;
+  --accent: #23ce6b;
+  --text-white: #fbfbfb;
+  --toastify-color-dark: #000;
+  --toastify-color-progress-dark: #3891a6;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
 
 a {
   text-decoration: none;
