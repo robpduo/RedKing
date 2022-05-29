@@ -39,7 +39,7 @@
   
 ## Pending Services
  
-  Retrieve all User Accounts (To display highscores) <br/>
+  Retrieve all User Emails and money (To display highscores) <br/>
   Withdraw Money (Used For betting) <br/>
   
 ## Node.js
