@@ -27,15 +27,18 @@
   Users<br/>
     Login: Param: email, passowrd. Ret: user.<br/>
     Register: Param: email, password, firstName, lastName, money. Ret: user <br/>
+    Update: Param: user, Ret: updated user <br/>
+    Deposit Money (Can be used by the user or the system) <br/>
   <br/>
   Deck<br/>
     Initialize: Param: user. Ret: deck (shuffled)<br/>
     Deal Card: Param: deck. Ret: card. <br/>
   
+  *Possibly add a moderator to delete accounts if needed
+  
 ## Pending Services
-  Update User Account Info <br/>
+ 
   Retrieve all User Accounts (To display highscores) <br/>
-  Deposit Money (Can be used by the user or the system) <br/>
   Withdraw Money (Used For betting) <br/>
   
 ## Node.js
