@@ -28,8 +28,8 @@
   Users<br/>
     Login: Param: email, passowrd. Ret: user.<br/>
     Register: Param: email, password, firstName, lastName, money. Ret: user <br/>
-    Update: Param: user, Ret: updated user <br/>
-    Deposit Money (Can be used by the user or the system) <br/>
+    Update: Param: user. Ret: updated user <br/>
+    Deposit: Param: deckId, amount. Ret: user with updated amount <br/>
   <br/>
   Deck<br/>
     Initialize: Param: user. Ret: deck (shuffled)<br/>
