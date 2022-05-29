@@ -1,5 +1,7 @@
 package com.revature;
 
+import com.revature.exceptions.InvalidEmailOrPasswordException;
+import com.revature.exceptions.UserEmailAlreadyExistsException;
 import com.revature.models.LoginHelper;
 import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.Assertions;
@@ -38,7 +40,7 @@ public class UserServiceTest {
     public static UserService us;
 
     @Test
-    public void testRegisterUser() {
+    public void testRegisterUser() throws UserEmailAlreadyExistsException {
         us = new UserService(ur);
         User u = new User("test@gmail.com", "test_first", "test_last", "test_password", 0);
         when(ur.save(Mockito.any())).thenReturn(u);
@@ -47,7 +49,18 @@ public class UserServiceTest {
     }
 
     @Test
-    public void testLoginUser() {
+    public void testRegisterUserException() throws UserEmailAlreadyExistsException {
+        us = new UserService(ur);
+        User u = new User("test@gmail.com", "test_first", "test_last", "test_password", 0);
+        when(ur.findByEmailAndPassword(Mockito.anyString(), Mockito.anyString())).thenReturn(u);
+
+        Assertions.assertThrows(UserEmailAlreadyExistsException.class, () -> {
+            User testUser = us.registerUser("test@gmail.com", "test_first", "test_last", "test_password", 0);
+        });
+    }
+
+    @Test
+    public void testLoginUser() throws InvalidEmailOrPasswordException {
         us = new UserService(ur);
         LoginHelper lh = new LoginHelper("test@gmail.com", "test_password");
         User user = new User("test@gmail.com", "test_first", "test_last", "test_password", 0);
@@ -55,5 +68,17 @@ public class UserServiceTest {
         when(ur.findByEmailAndPassword( Mockito.anyString(), Mockito.anyString())).thenReturn(user);
         User testUser = us.loginUser("test@gmail.com", "test_password");
         Assertions.assertEquals(user, testUser);
+    }
+
+    @Test
+    public void testLoginUserException() throws InvalidEmailOrPasswordException {
+        us = new UserService(ur);
+        LoginHelper lh = new LoginHelper("test@gmail.com", "test_password");
+        User user = new User("test@gmail.com", "test_first", "test_last", "test_password", 0);
+
+        when(ur.findByEmailAndPassword( Mockito.anyString(), Mockito.anyString())).thenReturn(null);
+        Assertions.assertThrows(InvalidEmailOrPasswordException.class, () -> {
+            User testUser = us.loginUser("test@gmail.com", "test_password");
+        });
     }
 }
