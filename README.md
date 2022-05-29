@@ -27,7 +27,7 @@
   Users<br/>
     Login: Param: email, passowrd. Ret: user.<br/>
     Register: Param: email, password, firstName, lastName, money. Ret: user <br/>
-    Update User Account Info <br/>
+    Update: Param: user, Ret: updated user <br/>
   <br/>
   Deck<br/>
     Initialize: Param: user. Ret: deck (shuffled)<br/>
