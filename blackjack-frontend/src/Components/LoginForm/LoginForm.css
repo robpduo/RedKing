@@ -2,7 +2,7 @@
   border-radius: 10px !important;
 
 
-  background-color: black;
+  background-color: white;
 
 
   width: 50%;
@@ -21,7 +21,7 @@
 .loginHeader {
   margin-bottom: 50px;
   text-align: center;
-  color: white;
+  color: black;
   font-size: 2rem;
 }
 
@@ -41,7 +41,7 @@
   margin-bottom: 10px;
   background-color: var(--text-white);
   
-        /* filter: invert(100%); */
+  /* filter: invert(100%); */
   width: 100%;
 
   border-radius: 10px;
@@ -51,9 +51,17 @@
   font-size: 0.8rem;
 }
 
-::placeholder {
-    background-color: var(--text-white);
+input[type="text"]{
+  background-color: white;
+
 }
+input[type="password"]{
+  background-color: white;
+}
+
+/* ::placeholder {
+    background-color: var(--text-white);
+} */
 
 .loginInput:focus {
   outline-width: 0;
