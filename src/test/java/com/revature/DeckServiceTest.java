@@ -58,11 +58,16 @@ public class DeckServiceTest {
 
         //Create a list of 1 card
         List<Card> lCards = new ArrayList<>();
-        Card testCard = new Card(Rank.ACE, Suit.CLOVERS, testDeck);
+        Card testCard1 = new Card(Rank.ACE, Suit.CLOVERS, testDeck);
+        Card testCard2 = new Card(Rank.ACE, Suit.CLOVERS, testDeck);
+        Card testCard3 = new Card(Rank.ACE, Suit.CLOVERS, testDeck);
 
-        testCard.setCardId(1);
-        lCards.add(0, testCard);
+        testCard1.setCardId(1);
+        lCards.add(0, testCard1);
+        lCards.add(1, testCard2);
+        lCards.add(2, testCard3);
 
+        testDeck.setDeckSize(3);
         //Create a temp user
         User u = new User("test@gmail.com", "test_first", "test_last", "test_password", 0);
 
@@ -71,6 +76,7 @@ public class DeckServiceTest {
         testDeck.setUser(u);
         testDeck.setDeckSize(lCards.size());
 
+        Mockito.when(dr.findDeckByDeckId(Mockito.anyInt())).thenReturn(testDeck);
         Assertions.assertEquals(Rank.ACE, ds.dealCard(testDeck).getRank());
     }
 
