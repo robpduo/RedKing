@@ -5,7 +5,8 @@
   
 ## Creating a new branch
   1. git checkout develop (Start from the develop branch)
-  2. git checkout -b feature/<your-feature> OR style/<component-to-style> OR bug/(bug-to-fix)
+  2. git pull
+  3. git checkout -b feature/<your-feature> OR style/<component-to-style> OR bug/(bug-to-fix)
 
 ## Merging feature branch into develop
   1. save your work and push it to yor branch
