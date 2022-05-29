@@ -57,4 +57,16 @@ public class UserServiceTest {
         User testUser = us.loginUser("test@gmail.com", "test_password");
         Assertions.assertEquals(user, testUser);
     }
+
+    @Test
+    public void testLoginUserException() throws InvalidEmailOrPasswordException {
+        us = new UserService(ur);
+        LoginHelper lh = new LoginHelper("test@gmail.com", "test_password");
+        User user = new User("test@gmail.com", "test_first", "test_last", "test_password", 0);
+
+        when(ur.findByEmailAndPassword( Mockito.anyString(), Mockito.anyString())).thenReturn(null);
+        Assertions.assertThrows(InvalidEmailOrPasswordException.class, () -> {
+            User testUser = us.loginUser("test@gmail.com", "test_password");
+        });
+    }
 }
