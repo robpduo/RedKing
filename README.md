@@ -33,6 +33,8 @@
     Initialize: Param: user. Ret: deck (shuffled)<br/>
     Deal Card: Param: deck. Ret: card. <br/>
   
+  *Possibly add a moderator to delete accounts if needed
+  
 ## Pending Services
  
   Retrieve all User Accounts (To display highscores) <br/>
