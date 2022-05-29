@@ -81,6 +81,7 @@ public class DeckService {
 
     /**
      * Generates a unique Id for the deck
+     *
      * @return a unique id
      */
     public int generateUniqueId() {
@@ -89,4 +90,5 @@ public class DeckService {
             id += 1;
         }
         return id;
+    }
 }
