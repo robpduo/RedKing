@@ -6,5 +6,4 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(value = HttpStatus.CONFLICT, reason = "Email Already Exists")
 public class UserEmailAlreadyExistsException extends Exception {
     public UserEmailAlreadyExistsException() { super("Email Already Exists"); }
-    public UserEmailAlreadyExistsException(String message) { super(message); }
 }

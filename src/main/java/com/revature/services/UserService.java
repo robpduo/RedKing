@@ -1,7 +1,9 @@
 package com.revature.services;
 
+import com.revature.exceptions.InvalidDepositAmount;
 import com.revature.exceptions.InvalidEmailOrPasswordException;
 import com.revature.exceptions.UserEmailAlreadyExistsException;
+import com.revature.models.DepositHelper;
 import com.revature.models.User;
 import com.revature.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,5 +59,30 @@ public class UserService {
         return u;
     }
 
+    /**
+     * Changes the user's account information by account Id
+     * @param newUser
+     * @return
+     */
+    public User updateUser( User newUser ) {
+        return ur.save(newUser);
+    }
 
+    /**
+     * Determines if the amount to be deposited is valid and adds the amount to the user's total money
+     * @param dh
+     * @return an account with an updated money field
+     * @throws InvalidDepositAmount
+     */
+    public User deposit( DepositHelper dh ) throws InvalidDepositAmount {
+        //check if deposit amount is greater than 0
+        if (dh.getAmount() <= 0) {
+            throw new InvalidDepositAmount();
+        }
+        //get User by id and update deposit amount
+        User u = ur.findByUserId(dh.getUserId());
+
+        u.setMoney(u.getMoney() + dh.getAmount());
+        return ur.save(u);
+    }
 }

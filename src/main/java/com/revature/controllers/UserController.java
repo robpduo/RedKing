@@ -1,8 +1,10 @@
 package com.revature.controllers;
 
+import com.revature.exceptions.InvalidDepositAmount;
 import com.revature.exceptions.InvalidEmailOrPasswordException;
 import com.revature.exceptions.UserEmailAlreadyExistsException;
 import com.revature.models.Deck;
+import com.revature.models.DepositHelper;
 import com.revature.models.LoginHelper;
 import com.revature.models.User;
 import com.revature.repository.UserRepo;
@@ -28,16 +30,24 @@ public class UserController {
     @PostMapping("/register")
     @ResponseBody
     public User handleRegister( @RequestBody User rbUser ) throws UserEmailAlreadyExistsException {
-        User u = new User();
-        u = us.registerUser(rbUser.getEmail(), rbUser.getPassword(), rbUser.getFirstName(), rbUser.getLastName(), rbUser.getMoney());
-        return u;
+        return us.registerUser(rbUser.getEmail(), rbUser.getPassword(), rbUser.getFirstName(), rbUser.getLastName(), rbUser.getMoney());
     }
 
     @PostMapping("/login")
     @ResponseBody
     public User handleLogin( @RequestBody LoginHelper lh ) throws InvalidEmailOrPasswordException {
-        User u = new User();
-        u = us.loginUser(lh.getEmail(), lh.getPassword());
-        return u;
+        return us.loginUser(lh.getEmail(), lh.getPassword());
+    }
+
+    @PostMapping("/update")
+    @ResponseBody
+    public User handleUpdate ( @RequestBody User newUser ) {
+        return us.updateUser( newUser );
+    }
+
+    @PostMapping("/deposit")
+    @ResponseBody
+    public User handleDeposit ( @RequestBody DepositHelper dh ) throws InvalidDepositAmount {
+        return us.deposit( dh );
     }
 }
