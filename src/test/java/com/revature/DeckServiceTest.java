@@ -1,5 +1,6 @@
 package com.revature;
 
+import com.revature.exceptions.DeckIsEmptyException;
 import com.revature.models.*;
 import com.revature.repository.DeckRepo;
 import com.revature.services.DeckService;
@@ -52,7 +53,7 @@ public class DeckServiceTest {
     }
 
     @Test
-    public void testDealCard() {
+    public void testDealCard() throws DeckIsEmptyException {
         ds = new DeckService(dr);
         Deck testDeck = new Deck();
 
@@ -81,11 +82,26 @@ public class DeckServiceTest {
     }
 
     @Test
+    public void testDealCardException() throws DeckIsEmptyException {
+        ds = new DeckService(dr);
+        Deck testDeck = new Deck();
+
+        testDeck.setDeckSize(0);
+
+        Mockito.when(dr.findDeckByDeckId(Mockito.anyInt())).thenReturn(testDeck);
+        Assertions.assertThrows(DeckIsEmptyException.class, () -> {
+            ds.dealCard( testDeck );
+        });
+    }
+
+    @Test
     public void testGenUniqueId() {
         ds = new DeckService(dr);
+        Deck testDeck = new Deck();
+        testDeck.setDeckId(1);
 
-        Mockito.when(dr.findDeckByDeckId(Mockito.anyInt())).thenReturn(null);
-        Assertions.assertEquals(0, ds.generateUniqueId());
+        Mockito.when(dr.findDeckByDeckId(0)).thenReturn(testDeck);
+        Assertions.assertEquals(1, ds.generateUniqueId());
     }
 
     @Test

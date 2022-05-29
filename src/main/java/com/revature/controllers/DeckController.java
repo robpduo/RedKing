@@ -1,5 +1,6 @@
 package com.revature.controllers;
 
+import com.revature.exceptions.DeckIsEmptyException;
 import com.revature.models.Card;
 import com.revature.models.Deck;
 import com.revature.models.LoginHelper;
@@ -29,7 +30,7 @@ public class DeckController {
 
     @GetMapping("/deal")
     @ResponseBody
-    public Card handleDealCard( @RequestBody Deck deck) {
+    public Card handleDealCard( @RequestBody Deck deck) throws DeckIsEmptyException {
         return ds.dealCard(deck);
     }
 
