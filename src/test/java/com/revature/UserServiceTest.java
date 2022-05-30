@@ -21,6 +21,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.mockito.Mockito.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @SpringBootTest
 public class UserServiceTest {
@@ -108,5 +111,45 @@ public class UserServiceTest {
         Assertions.assertThrows(InvalidDepositAmount.class, () -> {
             us.deposit( dh );
         });
+    }
+
+    @Test
+    public void testRetrieveAllUsers () { //Tests if all users were retrieved
+        us = new UserService(ur);
+
+        /*2  test users with passwords*/
+        User t1 = new User("t1@email.com", "t1", "lastT1", "t1-password", 86);
+        User t2 = new User("t2@email.com", "t2", "lastT2", "t2-password", 68);
+
+        /*mock list*/
+        List<User> ul = new ArrayList<>();
+
+        ul.add(t1);
+        ul.add(t2);
+
+        /*Mockito & Junit test*/
+        Mockito.when(ur.findAll()).thenReturn(ul);
+
+        Assertions.assertEquals(2, us.retrieveIdAndScore().size());
+    }
+
+    @Test
+    public void testAllUserEmptyPassword () { //Tests if users password have been omitted
+        us = new UserService(ur);
+
+        /*2  test users with passwords*/
+        User t1 = new User("t1@email.com", "t1", "lastT1", "t1-password", 86);
+        User t2 = new User("t2@email.com", "t2", "lastT2", "t2-password", 68);
+
+        /*mock list*/
+        List<User> ul = new ArrayList<>();
+
+        ul.add(t1);
+        ul.add(t2);
+
+        /*Mockito & Junit test*/
+        Mockito.when(ur.findAll()).thenReturn(ul);
+
+        Assertions.assertEquals("", us.retrieveIdAndScore().get(0).getPassword());
     }
 }
