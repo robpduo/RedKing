@@ -43,7 +43,7 @@ public class UserService {
      * Check user
      * @param email
      * @param password
-     * @return
+     * @return user with the same email and password form the DB
      */
     public User loginUser( String email, String password ) throws InvalidEmailOrPasswordException {
         User u = ur.findByEmailAndPassword(email, password);
@@ -58,7 +58,7 @@ public class UserService {
     /**
      * Changes the user's account information by account Id
      * @param newUser
-     * @return
+     * @return an updated user object
      */
     public User updateUser( User newUser ) {
         return ur.save(newUser);
@@ -66,7 +66,7 @@ public class UserService {
 
     /**
      * Determines if the amount to be deposited is valid and adds the amount to the user's total money
-     * @param dh
+     * @param deposit helper object
      * @return an account with an updated money field
      * @throws InvalidDepositAmount
      */
