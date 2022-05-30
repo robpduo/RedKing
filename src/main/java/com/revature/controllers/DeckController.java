@@ -3,11 +3,9 @@ package com.revature.controllers;
 import com.revature.exceptions.DeckIsEmptyException;
 import com.revature.models.Card;
 import com.revature.models.Deck;
-import com.revature.models.LoginHelper;
 import com.revature.models.User;
 import com.revature.services.DeckService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
