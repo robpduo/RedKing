@@ -43,6 +43,22 @@
   Withdraw Money (Used For betting) <br/>
   getDeckByUserId (Retrieve user progress through a deck) <br/>
   
+## Suggestions to improve utilization of RDS 
+  Add a moderator / game master account 
+    * Able to Retrieve all game records played
+      1. amount won/loss by the player
+      2. date the game was played
+      3. player that played that particular round
+      4. players hand
+      5. dealers hand
+  
+    * Caluclate Total Earnings / Losses
+  
+  ### How to implement Moderator
+      1. Need new model on backend + CRUD functionality
+      2. Need front end interface models, components, and views
+        a. log-in functionality for managers
+  
 ## Node.js
   npx create-react-app name-of-app --template typescript<br/>
 
