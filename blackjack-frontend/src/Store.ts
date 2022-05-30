@@ -2,13 +2,14 @@ import { configureStore } from '@reduxjs/toolkit';
 
 //We would import our reducers from the slices we have to create
 import userReducer from './Slices/UserSlice';
-// import reimburseReducer from "./Slices/ReimbursementSlice";
-// import employeesReducer from "./Slices/EmployeesSlice";
+import deckReducer from './Slices/DeckSlice';
 
 // inside index
 export const Store = configureStore({
   reducer: {
     user: userReducer,
+    deck: deckReducer,
+    //game: gameReducer
   },
 });
 
