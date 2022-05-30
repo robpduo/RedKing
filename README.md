@@ -30,6 +30,7 @@
     Register: Param: email, password, firstName, lastName, money. Ret: user <br/>
     Update: Param: user. Ret: updated user <br/>
     Deposit: Param: deckId, amount. Ret: user with updated amount <br/>
+    Retrieve All Users: Ret: list of all users with password omitted <br/>
   <br/>
   Deck Services<br/>
     Initialize: Param: user. Ret: deck (shuffled)<br/>
@@ -39,7 +40,6 @@
   
 ## Pending Services
  
-  Retrieve all User Emails and money (To display highscores) <br/>
   Withdraw Money (Used For betting) <br/>
   getDeckByUserId (Retrieve user progress through a deck) <br/>
   
