@@ -1,6 +1,7 @@
 package com.revature;
 
 import com.revature.exceptions.DeckIsEmptyException;
+import com.revature.exceptions.NoDeckInPlay;
 import com.revature.models.*;
 import com.revature.repository.DeckRepo;
 import com.revature.services.DeckService;
@@ -109,5 +110,46 @@ public class DeckServiceTest {
         Mockito.when(dr.findDeckByDeckId(Mockito.anyInt())).thenReturn(deck);
         Assertions.assertEquals(777, ds.getDeck(777).getDeckId());
 
+    }
+
+    @Test
+    public void testGetDeckByUID() throws NoDeckInPlay {
+        ds = new DeckService(dr);
+        List<Deck> deckList = new ArrayList<>();
+        Deck deck = new Deck();
+
+        User t1 = new User("t1@email.com", "t1", "lastT1", "t1-password", 86);
+        t1.setUserId(0);
+
+        /*create a mock deck*/
+        deck.setDeckId(0);
+        deck.setUser(t1);
+        deck.setDeckSize(1);
+        deckList.add(deck);
+
+        /*Mockito and Unit tests*/
+        Mockito.when(dr.findAll()).thenReturn(deckList);
+        Assertions.assertEquals(0, ds.getDeckByUserId(t1).getDeckId());
+    }
+
+    @Test
+    public void testGetDeckByUIDException() throws NoDeckInPlay {
+        ds = new DeckService(dr);
+        List<Deck> deckList = new ArrayList<>();
+        Deck deck = new Deck();
+
+        User t1 = new User("t1@email.com", "t1", "lastT1", "t1-password", 86);
+        t1.setUserId(0);
+
+        /*create a mock deck*/
+        deck.setDeckId(0);
+        deck.setUser(t1);
+        deckList.add(deck);
+
+        /*Mockito and Unit tests*/
+        Mockito.when(dr.findAll()).thenReturn(deckList);
+        Assertions.assertThrows(NoDeckInPlay.class, () -> {
+            ds.getDeckByUserId(t1);
+        });
     }
 }
