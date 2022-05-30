@@ -41,6 +41,7 @@
  
   Retrieve all User Emails and money (To display highscores) <br/>
   Withdraw Money (Used For betting) <br/>
+  getDeckByUserId <br/>
   
 ## Node.js
   npx create-react-app name-of-app --template typescript<br/>
