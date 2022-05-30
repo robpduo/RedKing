@@ -91,4 +91,8 @@ public class DeckService {
         }
         return id;
     }
+    
+    public Deck getDeckById (User curUser) {
+        return null;
+    }
 }
