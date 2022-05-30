@@ -5,9 +5,13 @@ import com.revature.exceptions.InvalidEmailOrPasswordException;
 import com.revature.exceptions.UserEmailAlreadyExistsException;
 import com.revature.models.DepositHelper;
 import com.revature.models.User;
-import com.revature.models.repository.UserRepo;
+import com.revature.repository.UserRepo;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -81,4 +85,16 @@ public class UserService {
         u.setMoney(u.getMoney() + dh.getAmount());
         return ur.save(u);
     }
+    
+    /**
+     * Retrieves a list of all users in the database
+     * @return list of Users
+     */
+    public List<User> retrieveIdAndScore() {
+        List<User> userList = new ArrayList<>();
+        userList = ur.findAll();
+        return userList;
+    }
+
+
 }

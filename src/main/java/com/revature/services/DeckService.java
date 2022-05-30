@@ -1,8 +1,10 @@
 package com.revature.services;
 
 import com.revature.exceptions.DeckIsEmptyException;
+import com.revature.exceptions.NoDeckInPlay;
 import com.revature.models.*;
-import com.revature.models.repository.DeckRepo;
+import com.revature.repository.DeckRepo;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -89,5 +91,24 @@ public class DeckService {
             id += 1;
         }
         return id;
+    }
+    
+    /**
+     * Returns the first deck that is associated with the player
+     * @param curUser
+     * @return
+     * @throws NoDeckInPlay
+     */
+    public Deck getDeckByUserId (User curUser) throws NoDeckInPlay {
+        List<Deck> allDecks = new ArrayList<>();
+        allDecks = dr.findAll();
+
+        //find a deck that is in-play (deck size > 0)
+        for (Deck deck : allDecks) {
+            if (deck.getDeckSize() > 0 && deck.getUser().getUserId() == curUser.getUserId()) {
+                return deck;
+            }
+        }
+        throw new NoDeckInPlay();
     }
 }
