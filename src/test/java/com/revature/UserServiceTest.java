@@ -4,14 +4,10 @@ import com.revature.exceptions.InvalidDepositAmount;
 import com.revature.exceptions.InvalidEmailOrPasswordException;
 import com.revature.exceptions.UserEmailAlreadyExistsException;
 import com.revature.models.DepositHelper;
-import com.revature.models.LoginHelper;
-import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.revature.models.User;
@@ -20,15 +16,13 @@ import com.revature.services.UserService;
 
 
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-
-import java.util.stream.Stream;
 
 import static org.mockito.Mockito.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @SpringBootTest
@@ -56,14 +50,13 @@ public class UserServiceTest {
         when(ur.findByEmailAndPassword(Mockito.anyString(), Mockito.anyString())).thenReturn(u);
 
         Assertions.assertThrows(UserEmailAlreadyExistsException.class, () -> {
-            User testUser = us.registerUser("test@gmail.com", "test_first", "test_last", "test_password", 0);
+            us.registerUser("test@gmail.com", "test_first", "test_last", "test_password", 0);
         });
     }
 
     @Test
     public void testLoginUser() throws InvalidEmailOrPasswordException {
         us = new UserService(ur);
-        LoginHelper lh = new LoginHelper("test@gmail.com", "test_password");
         User user = new User("test@gmail.com", "test_first", "test_last", "test_password", 0);
 
         when(ur.findByEmailAndPassword( Mockito.anyString(), Mockito.anyString())).thenReturn(user);
@@ -74,12 +67,10 @@ public class UserServiceTest {
     @Test
     public void testLoginUserException() throws InvalidEmailOrPasswordException {
         us = new UserService(ur);
-        LoginHelper lh = new LoginHelper("test@gmail.com", "test_password");
-        User user = new User("test@gmail.com", "test_first", "test_last", "test_password", 0);
 
         when(ur.findByEmailAndPassword( Mockito.anyString(), Mockito.anyString())).thenReturn(null);
         Assertions.assertThrows(InvalidEmailOrPasswordException.class, () -> {
-            User testUser = us.loginUser("test@gmail.com", "test_password");
+            us.loginUser("test@gmail.com", "test_password");
         });
     }
 
@@ -120,5 +111,25 @@ public class UserServiceTest {
         Assertions.assertThrows(InvalidDepositAmount.class, () -> {
             us.deposit( dh );
         });
+    }
+
+    @Test
+    public void testRetrieveAllUsers () { //Tests if all users were retrieved
+        us = new UserService(ur);
+
+        /*2  test users with passwords*/
+        User t1 = new User("t1@email.com", "t1", "lastT1", "t1-password", 86);
+        User t2 = new User("t2@email.com", "t2", "lastT2", "t2-password", 68);
+
+        /*mock list*/
+        List<User> ul = new ArrayList<>();
+
+        ul.add(t1);
+        ul.add(t2);
+
+        /*Mockito & Junit test*/
+        Mockito.when(ur.findAll()).thenReturn(ul);
+
+        Assertions.assertEquals(2, us.retrieveIdAndScore().size());
     }
 }

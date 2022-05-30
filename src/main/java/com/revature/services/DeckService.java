@@ -1,8 +1,10 @@
 package com.revature.services;
 
+import com.revature.exceptions.DeckIsEmptyException;
+import com.revature.exceptions.NoDeckInPlay;
 import com.revature.models.*;
 import com.revature.repository.DeckRepo;
-import com.revature.repository.UserRepo;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +32,6 @@ public class DeckService {
     public Deck initializeDeck( User user ) {
         Deck deck = new Deck();
         List<Card> lCards = new ArrayList<>();
-
         deck.setDeckId(generateUniqueId());
 
         for (Suit suit : Suit.values()) {
@@ -62,34 +63,52 @@ public class DeckService {
      * Removes a card from the top of the deck and return the card that was removed
      * Remove card from database
      *
-     * @param deck
+     * @param d
      * @return a card from the top of the deck
      */
-    public Card dealCard( Deck deck ) {
+    public Card dealCard( Deck d ) throws DeckIsEmptyException {
         Card card = new Card();
-
+        Deck deck = dr.findDeckByDeckId(d.getDeckId());
         if (deck.getDeckSize() > 0) {
             card = deck.getCards().get(deck.getDeckSize() - 1);
             deck.getCards().remove(deck.getDeckSize() - 1);
             deck.setDeckSize(deck.getDeckSize() - 1);
+        } else {
+            throw new DeckIsEmptyException();
         }
-
-        System.out.println("Local: " + card);
-        System.out.println("Size of Deck" + deck.getDeckSize());
-        System.out.println("Size of Cards List: " + deck.getCards().size());
+        dr.save(deck);
         return card;
     }
 
     /**
      * Generates a unique Id for the deck
-     * @return
+     *
+     * @return a unique id
      */
-    public int generateUniqueId () {
+    public int generateUniqueId() {
         int id = 0;
-
         while (dr.findDeckByDeckId(id) != null) {
             id += 1;
         }
         return id;
+    }
+    
+    /**
+     * Returns the first deck that is associated with the player
+     * @param curUser
+     * @return
+     * @throws NoDeckInPlay
+     */
+    public Deck getDeckByUserId (User curUser) throws NoDeckInPlay {
+        List<Deck> allDecks = new ArrayList<>();
+        allDecks = dr.findAll();
+
+        //find a deck that is in-play (deck size > 0)
+        for (Deck deck : allDecks) {
+            if (deck.getDeckSize() > 0 && deck.getUser().getUserId() == curUser.getUserId()) {
+                return deck;
+            }
+        }
+        throw new NoDeckInPlay();
     }
 }

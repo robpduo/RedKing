@@ -38,6 +38,7 @@ export const LoginForm: React.FC<any> = (spinner: any) => {
 
   return (
     <div className="login">
+
       {/* text container */}
       <div className="textContainer">
         <h1 className="loginHeader">BlacKing</h1>
@@ -73,9 +74,10 @@ export const LoginForm: React.FC<any> = (spinner: any) => {
         </div>
       </form>
 
-      <button className="loginButton" onClick={handleLogin}>
+      <button className="loginBtn" onClick={handleLogin}>
         login
       </button>
+
     </div>
   );
 };

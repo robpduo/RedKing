@@ -11,7 +11,6 @@ import java.util.List;
 public class Deck {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "deck_id")
     private int deckId;
 

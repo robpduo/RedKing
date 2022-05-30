@@ -10,33 +10,23 @@ import { Navbar } from '../../Components/Navbar/Navbar';
 
 // go inside App for Route
 export const HomeScreen: React.FC = () => {
-  // const userInfo = useSelector((state: RootState) => state.user);
-  // const dispatch: AppDispatch = useDispatch();
-
-  // const navigator = useNavigate();
-
-  // const handleRegister = (event: React.MouseEvent<HTMLButtonElement>) => {
-  // let credentials = {
-  //   email: email,
-  //   password: password,
-  // };
-
-  // const handleLogin = (event: React.MouseEvent<HTMLButtonElement>) => {
-  //   let credentials = {
-  //     emailOrUsername: email,
-  //     password: password,
-  //   };
-  // };
-
   return (
     <>
       {/* <Navbar /> */}
-      <div className="homeScreen">
-        <h3>Welcome to BlacKing</h3>
+      <section className="homeScreen">
+        <div className="logregContainer">
+          <h3 className="blackingHeader">BlacKing</h3>
 
-        <Link to="/register">Register</Link>
-        <Link to="/login">Login</Link>
-      </div>
+          <div className="buttonContainer">
+            <Link to="/register">
+              <button className="registerButton">Register</button>
+            </Link>
+            <Link to="/login">
+              <button className="loginButton">Login</button>
+            </Link>
+          </div>
+        </div>
+      </section>
     </>
   );
 };

@@ -39,7 +39,6 @@ public class User {
     }
 
     public User( String email, String firstName, String lastName, String password, double money ) {
-        this.userId = userId;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;

@@ -1,18 +1,16 @@
 package com.revature;
 
+import com.revature.exceptions.DeckIsEmptyException;
+import com.revature.exceptions.NoDeckInPlay;
 import com.revature.models.*;
 import com.revature.repository.DeckRepo;
 import com.revature.services.DeckService;
-import com.revature.services.UserService;
-import org.assertj.core.api.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.event.annotation.BeforeTestMethod;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,17 +50,22 @@ public class DeckServiceTest {
     }
 
     @Test
-    public void testDealCard() {
+    public void testDealCard() throws DeckIsEmptyException {
         ds = new DeckService(dr);
         Deck testDeck = new Deck();
 
         //Create a list of 1 card
         List<Card> lCards = new ArrayList<>();
-        Card testCard = new Card(Rank.ACE, Suit.CLOVERS, testDeck);
+        Card testCard1 = new Card(Rank.ACE, Suit.CLOVERS, testDeck);
+        Card testCard2 = new Card(Rank.ACE, Suit.CLOVERS, testDeck);
+        Card testCard3 = new Card(Rank.ACE, Suit.CLOVERS, testDeck);
 
-        testCard.setCardId(1);
-        lCards.add(0, testCard);
+        testCard1.setCardId(1);
+        lCards.add(0, testCard1);
+        lCards.add(1, testCard2);
+        lCards.add(2, testCard3);
 
+        testDeck.setDeckSize(3);
         //Create a temp user
         User u = new User("test@gmail.com", "test_first", "test_last", "test_password", 0);
 
@@ -71,15 +74,31 @@ public class DeckServiceTest {
         testDeck.setUser(u);
         testDeck.setDeckSize(lCards.size());
 
+        Mockito.when(dr.findDeckByDeckId(Mockito.anyInt())).thenReturn(testDeck);
         Assertions.assertEquals(Rank.ACE, ds.dealCard(testDeck).getRank());
+    }
+
+    @Test
+    public void testDealCardException() throws DeckIsEmptyException {
+        ds = new DeckService(dr);
+        Deck testDeck = new Deck();
+
+        testDeck.setDeckSize(0);
+
+        Mockito.when(dr.findDeckByDeckId(Mockito.anyInt())).thenReturn(testDeck);
+        Assertions.assertThrows(DeckIsEmptyException.class, () -> {
+            ds.dealCard( testDeck );
+        });
     }
 
     @Test
     public void testGenUniqueId() {
         ds = new DeckService(dr);
+        Deck testDeck = new Deck();
+        testDeck.setDeckId(1);
 
-        Mockito.when(dr.findDeckByDeckId(Mockito.anyInt())).thenReturn(null);
-        Assertions.assertEquals(0, ds.generateUniqueId());
+        Mockito.when(dr.findDeckByDeckId(0)).thenReturn(testDeck);
+        Assertions.assertEquals(1, ds.generateUniqueId());
     }
 
     @Test
@@ -91,5 +110,46 @@ public class DeckServiceTest {
         Mockito.when(dr.findDeckByDeckId(Mockito.anyInt())).thenReturn(deck);
         Assertions.assertEquals(777, ds.getDeck(777).getDeckId());
 
+    }
+
+    @Test
+    public void testGetDeckByUID() throws NoDeckInPlay {
+        ds = new DeckService(dr);
+        List<Deck> deckList = new ArrayList<>();
+        Deck deck = new Deck();
+
+        User t1 = new User("t1@email.com", "t1", "lastT1", "t1-password", 86);
+        t1.setUserId(0);
+
+        /*create a mock deck*/
+        deck.setDeckId(0);
+        deck.setUser(t1);
+        deck.setDeckSize(1);
+        deckList.add(deck);
+
+        /*Mockito and Unit tests*/
+        Mockito.when(dr.findAll()).thenReturn(deckList);
+        Assertions.assertEquals(0, ds.getDeckByUserId(t1).getDeckId());
+    }
+
+    @Test
+    public void testGetDeckByUIDException() throws NoDeckInPlay {
+        ds = new DeckService(dr);
+        List<Deck> deckList = new ArrayList<>();
+        Deck deck = new Deck();
+
+        User t1 = new User("t1@email.com", "t1", "lastT1", "t1-password", 86);
+        t1.setUserId(0);
+
+        /*create a mock deck*/
+        deck.setDeckId(0);
+        deck.setUser(t1);
+        deckList.add(deck);
+
+        /*Mockito and Unit tests*/
+        Mockito.when(dr.findAll()).thenReturn(deckList);
+        Assertions.assertThrows(NoDeckInPlay.class, () -> {
+            ds.getDeckByUserId(t1);
+        });
     }
 }

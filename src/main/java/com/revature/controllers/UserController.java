@@ -1,18 +1,15 @@
 package com.revature.controllers;
 
+import java.util.List;
+
 import com.revature.exceptions.InvalidDepositAmount;
 import com.revature.exceptions.InvalidEmailOrPasswordException;
 import com.revature.exceptions.UserEmailAlreadyExistsException;
-import com.revature.models.Deck;
 import com.revature.models.DepositHelper;
 import com.revature.models.LoginHelper;
 import com.revature.models.User;
-import com.revature.repository.UserRepo;
-import com.revature.services.DeckService;
 import com.revature.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -49,5 +46,11 @@ public class UserController {
     @ResponseBody
     public User handleDeposit ( @RequestBody DepositHelper dh ) throws InvalidDepositAmount {
         return us.deposit( dh );
+    }
+
+    @GetMapping("/allUsers")
+    @ResponseBody
+    public List<User> handleUserScores ( ) {
+        return us.retrieveIdAndScore();
     }
 }

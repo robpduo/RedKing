@@ -6,13 +6,13 @@ import com.revature.exceptions.UserEmailAlreadyExistsException;
 import com.revature.models.DepositHelper;
 import com.revature.models.User;
 import com.revature.repository.UserRepo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
-import javax.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 @Service
@@ -47,7 +47,7 @@ public class UserService {
      * Check user
      * @param email
      * @param password
-     * @return
+     * @return user with the same email and password form the DB
      */
     public User loginUser( String email, String password ) throws InvalidEmailOrPasswordException {
         User u = ur.findByEmailAndPassword(email, password);
@@ -62,7 +62,7 @@ public class UserService {
     /**
      * Changes the user's account information by account Id
      * @param newUser
-     * @return
+     * @return an updated user object
      */
     public User updateUser( User newUser ) {
         return ur.save(newUser);
@@ -70,7 +70,7 @@ public class UserService {
 
     /**
      * Determines if the amount to be deposited is valid and adds the amount to the user's total money
-     * @param dh
+     * @param deposit helper object
      * @return an account with an updated money field
      * @throws InvalidDepositAmount
      */
@@ -85,4 +85,16 @@ public class UserService {
         u.setMoney(u.getMoney() + dh.getAmount());
         return ur.save(u);
     }
+    
+    /**
+     * Retrieves a list of all users in the database
+     * @return list of Users
+     */
+    public List<User> retrieveIdAndScore() {
+        List<User> userList = new ArrayList<>();
+        userList = ur.findAll();
+        return userList;
+    }
+
+
 }
