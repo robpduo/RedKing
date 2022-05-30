@@ -2,7 +2,7 @@ package com.revature;
 
 import com.revature.exceptions.DeckIsEmptyException;
 import com.revature.models.*;
-import com.revature.models.repository.DeckRepo;
+import com.revature.repository.DeckRepo;
 import com.revature.services.DeckService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

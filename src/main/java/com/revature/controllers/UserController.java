@@ -1,5 +1,7 @@
 package com.revature.controllers;
 
+import java.util.List;
+
 import com.revature.exceptions.InvalidDepositAmount;
 import com.revature.exceptions.InvalidEmailOrPasswordException;
 import com.revature.exceptions.UserEmailAlreadyExistsException;
@@ -44,5 +46,11 @@ public class UserController {
     @ResponseBody
     public User handleDeposit ( @RequestBody DepositHelper dh ) throws InvalidDepositAmount {
         return us.deposit( dh );
+    }
+
+    @GetMapping("/allUsers")
+    @ResponseBody
+    public List<User> handleUserScores ( ) {
+        return us.retrieveIdAndScore();
     }
 }
