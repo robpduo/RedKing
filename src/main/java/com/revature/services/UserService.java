@@ -87,17 +87,12 @@ public class UserService {
     }
     
     /**
-     * Retrieves a list of all users in the database and omits the password before sending it through a http response
+     * Retrieves a list of all users in the database
      * @return list of Users
      */
     public List<User> retrieveIdAndScore() {
         List<User> userList = new ArrayList<>();
         userList = ur.findAll();
-
-        for (User user : userList) {
-            user.setPassword("");
-        }
-        
         return userList;
     }
 
