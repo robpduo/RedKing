@@ -24,7 +24,7 @@
   Please don't change the models in the Backend or Frontend(IUser, IDeck, ICard) unless everyone agrees, if the models change then all methods that rely on it will    break and there will be a merge conflict for unmerged branches 
 
   
-## Services Impolemented
+## Services Implemented
   Users Services<br/>
     Login: Param: email, passowrd. Ret: user.<br/>
     Register: Param: email, password, firstName, lastName, money. Ret: user <br/>
