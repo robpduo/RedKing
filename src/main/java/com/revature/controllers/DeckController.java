@@ -1,6 +1,7 @@
 package com.revature.controllers;
 
 import com.revature.exceptions.DeckIsEmptyException;
+import com.revature.exceptions.NoDeckInPlay;
 import com.revature.models.Card;
 import com.revature.models.Deck;
 import com.revature.models.User;
@@ -36,6 +37,12 @@ public class DeckController {
     @ResponseBody
     public Deck handleGetDeck (@RequestBody Deck deck) {
         return ds.getDeck(deck.getDeckId());
+    }
+
+    @GetMapping("/getDeckByUID")
+    @ResponseBody
+    public Deck handleGetDeckByUID (@RequestBody User user) throws NoDeckInPlay {
+        return ds.getDeckByUserId(user);
     }
 
 }

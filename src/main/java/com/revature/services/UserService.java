@@ -92,7 +92,6 @@ public class UserService {
      */
     public List<User> retrieveIdAndScore() {
         List<User> userList = new ArrayList<>();
-
         userList = ur.findAll();
 
         for (User user : userList) {
@@ -101,4 +100,6 @@ public class UserService {
         
         return userList;
     }
+
+
 }
