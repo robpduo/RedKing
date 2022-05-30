@@ -5,7 +5,8 @@
   
 ## Creating a new branch
   1. git checkout develop (Start from the develop branch)
-  2. git checkout -b feature/<your-feature> OR style/<component-to-style> OR bug/(bug-to-fix)
+  2. git pull
+  3. git checkout -b feature/<your-feature> OR style/<component-to-style> OR bug/(bug-to-fix)
 
 ## Merging feature branch into develop
   1. save your work and push it to yor branch
@@ -23,13 +24,23 @@
   Please don't change the models in the Backend or Frontend(IUser, IDeck, ICard) unless everyone agrees, if the models change then all methods that rely on it will    break and there will be a merge conflict for unmerged branches 
 
   
-## Services
-  Users
-    Login: Param: email, passowrd. Ret: user.
-    Register: Param: email, password, firstName, lastName, money. Ret: user 
+## Services Impolemented
+  Users Services<br/>
+    Login: Param: email, passowrd. Ret: user.<br/>
+    Register: Param: email, password, firstName, lastName, money. Ret: user <br/>
+    Update: Param: user. Ret: updated user <br/>
+    Deposit: Param: deckId, amount. Ret: user with updated amount <br/>
+  <br/>
+  Deck Services<br/>
+    Initialize: Param: user. Ret: deck (shuffled)<br/>
+    Deal Card: Param: deck. Ret: card. <br/>
   
-  Deck
-    Initialize: Param: user. Ret: deck (shuffled)
+  *Possibly add a moderator to delete accounts if needed
+  
+## Pending Services
+ 
+  Retrieve all User Emails and money (To display highscores) <br/>
+  Withdraw Money (Used For betting) <br/>
   
 ## Node.js
   npx create-react-app name-of-app --template typescript<br/>
