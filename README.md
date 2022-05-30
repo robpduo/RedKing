@@ -31,6 +31,7 @@
     Update: Param: user. Ret: updated user <br/>
     Deposit: Param: deckId, amount. Ret: user with updated amount <br/>
     Retrieve All Users: Ret: list of all users with password omitted <br/>
+    getDeckByUserId: Param: user. Ret: deck. <br/>
   <br/>
   Deck Services<br/>
     Initialize: Param: user. Ret: deck (shuffled)<br/>
@@ -41,7 +42,7 @@
 ## Pending Services
  
   Withdraw Money (Used For betting) <br/>
-  getDeckByUserId (Retrieve user progress through a deck) <br/>
+
   
 ## Suggestions to improve utilization of RDS 
   Add a moderator / game master account 
