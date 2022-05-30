@@ -58,6 +58,8 @@
       1. Need new model on backend + CRUD functionality
       2. Need front end interface models, components, and views
         a. log-in functionality for managers
+        b. display records navigator
+        c. totals earning / losses can be presented at the bottom of the screen
   
 ## Node.js
   npx create-react-app name-of-app --template typescript<br/>
