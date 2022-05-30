@@ -4,7 +4,6 @@ import com.revature.exceptions.InvalidDepositAmount;
 import com.revature.exceptions.InvalidEmailOrPasswordException;
 import com.revature.exceptions.UserEmailAlreadyExistsException;
 import com.revature.models.DepositHelper;
-import com.revature.models.LoginHelper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -48,14 +47,13 @@ public class UserServiceTest {
         when(ur.findByEmailAndPassword(Mockito.anyString(), Mockito.anyString())).thenReturn(u);
 
         Assertions.assertThrows(UserEmailAlreadyExistsException.class, () -> {
-            User testUser = us.registerUser("test@gmail.com", "test_first", "test_last", "test_password", 0);
+            us.registerUser("test@gmail.com", "test_first", "test_last", "test_password", 0);
         });
     }
 
     @Test
     public void testLoginUser() throws InvalidEmailOrPasswordException {
         us = new UserService(ur);
-        LoginHelper lh = new LoginHelper("test@gmail.com", "test_password");
         User user = new User("test@gmail.com", "test_first", "test_last", "test_password", 0);
 
         when(ur.findByEmailAndPassword( Mockito.anyString(), Mockito.anyString())).thenReturn(user);
@@ -66,12 +64,10 @@ public class UserServiceTest {
     @Test
     public void testLoginUserException() throws InvalidEmailOrPasswordException {
         us = new UserService(ur);
-        LoginHelper lh = new LoginHelper("test@gmail.com", "test_password");
-        User user = new User("test@gmail.com", "test_first", "test_last", "test_password", 0);
 
         when(ur.findByEmailAndPassword( Mockito.anyString(), Mockito.anyString())).thenReturn(null);
         Assertions.assertThrows(InvalidEmailOrPasswordException.class, () -> {
-            User testUser = us.loginUser("test@gmail.com", "test_password");
+            us.loginUser("test@gmail.com", "test_password");
         });
     }
 
