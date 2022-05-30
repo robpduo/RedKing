@@ -45,20 +45,20 @@ export const RegisterForm: React.FC<any> = (spinner: any) => {
   };
 
   return (
-    <div className="login">
+    <div className="register">
       {/* text container */}
-      <div className="textContainer">
-        <h1 className="loginHeader">Please Register Before You Shuffle </h1>
+      <div className="registerTextContainer">
+        <h1 className="registerHeader">Please Register Before You Shuffle </h1>
       </div>
 
-      <form className="loginForm">
+      <form className="registerForm">
         {/* for email */}
         <div className="inputDiv">
           <h4 className="inputH4">First Name</h4>
 
           <input
             autoComplete="off"
-            className="loginInput"
+            className="registerInput"
             type="text"
             name="firstname"
             placeholder="first Name"
@@ -72,7 +72,7 @@ export const RegisterForm: React.FC<any> = (spinner: any) => {
 
           <input
             autoComplete="off"
-            className="loginInput"
+            className="registerInput"
             type="text"
             name="lastname"
             placeholder="last Name"
@@ -86,7 +86,7 @@ export const RegisterForm: React.FC<any> = (spinner: any) => {
 
           <input
             autoComplete="off"
-            className="loginInput"
+            className="registerInput"
             type="email"
             name="email"
             placeholder="email"
@@ -100,7 +100,7 @@ export const RegisterForm: React.FC<any> = (spinner: any) => {
 
           <input
             autoComplete="off"
-            className="loginInput"
+            className="registerInput"
             type="password"
             name="password"
             placeholder="password"
@@ -109,9 +109,10 @@ export const RegisterForm: React.FC<any> = (spinner: any) => {
         </div>
       </form>
 
-      <button className="loginButton" onClick={handleRegister}>
+      <button className="registerBtn" onClick={handleRegister}>
         Register
       </button>
+
     </div>
   );
 };

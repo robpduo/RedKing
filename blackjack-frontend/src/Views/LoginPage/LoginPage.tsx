@@ -9,14 +9,7 @@ import { LoginForm } from '../../Components/LoginForm/LoginForm';
 
 // will go inside App tsx
 export const LoginPage: React.FC = () => {
-  // const userState = useSelector((state: RootState) => state.user);
-  // const navigator = useNavigate();
 
-  // useEffect(() => {
-  //   if (!userState.error && userState.user) {
-  //     navigator('/home');
-  //   }
-  // }, [userState, userState.error]);
 
   return (
     <div className="loginPage">
