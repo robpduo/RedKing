@@ -5,14 +5,10 @@ import com.revature.exceptions.InvalidEmailOrPasswordException;
 import com.revature.exceptions.UserEmailAlreadyExistsException;
 import com.revature.models.DepositHelper;
 import com.revature.models.User;
-import com.revature.repository.UserRepo;
+import com.revature.models.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
 @Service

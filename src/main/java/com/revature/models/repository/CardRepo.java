@@ -1,4 +1,4 @@
-package com.revature.repository;
+package com.revature.models.repository;
 
 import org.springframework.stereotype.Repository;
 

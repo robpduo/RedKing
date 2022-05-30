@@ -1,4 +1,4 @@
-package com.revature.repository;
+package com.revature.models.repository;
 
 import com.revature.models.*;
 import org.springframework.data.jpa.repository.JpaRepository;

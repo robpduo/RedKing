@@ -2,18 +2,14 @@ package com.revature;
 
 import com.revature.exceptions.DeckIsEmptyException;
 import com.revature.models.*;
-import com.revature.repository.DeckRepo;
+import com.revature.models.repository.DeckRepo;
 import com.revature.services.DeckService;
-import com.revature.services.UserService;
-import org.assertj.core.api.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.event.annotation.BeforeTestMethod;
 
 import java.util.ArrayList;
 import java.util.List;

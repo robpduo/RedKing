@@ -2,8 +2,7 @@ package com.revature.services;
 
 import com.revature.exceptions.DeckIsEmptyException;
 import com.revature.models.*;
-import com.revature.repository.DeckRepo;
-import com.revature.repository.UserRepo;
+import com.revature.models.repository.DeckRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -5,28 +5,20 @@ import com.revature.exceptions.InvalidEmailOrPasswordException;
 import com.revature.exceptions.UserEmailAlreadyExistsException;
 import com.revature.models.DepositHelper;
 import com.revature.models.LoginHelper;
-import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.revature.models.User;
-import com.revature.repository.UserRepo;
+import com.revature.models.repository.UserRepo;
 import com.revature.services.UserService;
 
 
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-
-import java.util.stream.Stream;
 
 import static org.mockito.Mockito.*;
 
