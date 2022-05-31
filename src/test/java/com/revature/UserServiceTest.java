@@ -1,5 +1,6 @@
 package com.revature;
 
+import com.revature.exceptions.InsufficientFundsException;
 import com.revature.exceptions.InvalidDepositAmount;
 import com.revature.exceptions.InvalidEmailOrPasswordException;
 import com.revature.exceptions.UserEmailAlreadyExistsException;
@@ -11,7 +12,8 @@ import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.revature.models.User;
-import com.revature.models.repository.UserRepo;
+import com.revature.models.WithdrawHelper;
+import com.revature.repository.UserRepo;
 import com.revature.services.UserService;
 
 
@@ -20,6 +22,9 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.mockito.Mockito.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @SpringBootTest
@@ -107,6 +112,58 @@ public class UserServiceTest {
 
         Assertions.assertThrows(InvalidDepositAmount.class, () -> {
             us.deposit( dh );
+        });
+    }
+
+    @Test
+    public void testRetrieveAllUsers () { //Tests if all users were retrieved
+        us = new UserService(ur);
+
+        /*2  test users with passwords*/
+        User t1 = new User("t1@email.com", "t1", "lastT1", "t1-password", 86);
+        User t2 = new User("t2@email.com", "t2", "lastT2", "t2-password", 68);
+
+        /*mock list*/
+        List<User> ul = new ArrayList<>();
+
+        ul.add(t1);
+        ul.add(t2);
+
+        /*Mockito & Junit test*/
+        Mockito.when(ur.findAll()).thenReturn(ul);
+
+        Assertions.assertEquals(2, us.retrieveIdAndScore().size());
+    }
+
+    @Test
+    public void testWithdraw () throws InsufficientFundsException {
+        us = new UserService(ur);
+
+        WithdrawHelper wh = new WithdrawHelper();
+        wh.setUserId(1);
+        wh.setAmount(1.00);
+
+        User t1 = new User("t1@email.com", "t1", "lastT1", "t1-password", 86);
+        t1.setUserId(1);
+
+        Mockito.when(ur.findByUserId(wh.getUserId())).thenReturn(t1);
+        Assertions.assertEquals(85, us.withdraw(wh).getMoney());
+    }
+
+    @Test
+    public void testWithdrawException () throws InsufficientFundsException {
+        us = new UserService(ur);
+
+        WithdrawHelper wh = new WithdrawHelper();
+        wh.setUserId(1);
+        wh.setAmount(6.00);
+
+        User t1 = new User("t1@email.com", "t1", "lastT1", "t1-password", 5);
+        t1.setUserId(1);
+
+        Mockito.when(ur.findByUserId(wh.getUserId())).thenReturn(t1);
+        Assertions.assertThrows(InsufficientFundsException.class, () -> {
+            us.withdraw(wh);
         });
     }
 }
