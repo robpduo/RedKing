@@ -1,22 +1,28 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import React from 'react';
 import axios from 'axios';
 import { IUser } from '../Interfaces/IUser';
+
 
 //Figure out our default state for this slice
 
 interface UserSliceState {
-  user?: IUser;
+  loading: boolean,
+  error: boolean,
+  user?: IUser
 }
 
 const initialUserState: UserSliceState = {
-  // error: false,
-  // loading: true,
+   error: false,
+   loading: true,
 };
+
 
 type Login = {
   email: string;
   password: string;
 };
+
 
 // called from LoginForm component
 export const loginUser = createAsyncThunk(
@@ -31,7 +37,14 @@ export const loginUser = createAsyncThunk(
 
       console.log('coming from loginUser async line 32 ', res.data);
 
-      return res.data;
+      return {
+        userId: res.data.userId,
+        email: res.data.email,
+        password: res.data.password,
+        firstName: res.data.firstName,
+        lastName: res.data.lastName,
+        money: res.data.money
+    }
     } catch (e) {
       return thunkAPI.rejectWithValue('something went wrong');
     }
