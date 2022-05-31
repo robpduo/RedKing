@@ -46,7 +46,7 @@ export const getDeck = createAsyncThunk(
 );
 
 export const getDealPlayer = createAsyncThunk(
-    "deck/getDeal", 
+    "deck/getDealPlayer", 
     async (thunkAPI) => {
         try {
             axios.defaults.withCredentials = true;
@@ -59,7 +59,7 @@ export const getDealPlayer = createAsyncThunk(
     }
 );
 export const getDealDealer = createAsyncThunk(
-    "deck/getDeal", 
+    "deck/getDealDealer", 
     async (thunkAPI) => {
         try {
             axios.defaults.withCredentials = true;

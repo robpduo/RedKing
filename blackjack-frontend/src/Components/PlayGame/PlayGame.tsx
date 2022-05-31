@@ -29,16 +29,16 @@ export const PlayGame:React.FC<IDeck> = (deck:IDeck) => {
     const [isHandComplete, setIsHandComplete] = useState(true)
     const [winner, setWinner] = useState("")
 
-    useEffect(() => {
+    /* useEffect(() => {
         if(dealerCount > 21) {
-          setIsDealerBusted(true)
-          setWinner("player")
-          setIsHandComplete(true)
+          setIsDealerBusted(true);
+          setWinner("player");
+          setIsHandComplete(true);
         }
         if(dealerCount >= 17 && dealerCount < 22 && isDealersTurn) {
           if(dealerCount > playerCount) {
-            setWinner("dealer")
-            setIsHandComplete(true)
+            setWinner("dealer");
+            setIsHandComplete(true);
           }
           if(dealerCount < playerCount && !isPlayerBusted) {
             setWinner("player")
@@ -54,7 +54,7 @@ export const PlayGame:React.FC<IDeck> = (deck:IDeck) => {
             dispatch(getDealDealer())
           }, 500);
         }
-      }, [dealerCount])
+      }, [dealerCount]) */
 
     const handleGameInit = () => {
         if(gameStatus == "Game not initialized"){
@@ -105,13 +105,13 @@ export const PlayGame:React.FC<IDeck> = (deck:IDeck) => {
             }
             <div className="play-area">
                 <div className="dealer-hand-container">
-                    {deckInfo.dealerHand?.toString()}
+                    
                 </div>
 
                 <div className="deck-container"></div>
 
                 <div className="player-hand-container">
-                    {deckInfo.playerHand?.toString()}
+                    
                     
                 </div>
                 <button className="hit-button" onClick={handleHitButton}>Hit!</button>
