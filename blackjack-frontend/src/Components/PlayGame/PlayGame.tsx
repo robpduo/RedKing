@@ -5,6 +5,7 @@ import { IUser } from "../../Interfaces/IUser";
 import { getDealPlayer, getDealDealer, initializeDeck, getDeck } from "../../Slices/DeckSlice";
 import { AppDispatch, RootState } from "../../Store";
 
+// going inside PlaGamePage
 export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
 
 
@@ -125,6 +126,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
         {gameStatus.includes("Game not initialized") ?
           <div className="game-start-btn-container">
             {/* <button className="game-start-btn" onClick={handleGameInit}>Start Game</button> */}
+            <h1>BlacKing</h1>
           </div> : <></>
         }
         <div className="play-area">
