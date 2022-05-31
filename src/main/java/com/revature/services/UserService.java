@@ -114,6 +114,6 @@ public class UserService {
             u.setMoney(u.getMoney() - wh.getAmount());
         }
 
-        return ur.save(u);
+        return u;
     }
 }
