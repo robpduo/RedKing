@@ -131,14 +131,14 @@ export const deckSlice = createSlice({
 
         // reducers for Dealer Hand
 
-        builder.addCase(getDealPlayer.pending, (state,action) =>{
+        builder.addCase(getDealDealer.pending, (state,action) =>{
             state.loading = true;
         });
-        builder.addCase(getDealPlayer.rejected, (state,action)=>{
+        builder.addCase(getDealDealer.rejected, (state,action)=>{
             state.loading = false;
             state.error = true;
         });
-        builder.addCase(getDealPlayer.fulfilled, (state,action)=>{
+        builder.addCase(getDealDealer.fulfilled, (state,action)=>{
             state.dealerHand += action.payload;
             state.loading = false;
             state.error = false;

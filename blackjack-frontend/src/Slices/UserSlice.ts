@@ -5,6 +5,8 @@ import { IUser } from '../Interfaces/IUser';
 //Figure out our default state for this slice
 
 interface UserSliceState {
+  //loading: boolean,
+  // error: boolean,
   user?: IUser;
 }
 

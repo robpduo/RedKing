@@ -40,7 +40,7 @@ export const PlayGame:React.FC<IDeck> = (deck:IDeck) => {
     const handleHitButton = () => {
         if (userInfo && deckInfo) {
             dispatch(getDealPlayer());
-            setGameStatus("Start")
+            setGameStatus("Start");
         } else {
             setGameStatus("User not logged in");
             console.log(gameStatus);
@@ -64,9 +64,9 @@ export const PlayGame:React.FC<IDeck> = (deck:IDeck) => {
             </div> : <></>
             }
             { gameStatus.includes("begin") ?
-            <>
+            <div className="play-area">
                 <div className="dealer-hand-container">
-                    {dealerHand}
+                    
                 </div>
 
                 <div className="deck-container"></div>
@@ -76,7 +76,7 @@ export const PlayGame:React.FC<IDeck> = (deck:IDeck) => {
                     <button className="hit-button" onClick={handleHitButton}>Hit!</button>
                     <button className="stand-button" onClick={handleStandButton}>Stand!</button>
                 </div>
-            </> : <></>
+            </div> : <></>
             }   
 
 

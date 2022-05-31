@@ -4,6 +4,6 @@ import { IUser } from "./IUser";
 export interface IDeck {
     id?: number,
     user: IUser,
-    card: ICard[],
+    card?: ICard[],
     size: number
 }
