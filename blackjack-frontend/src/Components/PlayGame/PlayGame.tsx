@@ -14,7 +14,47 @@ export const PlayGame:React.FC<IDeck> = (deck:IDeck) => {
     const playerHand = useSelector((state:RootState) => state.deck.playerHand);
     const dealerHand = useSelector((state:RootState) => state.deck.dealerHand);
     const [gameStatus, setGameStatus] = useState("Game not initialized");
+    
+    const [chipCount, setChipCount] = useState(1000)
+    const [betAmount, setBetAmount] = useState(0)
+    const [lockedBet, setLockedBet] = useState(0)
+    const [previousBet, setPreviousBet] = useState(0)
+    const [dealerCount, setDealerCount] = useState(0) 
+    const [playerCount, setPlayerCount] = useState(0)
+    const [isBlackjack, setIsBlackJack] = useState(false)
+    const [isPlayerBusted, setIsPlayerBusted] = useState(false)
+    //const [didDouble, setDidDouble] = useState(false)
+    const [isDealersTurn, setIsDealersTurn] = useState(false)
+    const [isDealerBusted, setIsDealerBusted] = useState(false)
+    const [isHandComplete, setIsHandComplete] = useState(true)
+    const [winner, setWinner] = useState("")
 
+    useEffect(() => {
+        if(dealerCount > 21) {
+          setIsDealerBusted(true)
+          setWinner("player")
+          setIsHandComplete(true)
+        }
+        if(dealerCount >= 17 && dealerCount < 22 && isDealersTurn) {
+          if(dealerCount > playerCount) {
+            setWinner("dealer")
+            setIsHandComplete(true)
+          }
+          if(dealerCount < playerCount && !isPlayerBusted) {
+            setWinner("player")
+            setIsHandComplete(true)
+          }
+          if(dealerCount === playerCount && !isPlayerBusted) {
+            setWinner("push")
+            setIsHandComplete(true)
+          }
+        }
+        if(dealerCount < 17 && isDealersTurn && !isPlayerBusted) {
+          setTimeout(() => {
+            dispatch(getDealDealer())
+          }, 500);
+        }
+      }, [dealerCount])
 
     const handleGameInit = () => {
         if(gameStatus == "Game not initialized"){
@@ -63,21 +103,20 @@ export const PlayGame:React.FC<IDeck> = (deck:IDeck) => {
                 <button className="game-start-btn" onClick={handleGameInit}>Start Game</button>
             </div> : <></>
             }
-            { gameStatus.includes("begin") ?
             <div className="play-area">
                 <div className="dealer-hand-container">
-                    
+                    {deckInfo.dealerHand?.toString()}
                 </div>
 
                 <div className="deck-container"></div>
 
                 <div className="player-hand-container">
-                    {playerHand}
-                    <button className="hit-button" onClick={handleHitButton}>Hit!</button>
-                    <button className="stand-button" onClick={handleStandButton}>Stand!</button>
+                    {deckInfo.playerHand?.toString()}
+                    
                 </div>
-            </div> : <></>
-            }   
+                <button className="hit-button" onClick={handleHitButton}>Hit!</button>
+                    <button className="stand-button" onClick={handleStandButton}>Stand!</button>
+            </div>
 
 
 
