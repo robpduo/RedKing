@@ -19,11 +19,11 @@ const initialDeckState:DeckSliceState = {
 }
 
 type userProfile = {
-    id?: number,
-    email: string,
-    firstName: string,
-    lastName: string,
-    money: number
+    id?: number | undefined,
+    email: string | undefined,
+    firstName: string | undefined,
+    lastName: string | undefined,
+    money: number | undefined
 }
 
 export const initializeDeck = createAsyncThunk(
