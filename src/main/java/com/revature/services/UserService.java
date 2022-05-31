@@ -1,10 +1,12 @@
 package com.revature.services;
 
+import com.revature.exceptions.InsufficientFundsException;
 import com.revature.exceptions.InvalidDepositAmount;
 import com.revature.exceptions.InvalidEmailOrPasswordException;
 import com.revature.exceptions.UserEmailAlreadyExistsException;
 import com.revature.models.DepositHelper;
 import com.revature.models.User;
+import com.revature.models.WithdrawHelper;
 import com.revature.repository.UserRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,5 +98,22 @@ public class UserService {
         return userList;
     }
 
+    /**
+     * Retrieves user from DB and updates balance if withdrawal amount is lower than account balance
+     * @param withdrawHelper (userId, amount)
+     * @return updated user
+     * @throws InsufficientFundsException
+     */
+    public User withdraw(WithdrawHelper wh) throws InsufficientFundsException {
+        User u = ur.findByUserId(wh.getUserId());
 
+        //Withdrawal amount is greater than score/account balance
+        if (u.getMoney() < wh.getAmount()) {
+            throw new InsufficientFundsException();
+        } else {
+            u.setMoney(u.getMoney() - wh.getAmount());
+        }
+
+        return u;
+    }
 }
