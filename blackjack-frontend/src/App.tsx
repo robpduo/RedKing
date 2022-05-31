@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { HomeScreen } from './Views/HomeScreen/HomeScreen';
 import { LoginPage } from './Views/LoginPage/LoginPage';
 import { RegisterPage } from './Views/RegisterPage/RegisterPage';
-import { PlayGamePage } from './Views/PlayGamePage/PlayGame';
+import { PlayGamePage } from './Views/PlayGamePage/PlayGamePage';
 
 function App() {
   return (

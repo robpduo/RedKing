@@ -1,4 +1,3 @@
-import { stat } from "fs";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { IDeck } from "../../Interfaces/IDeck";
@@ -16,21 +15,21 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
   const dealerHand = useSelector((state: RootState) => state.deck.dealerHand);
   const [gameStatus, setGameStatus] = useState("Game not initialized");
 
-  const [chipCount, setChipCount] = useState(1000);
-  const [betAmount, setBetAmount] = useState(0);
-  const [lockedBet, setLockedBet] = useState(0);
-  const [previousBet, setPreviousBet] = useState(0);
-  const [dealerCount, setDealerCount] = useState(0);
-  const [playerCount, setPlayerCount] = useState(0);
-  const [isBlackjack, setIsBlackJack] = useState(false);
-  const [isPlayerBusted, setIsPlayerBusted] = useState(false);
-  //const [didDouble, setDidDouble] = useState(false);
-  const [isDealersTurn, setIsDealersTurn] = useState(false);
-  const [isDealerBusted, setIsDealerBusted] = useState(false);
-  const [isHandComplete, setIsHandComplete] = useState(true);
-  const [winner, setWinner] = useState("");
+  // const [chipCount, setChipCount] = useState(1000);
+  // const [betAmount, setBetAmount] = useState(0);
+  // const [lockedBet, setLockedBet] = useState(0);
+  // const [previousBet, setPreviousBet] = useState(0);
+  // const [dealerCount, setDealerCount] = useState(0);
+  // const [playerCount, setPlayerCount] = useState(0);
+  // const [isBlackjack, setIsBlackJack] = useState(false);
+  // const [isPlayerBusted, setIsPlayerBusted] = useState(false);
+  // //const [didDouble, setDidDouble] = useState(false);
+  // const [isDealersTurn, setIsDealersTurn] = useState(false);
+  // const [isDealerBusted, setIsDealerBusted] = useState(false);
+  // const [isHandComplete, setIsHandComplete] = useState(true);
+  // const [winner, setWinner] = useState("");
 
-  console.log("coming from PlayGame line 32 ", userInfo);
+  console.log("coming from PlayGame line 32 ", userInfo.user);
 
   /* useEffect(() => {
       if(dealerCount > 21) {
@@ -69,12 +68,12 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
     if (userInfo.user) {
       // init and shuffle deck
       let user:IUser = {
-        id: userInfo.user?.id,
-        email: userInfo.user?.email,
-        password: userInfo.user?.password,
-        fName: userInfo.user?.fName,
-        lName: userInfo.user?.lName,
-        money: userInfo.user?.money
+        userId: userInfo.user!.userId,
+        email: userInfo.user!.email,
+        password: userInfo.user!.password,
+        firstName: userInfo.user!.firstName,
+        lastName: userInfo.user!.lastName,
+        money: userInfo.user!.money
     }
 
     dispatch(initializeDeck(user));
@@ -102,30 +101,30 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
      
   }
 
-  const handleHitButton = () => {
-    if (userInfo && deckInfo) {
-      dispatch(getDealPlayer());
-      setGameStatus("Start");
-    } else {
-      setGameStatus("User not logged in");
-      console.log(gameStatus);
-    }
-  }
+  // const handleHitButton = () => {
+  //   if (userInfo && deckInfo) {
+  //     dispatch(getDealPlayer());
+  //     setGameStatus("Start");
+  //   } else {
+  //     setGameStatus("User not logged in");
+  //     console.log(gameStatus);
+  //   }
+  // }
 
-  const handleStandButton = () => {
+  // const handleStandButton = () => {
 
-    if (deckInfo && playerHand) {
-      dispatch(getDealDealer);
-    }
+  //   if (deckInfo && playerHand) {
+  //     dispatch(getDealDealer);
+  //   }
 
-  }
+  // }
 
   return (
     <>
       <div className="game-container">
         {gameStatus.includes("Game not initialized") ?
           <div className="game-start-btn-container">
-            <button className="game-start-btn" onClick={handleGameInit}>Start Game</button>
+            {/* <button className="game-start-btn" onClick={handleGameInit}>Start Game</button> */}
           </div> : <></>
         }
         <div className="play-area">
@@ -139,8 +138,8 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
 
 
           </div>
-          <button className="hit-button" onClick={handleHitButton}>Hit!</button>
-          <button className="stand-button" onClick={handleStandButton}>Stand!</button>
+          {/* <button className="hit-button" onClick={handleHitButton}>Hit!</button>
+          <button className="stand-button" onClick={handleStandButton}>Stand!</button> */}
         </div>
 
 

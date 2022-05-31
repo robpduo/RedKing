@@ -1,4 +1,5 @@
 import {createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import React from "react";
 import axios from "axios";
 import { ICard } from "../Interfaces/ICard";
 import { IDeck } from "../Interfaces/IDeck";
@@ -9,6 +10,7 @@ interface DeckSliceState {
     loading: boolean,
     error: boolean,
     deck?: IDeck[],
+    cards?: ICard[],
     playerHand?: ICard[],
     dealerHand?: ICard[]
 }
@@ -32,7 +34,7 @@ export const initializeDeck = createAsyncThunk(
     "deck/initialize",
     async (user:IUser, thunkAPI) => {
         try {
-            axios.defaults.withCredentials = true;
+            
             const res = await axios.post("http://localhost:8000/deck/initialize", user);
             console.log(res.data);
             return res.data;
@@ -40,13 +42,13 @@ export const initializeDeck = createAsyncThunk(
             console.log(e);
         }
     }
-);
+)
 
 export const getDeck = createAsyncThunk(
     "deck/getDeck",
     async (thunkAPI) => {
         try {
-            axios.defaults.withCredentials = true;
+            
             const res = await axios.get("http://localhost:8000/deck/getDeck");
             console.log(res.data);
             return res.data;
@@ -60,7 +62,7 @@ export const getDealPlayer = createAsyncThunk(
     "deck/getDealPlayer", 
     async (thunkAPI) => {
         try {
-            axios.defaults.withCredentials = true;
+            
             const res = await axios.get("http://localhost:8000/deck/deal");
             console.log(res.data);
             return res.data;
@@ -73,7 +75,7 @@ export const getDealDealer = createAsyncThunk(
     "deck/getDealDealer", 
     async (thunkAPI) => {
         try {
-            axios.defaults.withCredentials = true;
+            
             const res = await axios.get("http://localhost:8000/deck/deal");
             console.log(res.data);
             return res.data;

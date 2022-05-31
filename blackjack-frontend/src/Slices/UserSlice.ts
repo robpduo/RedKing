@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import React from 'react';
 import axios from 'axios';
 import { IUser } from '../Interfaces/IUser';
 
@@ -8,8 +9,7 @@ import { IUser } from '../Interfaces/IUser';
 interface UserSliceState {
   loading: boolean,
   error: boolean,
-  user?: IUser;
-  currentProfile?: IUser
+  user?: IUser
 }
 
 const initialUserState: UserSliceState = {
@@ -38,11 +38,11 @@ export const loginUser = createAsyncThunk(
       console.log('coming from loginUser async line 32 ', res.data);
 
       return {
-        id: res.data.id,
+        userId: res.data.userId,
         email: res.data.email,
         password: res.data.password,
-        fName: res.data.fName,
-        lName: res.data.lName,
+        firstName: res.data.firstName,
+        lastName: res.data.lastName,
         money: res.data.money
     }
     } catch (e) {
@@ -95,7 +95,7 @@ export const UserSlice = createSlice({
     // });
     builder.addCase(loginUser.fulfilled, (state, action) => {
       //The payload in this case, is the return from our asyncThunk from above
-      state.currentProfile = action.payload;
+      state.user = action.payload;
       // state.error = false;
       // state.loading = false;
     });
