@@ -103,7 +103,7 @@ public class DeckService {
         List<Deck> allDecks = new ArrayList<>();
         allDecks = dr.findAll();
 
-        //find a deck that is in-play (deck size > 0)
+        //find a deck that is in-play (deck size > 0) that belongs to the user
         for (Deck deck : allDecks) {
             if (deck.getDeckSize() > 0 && deck.getUser().getUserId() == curUser.getUserId()) {
                 return deck;
