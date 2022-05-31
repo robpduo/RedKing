@@ -4,4 +4,5 @@ export interface IUser {
   password: string;
   fName: string;
   lName: string;
+  money: number
 }
