@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { IUser } from '../Interfaces/IUser';
 
+
 //Figure out our default state for this slice
 
 interface UserSliceState {

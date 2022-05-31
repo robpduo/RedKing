@@ -58,7 +58,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
       }
     }, [dealerCount]) */
 
-  const [id, setId] = useState(userInfo.user?.id)
+  // const [id, setId] = useState(userInfo.user?.id)
   // const [lockedBet, setLockedBet] = useState(0)
   // const [previousBet, setPreviousBet] = useState(0)
   // const [dealerCount, setDealerCount] = useState(0)
@@ -67,19 +67,19 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
   const handleGameInit = () => {
     if (gameStatus == "Game not initialized") {
       // init and shuffle deck
-      let userProfile = {
-        id: id,
-        email: userInfo.user?.email,
-        firstName: userInfo.user?.fName,
-        lastName: userInfo.user?.lName,
-        money: userInfo.user?.money
-      }
+      // let userProfile = {
+      //   id: id,
+      //   email: userInfo.user?.email,
+      //   firstName: userInfo.user?.fName,
+      //   lastName: userInfo.user?.lName,
+      //   money: userInfo.user?.money
+      // }
 
       console.log(userInfo.user);
 
-      if (userInfo != null) {
-        dispatch(initializeDeck(userProfile));
-      }
+      // if (userInfo != null) {
+      //   dispatch(initializeDeck(userProfile));
+      // }
 
 
       //retrieve deck from database
