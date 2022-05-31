@@ -2,6 +2,7 @@ import { stat } from "fs";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { IDeck } from "../../Interfaces/IDeck";
+import { IUser } from "../../Interfaces/IUser";
 import { getDealPlayer, getDealDealer, initializeDeck, getDeck } from "../../Slices/DeckSlice";
 import { AppDispatch, RootState } from "../../Store";
 
@@ -15,19 +16,19 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
   const dealerHand = useSelector((state: RootState) => state.deck.dealerHand);
   const [gameStatus, setGameStatus] = useState("Game not initialized");
 
-  const [chipCount, setChipCount] = useState(1000)
-  const [betAmount, setBetAmount] = useState(0)
-  const [lockedBet, setLockedBet] = useState(0)
-  const [previousBet, setPreviousBet] = useState(0)
-  const [dealerCount, setDealerCount] = useState(0)
-  const [playerCount, setPlayerCount] = useState(0)
-  const [isBlackjack, setIsBlackJack] = useState(false)
-  const [isPlayerBusted, setIsPlayerBusted] = useState(false)
-  //const [didDouble, setDidDouble] = useState(false)
-  const [isDealersTurn, setIsDealersTurn] = useState(false)
-  const [isDealerBusted, setIsDealerBusted] = useState(false)
-  const [isHandComplete, setIsHandComplete] = useState(true)
-  const [winner, setWinner] = useState("")
+  const [chipCount, setChipCount] = useState(1000);
+  const [betAmount, setBetAmount] = useState(0);
+  const [lockedBet, setLockedBet] = useState(0);
+  const [previousBet, setPreviousBet] = useState(0);
+  const [dealerCount, setDealerCount] = useState(0);
+  const [playerCount, setPlayerCount] = useState(0);
+  const [isBlackjack, setIsBlackJack] = useState(false);
+  const [isPlayerBusted, setIsPlayerBusted] = useState(false);
+  //const [didDouble, setDidDouble] = useState(false);
+  const [isDealersTurn, setIsDealersTurn] = useState(false);
+  const [isDealerBusted, setIsDealerBusted] = useState(false);
+  const [isHandComplete, setIsHandComplete] = useState(true);
+  const [winner, setWinner] = useState("");
 
   console.log("coming from PlayGame line 32 ", userInfo);
 
@@ -65,20 +66,24 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
   // const [playerCount, setPlayerCount] = useState(0)
 
   const handleGameInit = () => {
-    if (gameStatus == "Game not initialized") {
+    if (userInfo.user) {
       // init and shuffle deck
-      // let userProfile = {
-      //   id: id,
-      //   email: userInfo.user?.email,
-      //   firstName: userInfo.user?.fName,
-      //   lastName: userInfo.user?.lName,
-      //   money: userInfo.user?.money
-      // }
+      let user:IUser = {
+        id: userInfo.user?.id,
+        email: userInfo.user?.email,
+        password: userInfo.user?.password,
+        fName: userInfo.user?.fName,
+        lName: userInfo.user?.lName,
+        money: userInfo.user?.money
+    }
+
+    dispatch(initializeDeck(user));
+  }
 
       console.log(userInfo.user);
 
       // if (userInfo != null) {
-      //   dispatch(initializeDeck(userProfile));
+      //   
       // }
 
 
@@ -94,9 +99,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
       console.log(playerHand);
       console.log(dealerHand);
       setGameStatus("begin");
-    } else {
-      console.log("game already started");
-    }
+     
   }
 
   const handleHitButton = () => {

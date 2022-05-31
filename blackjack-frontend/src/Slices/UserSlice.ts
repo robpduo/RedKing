@@ -9,6 +9,7 @@ interface UserSliceState {
   loading: boolean,
   error: boolean,
   user?: IUser;
+  currentProfile?: IUser
 }
 
 const initialUserState: UserSliceState = {
@@ -36,7 +37,14 @@ export const loginUser = createAsyncThunk(
 
       console.log('coming from loginUser async line 32 ', res.data);
 
-      return res.data;
+      return {
+        id: res.data.id,
+        email: res.data.email,
+        password: res.data.password,
+        fName: res.data.fName,
+        lName: res.data.lName,
+        money: res.data.money
+    }
     } catch (e) {
       return thunkAPI.rejectWithValue('something went wrong');
     }
@@ -87,7 +95,7 @@ export const UserSlice = createSlice({
     // });
     builder.addCase(loginUser.fulfilled, (state, action) => {
       //The payload in this case, is the return from our asyncThunk from above
-      state.user = action.payload;
+      state.currentProfile = action.payload;
       // state.error = false;
       // state.loading = false;
     });

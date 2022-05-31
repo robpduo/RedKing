@@ -18,20 +18,22 @@ const initialDeckState:DeckSliceState = {
     error: false
 }
 
+/*
 type userProfile = {
     id?: number | undefined,
     email: string | undefined,
     firstName: string | undefined,
     lastName: string | undefined,
     money: number | undefined
-}
+} 
+*/
 
 export const initializeDeck = createAsyncThunk(
     "deck/initialize",
-    async (credentials: userProfile, thunkAPI) => {
+    async (user:IUser, thunkAPI) => {
         try {
             axios.defaults.withCredentials = true;
-            const res = await axios.post("http://localhost:8000/deck/initialize", credentials);
+            const res = await axios.post("http://localhost:8000/deck/initialize", user);
             console.log(res.data);
             return res.data;
         } catch (e) {
