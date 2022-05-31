@@ -15,10 +15,12 @@ const initialUserState: UserSliceState = {
    loading: true,
 };
 
+
 type Login = {
   email: string;
   password: string;
 };
+
 
 // called from LoginForm component
 export const loginUser = createAsyncThunk(

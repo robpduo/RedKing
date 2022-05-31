@@ -29,6 +29,8 @@ export const PlayGame:React.FC<IDeck> = (deck:IDeck) => {
     const [isHandComplete, setIsHandComplete] = useState(true)
     const [winner, setWinner] = useState("")
 
+    console.log("coming from PlayGame line 32 ", userInfo);
+
     /* useEffect(() => {
         if(dealerCount > 21) {
           setIsDealerBusted(true);
@@ -59,7 +61,10 @@ export const PlayGame:React.FC<IDeck> = (deck:IDeck) => {
     const handleGameInit = () => {
         if(gameStatus == "Game not initialized"){
             //init and shuffle deck
-            dispatch(initializeDeck);
+
+
+
+            // dispatch(initializeDeck(userInfo.user));
             
             //retrieve deck from database
             dispatch(getDeck);

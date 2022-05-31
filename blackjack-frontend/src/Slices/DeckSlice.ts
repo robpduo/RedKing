@@ -2,6 +2,7 @@ import {createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { ICard } from "../Interfaces/ICard";
 import { IDeck } from "../Interfaces/IDeck";
+import { IUser } from "../Interfaces/IUser";
 
 
 interface DeckSliceState {
@@ -17,12 +18,20 @@ const initialDeckState:DeckSliceState = {
     error: false
 }
 
+type userProfile = {
+    id?: number,
+    email: string,
+    firstName: string,
+    lastName: string,
+    money: number
+}
+
 export const initializeDeck = createAsyncThunk(
     "deck/initialize",
-    async (thunkAPI) => {
+    async (credentials: userProfile, thunkAPI) => {
         try {
             axios.defaults.withCredentials = true;
-            const res = await axios.get("http://localhost:8000/deck/initialize");
+            const res = await axios.post("http://localhost:8000/deck/initialize", credentials);
             console.log(res.data);
             return res.data;
         } catch (e) {
