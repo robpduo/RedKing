@@ -5,7 +5,7 @@ import { AppDispatch, RootState } from '../../Store';
 import { ICard } from "../../Interfaces/ICard";
 import { access, readlink } from 'fs';
 
-export const ValueCounter: React.FC<any> = (spinner: any) => {
+export const ValueCounter: React.FC<any> = (person: number) => {
     //get members of the state needed to calculate values
     const playerHand = useSelector((state: RootState) => state.deck.playerHand);
     const dealerHand = useSelector((state: RootState) => state.deck.dealerHand);
@@ -131,8 +131,7 @@ export const ValueCounter: React.FC<any> = (spinner: any) => {
     //how the counts are displayed
     return (
         <div className = "allHandValues">
-        <div className = "playerHandValue"><p>{playerCount}</p> </div>
-        <div className = "dealerHandValue"><p>{dealerCount}</p> </div>
+        {person == 0 ? <div className = "playerHandValue"><p>{playerCount}</p> </div> : <div className = "dealerHandValue"><p>{dealerCount}</p> </div>}
         </div>
     );
 };
