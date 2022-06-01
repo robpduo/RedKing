@@ -32,7 +32,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
   // const [isHandComplete, setIsHandComplete] = useState(true);
   // const [winner, setWinner] = useState("");
 
-  console.log("coming from PlayGame line 32 ", userInfo.user);
+
 
   /* useEffect(() => {
       if(dealerCount > 21) {
@@ -135,7 +135,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
         <div className="selectionArea">
             <h1>BlacKing</h1>
 
-            <button>
+            <button onClick={handleGameInit}>
               Start
             </button>
             <button>

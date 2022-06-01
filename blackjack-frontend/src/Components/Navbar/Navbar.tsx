@@ -11,8 +11,7 @@ export const Navbar: React.FC = () => {
   // const navigator = useNavigate();
 
   const userInfo = useSelector((state: RootState) => state.user.user);
-    console.log("coming from Navbar line 22 useEffect ", userInfo && userInfo.firstName );
-
+  console.log('coming from Navbar line 15 ', userInfo);
 
   // const handleLogout = () => {
   //   dispatch(logoutUser());
@@ -29,11 +28,14 @@ export const Navbar: React.FC = () => {
       </Link> */}
 
       <div className="navMenu">
-          <p>{userInfo ? userInfo.firstName : "Anonymous"}</p>
-          <Link to="/money"><button className="moneyBtn">Money</button></Link>
-          
+        <p>{userInfo ? userInfo.firstName : 'Anonymous'}</p>
+        <div className="moneyContainer">
+          <Link to="/money">
+            <button className="moneyBtn">Add Money</button>
+          </Link>
+          <p>{userInfo ? `$${userInfo.money}` : '$0.00'}</p>
+        </div>
       </div>
-
     </nav>
   );
 };

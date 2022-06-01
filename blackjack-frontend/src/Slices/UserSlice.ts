@@ -3,26 +3,23 @@ import React from 'react';
 import axios from 'axios';
 import { IUser } from '../Interfaces/IUser';
 
-
 //Figure out our default state for this slice
 
 interface UserSliceState {
-  loading: boolean,
-  error: boolean,
-  user?: IUser
+  loading: boolean;
+  error: boolean;
+  user?: IUser;
 }
 
 const initialUserState: UserSliceState = {
-   error: false,
-   loading: true,
+  error: false,
+  loading: true,
 };
-
 
 type Login = {
   email: string;
   password: string;
 };
-
 
 // called from LoginForm component
 export const loginUser = createAsyncThunk(
@@ -43,8 +40,8 @@ export const loginUser = createAsyncThunk(
         password: res.data.password,
         firstName: res.data.firstName,
         lastName: res.data.lastName,
-        money: res.data.money
-    }
+        money: res.data.money,
+      };
     } catch (e) {
       return thunkAPI.rejectWithValue('something went wrong');
     }
@@ -59,9 +56,9 @@ type Register = {
 };
 
 type ManageMoney = {
-  userId: number,
-  amount: number
-}
+  userId: number;
+  amount: number;
+};
 
 // called from LoginForm component
 export const registerUser = createAsyncThunk(
@@ -157,7 +154,7 @@ export const UserSlice = createSlice({
       state.user = action.payload;
     });
   },
-}); 
+});
 
 // //If we had normal actions and reducers we would export them like this
 // export const { toggleError } = UserSlice.actions;
