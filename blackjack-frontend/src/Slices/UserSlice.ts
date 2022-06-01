@@ -6,9 +6,10 @@ import { IUser } from '../Interfaces/IUser';
 //Figure out our default state for this slice
 
 interface UserSliceState {
-  loading: boolean;
-  error: boolean;
-  user?: IUser;
+  loading: boolean,
+  error: boolean,
+  user?: IUser,
+  users?: IUser[]
 }
 
 const initialUserState: UserSliceState = {
@@ -40,8 +41,8 @@ export const loginUser = createAsyncThunk(
         password: res.data.password,
         firstName: res.data.firstName,
         lastName: res.data.lastName,
-        money: res.data.money,
-      };
+        money: res.data.money
+      }
     } catch (e) {
       return thunkAPI.rejectWithValue('something went wrong');
     }
@@ -100,7 +101,6 @@ export const withdrawMoney = createAsyncThunk(
   'user/withdraw',
   async (amount: ManageMoney, thunkAPI) => {
     try {
-      // axios.defaults.withCredentials = true;
       const res = await axios.post(
         'http://localhost:8000/user/withdraw',
         amount
@@ -108,6 +108,19 @@ export const withdrawMoney = createAsyncThunk(
       return res.data;
     } catch (e) {
       return thunkAPI.rejectWithValue('something went wrong');
+    }
+  }
+);
+
+export const retrieveUserScores = createAsyncThunk(
+  'user/scores',
+  async (thunkAPI) => {
+    try {
+      const res = await axios.get('http://localhost:8000/user/allUsers');
+      console.log("Line 123", res.data);
+      return (res.data);
+    } catch (e) {
+      console.log("Some Error");
     }
   }
 );
@@ -123,29 +136,19 @@ export const UserSlice = createSlice({
   },
 
   extraReducers: (builder) => {
-    // //This is where we would create our reducer logic
-    // builder.addCase(loginUser.pending, (state, action) => {
-    //   // state.loading = true;
-    // });
     builder.addCase(loginUser.fulfilled, (state, action) => {
-      //The payload in this case, is the return from our asyncThunk from above
       state.user = action.payload;
       // state.error = false;
       // state.loading = false;
     });
     builder.addCase(loginUser.rejected, (state, action) => {
       // state.error = true;
-      // state.loading = false;
+      //
     });
 
-    // builder.addCase(registerUser.pending, (state, action) => {
-    //   // state.loading = true;
-    // });
     builder.addCase(registerUser.fulfilled, (state, action) => {
-      //The payload in this case, is the return from our asyncThunk from above
       state.user = action.payload;
       // state.error = false;
-      // state.loading = false;
     });
     builder.addCase(depositMoney.fulfilled, (state, action) => {
       state.user = action.payload;
@@ -153,10 +156,13 @@ export const UserSlice = createSlice({
     builder.addCase(withdrawMoney.fulfilled, (state, action) => {
       state.user = action.payload;
     });
+    builder.addCase(retrieveUserScores.fulfilled, (state, action) => {
+      state.users = action.payload;
+    });
   },
 });
 
-// //If we had normal actions and reducers we would export them like this
+// If we had normal actions and reducers we would export them like this
 // export const { toggleError } = UserSlice.actions;
 
 export default UserSlice.reducer;
