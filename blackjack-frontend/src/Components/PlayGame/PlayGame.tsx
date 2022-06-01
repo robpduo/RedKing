@@ -20,11 +20,15 @@ import heartKing from '../../images/heartKing.png';
 // going inside PlaGamePage
 export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
   const dispatch: AppDispatch = useDispatch();
+
   const deckInfo = useSelector((state: RootState) => state.deck);
   const userInfo = useSelector((state: RootState) => state.user);
   const playerHand = useSelector((state: RootState) => state.deck.playerHand);
   const dealerHand = useSelector((state: RootState) => state.deck.dealerHand);
+  const isDeck = useSelector((state: RootState) => state.deck.isDeck);
+
   const [gameStatus, setGameStatus] = useState('Game not initialized');
+  console.log('coming from PlayGame line 31 ', isDeck);
 
   // const [chipCount, setChipCount] = useState(1000);
   // const [betAmount, setBetAmount] = useState(0);
@@ -144,33 +148,35 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
           <button>Score</button>
         </div>
 
-        <div className="playArea">
-          <div className="dealContainer">
-            <h1> dealer </h1>
-            <img src={spade2} />
-            <img src={diamondQueen} />
-          </div>
+        {isDeck && (
+          <div className="playArea">
+            <div className="dealContainer">
+              <h1> dealer </h1>
+              <img src={spade2} />
+              <img src={diamondQueen} />
+            </div>
 
-          <div className="userContainer">
-            <h1>User</h1>
+            <div className="userContainer">
+              <h1>User</h1>
 
-            <img src={spadeAce} />
-            <img src={heartKing} />
-          </div>
+              <img src={spadeAce} />
+              <img src={heartKing} />
+            </div>
 
-          {/* <div className="dealer-hand-container">
+            {/* <div className="dealer-hand-container">
 
           </div> */}
 
-          {/* <div className="deck-container"></div>
+            {/* <div className="deck-container"></div>
 
           <div className="player-hand-container">
 
 
           </div> */}
-          {/* <button className="hit-button" onClick={handleHitButton}>Hit!</button>
+            {/* <button className="hit-button" onClick={handleHitButton}>Hit!</button>
           <button className="stand-button" onClick={handleStandButton}>Stand!</button> */}
-        </div>
+          </div>
+        )}
       </div>
     </>
   );
