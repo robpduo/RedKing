@@ -36,7 +36,7 @@ export const Money: React.FC = () => {
         <div className="moneyHomeScreen">
             <div className="btnContainer">
                 
-                <div className="inputDiv">
+                <div className="moneyInputDiv">
                     <img className="moneyImg" src={"/images/money.jpg"} alt="Money"/>
                     <input
                         autoComplete="off"
