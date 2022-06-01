@@ -12,10 +12,10 @@ import {
 } from '../../Slices/DeckSlice';
 import { AppDispatch, RootState } from '../../Store';
 
-import spade2 from '../../images/2club.png';
-import diamondQueen from '../../images/queendiamond.png';
-import spadeAce from '../../images/acespade.png';
-import heartKing from '../../images/kingheart.png';
+import spade2 from '../../images/clubTwo.png';
+import diamondQueen from '../../images/diamondQueen.png';
+import spadeAce from '../../images/spadeAce.png';
+import heartKing from '../../images/heartKing.png';
 
 // going inside PlaGamePage
 export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
