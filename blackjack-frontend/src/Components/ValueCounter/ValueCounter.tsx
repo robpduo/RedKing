@@ -33,45 +33,57 @@ export const ValueCounter: React.FC<any> = (person: number) => {
             suit: 3,
         }
     ];*/
-    //takes in a card and returns its value
-    //if the card is an ace, returns 1
-    let calcCardValue: (card: ICard) => number = function(
-        card: ICard
-    ): number {
-        let x = card.rank;
-        if (x == 1){
-            return 2;
-        }else if(x == 2){
-            return 3;
-        }else if(x == 3){
-            return 4;
-        }else if(x == 4){
-            return 5;
-        }else if(x == 5){
-            return 6;
-        }else if(x == 6){
-            return 7;
-        }else if(x == 7){
-            return 8;
-        }else if(x == 8){
-            return 9;
-        }else if(x == 9){
-            return 10;
-        }else if(x == 10){
-            return 10;
-        }else if(x == 11){
-            return 10;
-        }else if(x == 12){
-            return 10;
-        }else if(x == 0){
-            return 1;
-        }else{
-            return -1;
-        }
-    };
-    //takes in a hand and calculates its value
-    //always chooses most advantageous ace value
-    let calcHandValue: (hand: ICard[] | undefined) => number = function(
+    //when the hands change, recalculate and set them
+    useEffect(() => {
+        setDealerCount(calcVisibleDealerHandValue(dealerHand));
+        setPlayerCount(calcHandValue(playerHand));
+    }, [playerHand, dealerHand])
+    //how the counts are displayed
+    return (
+        <div className = "allHandValues">
+        {person == 0 ? <div className = "playerHandValue"><p>{playerCount}</p> </div> : <div className = "dealerHandValue"><p>{dealerCount}</p> </div>}
+        </div>
+    );
+};
+//takes in a card and returns its value
+//if the card is an ace, returns 1
+export const calcCardValue: (card: ICard) => number = function(
+    card: ICard
+): number {
+    let x = card.rank;
+    if (x == 1){
+        return 2;
+    }else if(x == 2){
+        return 3;
+    }else if(x == 3){
+        return 4;
+    }else if(x == 4){
+        return 5;
+    }else if(x == 5){
+        return 6;
+    }else if(x == 6){
+        return 7;
+    }else if(x == 7){
+        return 8;
+    }else if(x == 8){
+        return 9;
+    }else if(x == 9){
+        return 10;
+    }else if(x == 10){
+        return 10;
+    }else if(x == 11){
+        return 10;
+    }else if(x == 12){
+        return 10;
+    }else if(x == 0){
+        return 1;
+    }else{
+        return -1;
+    }
+};
+//takes in a hand and calculates its value
+//always chooses most advantageous ace value
+export const calcHandValue: (hand: ICard[] | undefined) => number = function(
         hand: ICard[] | undefined
     ): number {
         let value = 0;
@@ -96,7 +108,7 @@ export const ValueCounter: React.FC<any> = (person: number) => {
         return value;
     }
     //calculates what you can see of the dealer's hand
-    let calcVisibleDealerHandValue: (hand: ICard[] | undefined) => number = function(
+export const calcVisibleDealerHandValue: (hand: ICard[] | undefined) => number = function(
         hand: ICard[] | undefined
     ): number {
         let value = 0;
@@ -123,15 +135,3 @@ export const ValueCounter: React.FC<any> = (person: number) => {
         }
         return value;
     }
-    //when the hands change, recalculate and set them
-    useEffect(() => {
-        setDealerCount(calcVisibleDealerHandValue(dealerHand));
-        setPlayerCount(calcHandValue(playerHand));
-    }, [playerHand, dealerHand])
-    //how the counts are displayed
-    return (
-        <div className = "allHandValues">
-        {person == 0 ? <div className = "playerHandValue"><p>{playerCount}</p> </div> : <div className = "dealerHandValue"><p>{dealerCount}</p> </div>}
-        </div>
-    );
-};
