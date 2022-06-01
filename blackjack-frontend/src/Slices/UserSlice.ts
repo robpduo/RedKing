@@ -58,6 +58,11 @@ type Register = {
   lastName: string;
 };
 
+type ManageMoney = {
+  userId: number,
+  amount: number
+}
+
 // called from LoginForm component
 export const registerUser = createAsyncThunk(
   'user/register',
@@ -71,6 +76,38 @@ export const registerUser = createAsyncThunk(
 
       console.log('coming from registerUser async line 59 ', res.data);
 
+      return res.data;
+    } catch (e) {
+      return thunkAPI.rejectWithValue('something went wrong');
+    }
+  }
+);
+
+export const depositMoney = createAsyncThunk(
+  'user/deposit',
+  async (amount: ManageMoney, thunkAPI) => {
+    try {
+      // axios.defaults.withCredentials = true;
+      const res = await axios.post(
+        'http://localhost:8000/user/deposit',
+        amount
+      );
+      return res.data;
+    } catch (e) {
+      return thunkAPI.rejectWithValue('something went wrong');
+    }
+  }
+);
+
+export const withdrawMoney = createAsyncThunk(
+  'user/withdraw',
+  async (amount: ManageMoney, thunkAPI) => {
+    try {
+      // axios.defaults.withCredentials = true;
+      const res = await axios.post(
+        'http://localhost:8000/user/withdraw',
+        amount
+      );
       return res.data;
     } catch (e) {
       return thunkAPI.rejectWithValue('something went wrong');
@@ -113,12 +150,14 @@ export const UserSlice = createSlice({
       // state.error = false;
       // state.loading = false;
     });
-    builder.addCase(registerUser.rejected, (state, action) => {
-      // state.error = true;
-      // state.loading = false;
+    builder.addCase(depositMoney.fulfilled, (state, action) => {
+      state.user = action.payload;
+    });
+    builder.addCase(withdrawMoney.fulfilled, (state, action) => {
+      state.user = action.payload;
     });
   },
-});
+}); 
 
 // //If we had normal actions and reducers we would export them like this
 // export const { toggleError } = UserSlice.actions;

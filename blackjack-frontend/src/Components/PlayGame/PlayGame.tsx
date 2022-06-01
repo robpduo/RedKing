@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
+import "./PlayGame.css";
+
 import { useDispatch, useSelector } from "react-redux";
 import { IDeck } from "../../Interfaces/IDeck";
 import { IUser } from "../../Interfaces/IUser";
 import { getDealPlayer, getDealDealer, initializeDeck, getDeck } from "../../Slices/DeckSlice";
 import { AppDispatch, RootState } from "../../Store";
 
+// going inside PlaGamePage
 export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
 
 
@@ -121,28 +124,47 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
 
   return (
     <>
-      <div className="game-container">
-        {gameStatus.includes("Game not initialized") ?
+      <div className="gameContainer">
+        {/* {gameStatus.includes("Game not initialized") ?
           <div className="game-start-btn-container">
-            {/* <button className="game-start-btn" onClick={handleGameInit}>Start Game</button> */}
+            {/* <button className="game-start-btn" onClick={handleGameInit}>Start Game</button> 
+
           </div> : <></>
-        }
-        <div className="play-area">
-          <div className="dealer-hand-container">
+        } */}
 
-          </div>
+        <div className="selectionArea">
+            <h1>BlacKing</h1>
 
-          <div className="deck-container"></div>
+            <button>
+              Start
+            </button>
+            <button>
+              Stand
+            </button>
+            <button>
+              Value
+            </button>
+            <button>
+              Score
+            </button>
+        </div>
+
+        <div className="playArea">
+
+          <h1> Play Area </h1>
+          {/* <div className="dealer-hand-container">
+
+          </div> */}
+
+          {/* <div className="deck-container"></div>
 
           <div className="player-hand-container">
 
 
-          </div>
+          </div> */}
           {/* <button className="hit-button" onClick={handleHitButton}>Hit!</button>
           <button className="stand-button" onClick={handleStandButton}>Stand!</button> */}
         </div>
-
-
 
 
       </div>
