@@ -64,52 +64,9 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
   // const [dealerCount, setDealerCount] = useState(0)
   // const [playerCount, setPlayerCount] = useState(0)
 
-  const handleGameInit = () => {
-    if (userInfo.user) {
-      // init and shuffle deck
-      let user:IUser = {
-        userId: userInfo.user!.userId,
-        email: userInfo.user!.email,
-        password: userInfo.user!.password,
-        firstName: userInfo.user!.firstName,
-        lastName: userInfo.user!.lastName,
-        money: userInfo.user!.money
-    }
+  
 
-    dispatch(initializeDeck(user));
-  }
-
-      console.log(userInfo.user);
-
-      // if (userInfo != null) {
-      //   
-      // }
-
-
-      //retrieve deck from database
-      dispatch(getDeck);
-
-
-      //deals out initial 4 cards to player and dealer 
-      dispatch(getDealPlayer);
-      dispatch(getDealPlayer);
-      dispatch(getDealDealer);
-      dispatch(getDealDealer);
-      console.log(playerHand);
-      console.log(dealerHand);
-      setGameStatus("begin");
-     
-  }
-
-  // const handleHitButton = () => {
-  //   if (userInfo && deckInfo) {
-  //     dispatch(getDealPlayer());
-  //     setGameStatus("Start");
-  //   } else {
-  //     setGameStatus("User not logged in");
-  //     console.log(gameStatus);
-  //   }
-  // }
+  // 
 
   // const handleStandButton = () => {
 
@@ -138,7 +95,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
 
 
           </div>
-          {/* <button className="hit-button" onClick={handleHitButton}>Hit!</button>
+          {/* 
           <button className="stand-button" onClick={handleStandButton}>Stand!</button> */}
         </div>
 

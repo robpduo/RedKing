@@ -4,6 +4,8 @@ import { PlayGame } from "../../Components/PlayGame/PlayGame";
 
 
 export const PlayGamePage:React.FC = () => {
+    
+    
     return(
         <>
         <Navbar/>
