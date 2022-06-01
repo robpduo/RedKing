@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { IUser } from '../../Interfaces/IUser';
 import { retrieveUserScores } from '../../Slices/UserSlice';
@@ -12,7 +12,7 @@ const HighScore: React.FC = () => {
   useEffect(() => {
     dispatch(retrieveUserScores());
     console.log(userState.users);
-    console.log("X");
+    console.log('X');
   }, []);
 
   return (
@@ -27,11 +27,10 @@ const HighScore: React.FC = () => {
       </thead>
 
       {userState.users?.map((user: IUser) => {
-        return <ScoreRows {...user} key={user.userId} />
+        return <ScoreRows {...user} key={user.userId} />;
       })}
-
     </table>
-  )
-}
+  );
+};
 
-export default HighScore
+export default HighScore;
