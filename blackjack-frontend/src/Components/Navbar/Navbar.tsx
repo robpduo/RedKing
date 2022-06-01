@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import './Navbar.css';
-
+import { LogOutButton } from '../LogOutButton/LogOutButton';
 import { Link } from 'react-router-dom';
 // import { useSelector, useDispatch } from 'react-redux';
 
@@ -39,7 +39,7 @@ export const Navbar: React.FC = () => {
         </li>
 
         <li className="logout">
-          <button className="eLogoutBtn">Logout</button>
+         <LogOutButton/>
         </li>
       </ul>
     </nav>
