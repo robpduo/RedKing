@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { depositMoney, withdrawMoney } from "../../Slices/UserSlice";
 import { AppDispatch, RootState } from "../../Store";
 
-
+import "./Money.css";
 
 export const Money: React.FC = () => {
     const userState = useSelector((state:RootState) => state.user.user)
@@ -17,7 +17,7 @@ export const Money: React.FC = () => {
         setMoney(event.target.value);
     };
 
-    const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const handleSubmit = (event: React.MouseEvent<HTMLInputElement>) => {
         let amount = {
             userId : userState?.userId ? userState.userId : 0,
             amount: parseFloat(money)
@@ -33,22 +33,25 @@ export const Money: React.FC = () => {
       };
       
     return(
-        <div>
-            <form>
-            <div className="inputDiv">
-                <h4 className="inputH4">Money</h4>
-                <input
-                    autoComplete="off"
-                    className="moneyInput"
-                    type="text"
-                    name="money"
-                    placeholder="Enter amount"
-                    onChange={handleInput}
-                />
+        <div className="moneyHomeScreen">
+            <div className="btnContainer">
+                
+                <div className="inputDiv">
+                    <h4 className="inputH4">Money</h4>
+                    <input
+                        autoComplete="off"
+                        className="moneyInput"
+                        type="text"
+                        name="money"
+                        placeholder="Enter amount"
+                        onChange={handleInput}
+                    />
+                </div>
+                <div className="twoButtonContainer">
+                    <input type="button" className="addBtn" id="addBtn" value="Add" onClick={handleSubmit} />
+                    <input type="button" className="WithdrawBtn" id="WithdrawBtn" value="Withdraw" onClick={handleSubmit} />
+                </div>
             </div>
-            </form>
-            <button className="submitBtn" id="addBtn" onClick={handleSubmit}>Add</button>
-            <button className="submitBtn" id="withdrawBtn" onClick={handleSubmit}>Withdraw</button>
         </div>
     )
 }

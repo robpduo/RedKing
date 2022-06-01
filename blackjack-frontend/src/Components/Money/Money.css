@@ -1,0 +1,88 @@
+.moneyHomeScreen {
+    background-image: url('../../images/2.png') !important;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  
+    width: 100%;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+  
+    display: flex;
+    align-items: center;
+  }
+  
+  .moneyHomeScreen:hover {
+    filter: invert(100%);
+    transition: 0.5s;
+  }
+  
+  .btnContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  
+    background-color: #f6f6f6;
+  
+  
+    width: 50%;
+    margin: 0 auto;
+    
+    height: 10rem;
+    border-radius: 4rem;
+  }
+  
+  .btnContainer:hover {
+    filter: invert(100%);
+    transition: 0.5s;
+  }
+  
+  .moneyHeader {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  
+  .twoButtonContainer {
+    width: 80%; 
+    display: flex;
+    justify-content: center;
+  }
+  
+  .buttonContainer button {
+    margin: 0 1rem;
+    padding: 8px 16px;
+  
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  
+  .addBtn {
+      background-color: #000;
+      color: #f6f6f6;
+  }
+  
+  .addBtn:hover {
+      background-color: #f6f6f6;
+      color: #000;
+      transition: 0.5s;
+      border-color: 1px solid black;
+  }
+  
+  .withdrawBtn {
+      background-color: #f6f6f6;
+      color: #000;
+  
+  }
+  
+  .withdrawBtn:hover {
+      background-color: #000;
+      color: #f6f6f6;
+      transition: 0.5s;
+      border-color: transparent;
+  }
+  
+  
+  
