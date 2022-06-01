@@ -37,7 +37,7 @@ export const Money: React.FC = () => {
             <div className="btnContainer">
                 
                 <div className="inputDiv">
-                    <h4 className="inputH4">Money</h4>
+                    <img className="moneyImg" src={"/images/money.jpg"} alt="Money"/>
                     <input
                         autoComplete="off"
                         className="moneyInput"
@@ -49,7 +49,7 @@ export const Money: React.FC = () => {
                 </div>
                 <div className="twoButtonContainer">
                     <input type="button" className="addBtn" id="addBtn" value="Add" onClick={handleSubmit} />
-                    <input type="button" className="WithdrawBtn" id="WithdrawBtn" value="Withdraw" onClick={handleSubmit} />
+                    <input type="button" className="withdrawBtn" id="WithdrawBtn" value="Withdraw" onClick={handleSubmit} />
                 </div>
             </div>
         </div>

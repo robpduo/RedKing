@@ -44,11 +44,27 @@
     margin-bottom: 1rem;
   }
 
+  .inputDiv {
+    width: 25%; 
+  }
+ 
+  .moneyImg {
+      width: 60px;
+      height: 60px;
+  }
+  .moneyInput {
+      width: 100%;
+      height: 30px;
+      border-radius: 5px;
+  }
   
   .twoButtonContainer {
-    width: 80%; 
+    width: 25%; 
+    margin-top: 15px;
     display: flex;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-between;
+    
   }
   
   .buttonContainer button {
@@ -59,9 +75,13 @@
     cursor: pointer;
   }
   
+
   .addBtn {
+      width: 45%;
+      height: 30px;
       background-color: #000;
       color: #f6f6f6;
+      border-radius: 5px;
   }
   
   .addBtn:hover {
@@ -72,9 +92,11 @@
   }
   
   .withdrawBtn {
+      width: 45%;
+      height: 30px;
       background-color: #f6f6f6;
       color: #000;
-  
+      border-radius: 5px;
   }
   
   .withdrawBtn:hover {
