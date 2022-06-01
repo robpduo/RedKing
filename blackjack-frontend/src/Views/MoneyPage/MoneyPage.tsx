@@ -1,5 +1,5 @@
 import React from "react";
-import { Money } from "../../Components/LoginForm/Money/Money";
+import { Money } from "../../Components/Money/Money";
 
 
 export const MoneyPage: React.FC = () => {

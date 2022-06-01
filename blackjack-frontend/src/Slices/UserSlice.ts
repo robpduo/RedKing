@@ -99,6 +99,22 @@ export const depositMoney = createAsyncThunk(
   }
 );
 
+export const withdrawMoney = createAsyncThunk(
+  'user/withdraw',
+  async (amount: ManageMoney, thunkAPI) => {
+    try {
+      // axios.defaults.withCredentials = true;
+      const res = await axios.post(
+        'http://localhost:8000/user/withdraw',
+        amount
+      );
+      return res.data;
+    } catch (e) {
+      return thunkAPI.rejectWithValue('something went wrong');
+    }
+  }
+);
+
 // //Create the slice
 export const UserSlice = createSlice({
   name: 'user',
@@ -137,8 +153,11 @@ export const UserSlice = createSlice({
     builder.addCase(depositMoney.fulfilled, (state, action) => {
       state.user = action.payload;
     });
+    builder.addCase(withdrawMoney.fulfilled, (state, action) => {
+      state.user = action.payload;
+    });
   },
-});
+}); 
 
 // //If we had normal actions and reducers we would export them like this
 // export const { toggleError } = UserSlice.actions;

@@ -30,7 +30,8 @@ export const Navbar: React.FC = () => {
 
       <div className="navMenu">
           <p>{userInfo ? userInfo.firstName : "Anonymous"}</p>
-          <button className="moneyBtn">Money</button>
+          <Link to="/money"><button className="moneyBtn">Money</button></Link>
+          
       </div>
 
     </nav>

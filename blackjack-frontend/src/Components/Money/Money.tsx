@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { depositMoney } from "../../Slices/UserSlice";
+import { depositMoney, withdrawMoney } from "../../Slices/UserSlice";
 import { AppDispatch, RootState } from "../../Store";
+
 
 
 export const Money: React.FC = () => {
@@ -17,13 +18,17 @@ export const Money: React.FC = () => {
     };
 
     const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
+        let amount = {
+            userId : userState?.userId ? userState.userId : 0,
+            amount: parseFloat(money)
+        }
         if(userState){
-            let amount = {
-                userId : userState?.userId ? userState.userId : 0,
-                amount: parseFloat(money)
+            if(event.currentTarget.id === "addBtn"){
+                dispatch(depositMoney(amount));
+            } else {
+                dispatch(withdrawMoney(amount));
             }
-            dispatch(depositMoney(amount));
-            navigator('/');
+            navigator('/playgame');
         }         
       };
       
@@ -37,12 +42,13 @@ export const Money: React.FC = () => {
                     className="moneyInput"
                     type="text"
                     name="money"
-                    placeholder="Put your money"
+                    placeholder="Enter amount"
                     onChange={handleInput}
                 />
             </div>
             </form>
-            <button className="submitBtn" onClick={handleSubmit}>Submit</button>
+            <button className="submitBtn" id="addBtn" onClick={handleSubmit}>Add</button>
+            <button className="submitBtn" id="withdrawBtn" onClick={handleSubmit}>Withdraw</button>
         </div>
     )
 }
