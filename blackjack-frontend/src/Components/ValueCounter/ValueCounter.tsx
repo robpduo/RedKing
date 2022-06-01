@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { AppDispatch, RootState } from '../../Store';
 import { ICard } from "../../Interfaces/ICard";
 import { access, readlink } from 'fs';
+import './ValueCounter.css';
 
 export const ValueCounter: React.FC<any> = (person: number) => {
     //get members of the state needed to calculate values
