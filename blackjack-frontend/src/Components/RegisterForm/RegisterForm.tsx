@@ -1,20 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './RegisterForm.css';
 
-<<<<<<< HEAD
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-
-import { registerUser } from '../../Slices/UserSlice';
-import { AppDispatch } from '../../Store';
-
-// will go inside RegisterPage
-export const RegisterForm: React.FC<any> = (spinner: any) => {
-  const [firstName, setFirstName] = useState<string>('');
-  const [lastName, setlastName] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-=======
 import { Link } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -47,7 +33,6 @@ export const RegisterForm: React.FC<any> = (spinner: any) => {
   // const [lastName, setlastName] = useState<string>('');
   // const [email, setEmail] = useState<string>('');
   // const [password, setPassword] = useState<string>('');
->>>>>>> ff3e4ea69b3ab55ac424eefeb07aec8490890a23
 
   const dispatch: AppDispatch = useDispatch();
   const navigator = useNavigate();
