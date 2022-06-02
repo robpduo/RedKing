@@ -44,10 +44,34 @@ public class UserControllerIntegrationTest {
     private ObjectMapper om = new ObjectMapper();
 
     @Test
-    public void successfulRegistrationTest() throws Exception {
+    public void registrationTest() throws Exception {
         User testUser = new User("test@email.com", "test_first", "test_last", "test_password", 8);
 
         mockMvc.perform(post("/user/register")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(om.writeValueAsString(testUser))
+                )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.userId").value(1))
+                .andExpect(jsonPath("$.email").value("test@email.com"))
+                .andExpect(jsonPath("$.firstName").value("test_first"))
+                .andExpect(jsonPath("$.lastName").value("test_last"))
+                .andExpect(jsonPath("$.password").value("test_password"))
+                .andExpect(jsonPath("$.money").value(8));
+
+        User res = ur.findByEmailAndPassword("test@email.com", "test_password");
+
+        Assertions.assertEquals("test_first", res.getFirstName());
+        Assertions.assertEquals("test_last", res.getLastName());
+        Assertions.assertEquals("test_password", res.getPassword());
+    }
+
+    @Test
+    public void loginTest() throws Exception {
+        User testUser = new User("test@email.com", "test_first", "test_last", "test_password", 8);
+
+        mockMvc.perform(post("/user/login")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(om.writeValueAsString(testUser))
                 )
