@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './RegisterForm.css';
 
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { registerUser } from '../../Slices/UserSlice';
-import { AppDispatch } from '../../Store';
+import { AppDispatch, RootState } from '../../Store';
 
 // will go inside RegisterPage
 export const RegisterForm: React.FC<any> = (spinner: any) => {
@@ -13,6 +13,9 @@ export const RegisterForm: React.FC<any> = (spinner: any) => {
   const [lastName, setlastName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+
+  const userInfo = useSelector((state: RootState) => state.user.user);
+  console.log('coming from RegisterForm line 18 ', userInfo);
 
   const dispatch: AppDispatch = useDispatch();
   const navigator = useNavigate();
@@ -112,7 +115,6 @@ export const RegisterForm: React.FC<any> = (spinner: any) => {
       <button className="registerBtn" onClick={handleRegister}>
         Register
       </button>
-
     </div>
   );
 };

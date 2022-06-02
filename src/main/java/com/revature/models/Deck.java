@@ -19,7 +19,6 @@ public class Deck {
 
     //One Deck to Many Cards
     @OneToMany(mappedBy = "deck", cascade = CascadeType.ALL )
-    @JsonIgnore
     List<Card> cards;
 
     @OneToOne
