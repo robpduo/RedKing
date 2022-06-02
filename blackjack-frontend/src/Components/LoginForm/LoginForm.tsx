@@ -33,7 +33,7 @@ export const LoginForm: React.FC<any> = (spinner: any) => {
     console.log('coming from loginForm line 34 ', credentials);
 
     dispatch(loginUser(credentials));
-    navigator('/playgame');
+    navigator('/gameboard');
   };
 
   return (

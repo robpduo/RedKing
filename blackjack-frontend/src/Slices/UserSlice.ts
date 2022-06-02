@@ -23,7 +23,6 @@ export const loginUser = createAsyncThunk(
   'user/login',
   async (credentials: Login, thunkAPI) => {
     try {
-      // axios.defaults.withCredentials = true;
       const res = await axios.post(
         'http://localhost:8000/user/login',
         credentials
@@ -31,7 +30,14 @@ export const loginUser = createAsyncThunk(
 
       console.log('coming from loginUser async line 32 ', res.data);
 
-      return res.data;
+      return {
+        id: res.data.userId,
+        email: res.data.email,
+        firstName: res.data.firstName,
+        lastName: res.data.lastName,
+        money: res.data.money
+      };
+
     } catch (e) {
       return thunkAPI.rejectWithValue('something went wrong');
     }
@@ -50,7 +56,6 @@ export const registerUser = createAsyncThunk(
   'user/register',
   async (credentials: Register, thunkAPI) => {
     try {
-      // axios.defaults.withCredentials = true;
       const res = await axios.post(
         'http://localhost:8000/user/register',
         credentials
@@ -84,25 +89,18 @@ export const UserSlice = createSlice({
       //The payload in this case, is the return from our asyncThunk from above
       state.user = action.payload;
       // state.error = false;
-      // state.loading = false;
     });
     builder.addCase(loginUser.rejected, (state, action) => {
       // state.error = true;
-      // state.loading = false;
     });
 
-    // builder.addCase(registerUser.pending, (state, action) => {
-    //   // state.loading = true;
-    // });
     builder.addCase(registerUser.fulfilled, (state, action) => {
       //The payload in this case, is the return from our asyncThunk from above
       state.user = action.payload;
       // state.error = false;
-      // state.loading = false;
     });
     builder.addCase(registerUser.rejected, (state, action) => {
       // state.error = true;
-      // state.loading = false;
     });
   },
 });

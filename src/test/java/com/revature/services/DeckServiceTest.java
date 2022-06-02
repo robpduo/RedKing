@@ -1,4 +1,4 @@
-package com.revature;
+package com.revature.services;
 
 import com.revature.exceptions.DeckIsEmptyException;
 import com.revature.exceptions.NoDeckInPlay;
