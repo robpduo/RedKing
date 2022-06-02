@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './RegisterForm.css';
 
+<<<<<<< HEAD
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -13,6 +14,40 @@ export const RegisterForm: React.FC<any> = (spinner: any) => {
   const [lastName, setlastName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+=======
+import { Link } from 'react-router-dom';
+
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
+import { registerUser, updateUser } from '../../Slices/UserSlice';
+import { AppDispatch, RootState } from '../../Store';
+
+// will go inside RegisterPage
+export const RegisterForm: React.FC<any> = (spinner: any) => {
+  const userInfo = useSelector((state: RootState) => state.user.user);
+  console.log('coming from RegisterForm line 14 ', userInfo);
+
+  const [firstName, setFirstName] = useState(
+    userInfo !== undefined ? userInfo?.firstName : ''
+  );
+  const [lastName, setlastName] = useState(
+    userInfo !== undefined ? userInfo?.lastName : ''
+  );
+  const [email, setEmail] = useState(
+    userInfo !== undefined ? userInfo?.email : ''
+  );
+  const [password, setPassword] = useState(
+    userInfo !== undefined ? userInfo?.password : ''
+  );
+
+  let userid = userInfo && userInfo.userId;
+
+  // const [firstName, setFirstName] = useState<string>('');
+  // const [lastName, setlastName] = useState<string>('');
+  // const [email, setEmail] = useState<string>('');
+  // const [password, setPassword] = useState<string>('');
+>>>>>>> ff3e4ea69b3ab55ac424eefeb07aec8490890a23
 
   const dispatch: AppDispatch = useDispatch();
   const navigator = useNavigate();
@@ -44,11 +79,30 @@ export const RegisterForm: React.FC<any> = (spinner: any) => {
     navigator('/playgame');
   };
 
+  // form submit handler
+  const handleUpdate = (event: React.MouseEvent<HTMLButtonElement>) => {
+    let userUpdate = {
+      userId: userid,
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      password: password,
+    };
+    console.log('coming from handleUpdate line 74 ', userUpdate);
+
+    dispatch(updateUser(userUpdate));
+    navigator('/playgame');
+  };
+
   return (
     <div className="register">
       {/* text container */}
       <div className="registerTextContainer">
-        <h1 className="registerHeader">Please Register Before You Shuffle </h1>
+        <h1 className="registerHeader">
+          {userInfo !== undefined
+            ? 'You may update your details'
+            : 'Please Register Before You Play'}
+        </h1>
       </div>
 
       <form className="registerForm">
@@ -61,6 +115,7 @@ export const RegisterForm: React.FC<any> = (spinner: any) => {
             className="registerInput"
             type="text"
             name="firstname"
+            value={firstName}
             placeholder="first Name"
             onChange={handleInput}
           />
@@ -75,6 +130,7 @@ export const RegisterForm: React.FC<any> = (spinner: any) => {
             className="registerInput"
             type="text"
             name="lastname"
+            value={lastName}
             placeholder="last Name"
             onChange={handleInput}
           />
@@ -89,6 +145,7 @@ export const RegisterForm: React.FC<any> = (spinner: any) => {
             className="registerInput"
             type="email"
             name="email"
+            value={email}
             placeholder="email"
             onChange={handleInput}
           />
@@ -103,16 +160,29 @@ export const RegisterForm: React.FC<any> = (spinner: any) => {
             className="registerInput"
             type="password"
             name="password"
+            value={password}
             placeholder="password"
             onChange={handleInput}
           />
         </div>
       </form>
 
-      <button className="registerBtn" onClick={handleRegister}>
-        Register
+      <button
+        className="registerBtn"
+        onClick={userInfo !== undefined ? handleUpdate : handleRegister}
+      >
+        {userInfo === undefined ? 'Register' : 'Update'}
       </button>
 
+<<<<<<< HEAD
+=======
+      <Link
+        to={userInfo !== undefined ? '/playgame' : '/login'}
+        className="backToGame"
+      >
+        {userInfo === undefined ? 'Already Registered?' : 'Back to Game'}
+      </Link>
+>>>>>>> ff3e4ea69b3ab55ac424eefeb07aec8490890a23
     </div>
   );
 };

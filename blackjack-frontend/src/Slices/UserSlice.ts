@@ -35,15 +35,6 @@ export const loginUser = createAsyncThunk(
       console.log('coming from loginUser async line 32 ', res.data);
 
       return {
-<<<<<<< HEAD
-        id: res.data.userId,
-        email: res.data.email,
-        firstName: res.data.firstName,
-        lastName: res.data.lastName,
-        money: res.data.money
-      };
-
-=======
         userId: res.data.userId,
         email: res.data.email,
         password: res.data.password,
@@ -51,7 +42,6 @@ export const loginUser = createAsyncThunk(
         lastName: res.data.lastName,
         money: res.data.money,
       };
->>>>>>> efefd117def2af9c2abb39b20042d4b9b2f1b545
     } catch (e) {
       return thunkAPI.rejectWithValue('something went wrong');
     }
@@ -59,10 +49,10 @@ export const loginUser = createAsyncThunk(
 );
 
 type Register = {
-  email: string;
-  password: string;
-  firstName: string;
-  lastName: string;
+  email: string | undefined;
+  password: string | undefined;
+  firstName: string | undefined;
+  lastName: string | undefined;
 };
 
 type ManageMoney = {
@@ -89,6 +79,37 @@ export const registerUser = createAsyncThunk(
   }
 );
 
+<<<<<<< HEAD
+=======
+type Update = {
+  userId: number | undefined;
+  email: string | undefined;
+  password: string | undefined;
+  firstName: string | undefined;
+  lastName: string | undefined;
+};
+
+// called from RegisterForm component
+export const updateUser = createAsyncThunk(
+  'user/updateuser',
+  async (credentials: Update, thunkAPI) => {
+    try {
+      // axios.defaults.withCredentials = true;
+      const res = await axios.post(
+        'http://localhost:8000/user/update',
+        credentials
+      );
+
+      console.log('coming from updateUser async line 103 ', res.data);
+
+      return res.data;
+    } catch (e) {
+      return thunkAPI.rejectWithValue('something went wrong');
+    }
+  }
+);
+
+>>>>>>> ff3e4ea69b3ab55ac424eefeb07aec8490890a23
 export const depositMoney = createAsyncThunk(
   'user/deposit',
   async (amount: ManageMoney, thunkAPI) => {

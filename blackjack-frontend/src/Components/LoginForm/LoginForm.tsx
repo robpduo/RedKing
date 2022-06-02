@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './LoginForm.css';
 
+import { Link } from 'react-router-dom';
+
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -38,7 +40,6 @@ export const LoginForm: React.FC<any> = (spinner: any) => {
 
   return (
     <div className="login">
-
       {/* text container */}
       <div className="textContainer">
         <h1 className="loginHeader">BlacKing</h1>
@@ -78,6 +79,9 @@ export const LoginForm: React.FC<any> = (spinner: any) => {
         login
       </button>
 
+      <Link to="/user" className="backToGame">
+        Not Registered yet?
+      </Link>
     </div>
   );
 };
