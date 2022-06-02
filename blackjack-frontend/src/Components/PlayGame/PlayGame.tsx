@@ -10,6 +10,9 @@ import {
   initializeDeck,
   getDeck,
 } from '../../Slices/DeckSlice';
+
+import { StartGameButton } from '../StartGameButton/StartGameButton';
+
 import { AppDispatch, RootState } from '../../Store';
 
 import spade2 from '../../images/clubTwo.png';
@@ -25,6 +28,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
   const userInfo = useSelector((state: RootState) => state.user);
   const playerHand = useSelector((state: RootState) => state.deck.playerHand);
   const dealerHand = useSelector((state: RootState) => state.deck.dealerHand);
+
   const isDeck = useSelector((state: RootState) => state.deck.isDeck);
 
   const [gameStatus, setGameStatus] = useState('Game not initialized');
@@ -77,8 +81,6 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
   // const [dealerCount, setDealerCount] = useState(0)
   // const [playerCount, setPlayerCount] = useState(0)
 
-
-
   // const handleStandButton = () => {
 
   //   if (deckInfo && playerHand) {
@@ -99,10 +101,10 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
 
         <div className="selectionArea">
           <h1>BlacKing</h1>
+          <StartGameButton />
           {/*<StartGameButton/>
-          //<button onClick={handleGameInit}>Start</button> 
           <HitButton/> */}
-          
+
           <button>Stand</button>
           <button>Value</button>
           <button>Score</button>
@@ -118,30 +120,9 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
 
             <div className="userContainer">
               <h1>User</h1>
-
-
-          </div>
-          {/* 
-          <button className="stand-button" onClick={handleStandButton}>Stand!</button> */}
-        </div>
-
               <img src={spadeAce} />
               <img src={heartKing} />
             </div>
-
-
-            {/* <div className="dealer-hand-container">
-
-          </div> */}
-
-            {/* <div className="deck-container"></div>
-
-          <div className="player-hand-container">
-
-
-          </div> */}
-            {/* <button className="hit-button" onClick={handleHitButton}>Hit!</button>
-          <button className="stand-button" onClick={handleStandButton}>Stand!</button> */}
           </div>
         )}
       </div>
