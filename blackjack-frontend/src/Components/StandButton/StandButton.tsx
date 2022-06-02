@@ -18,7 +18,7 @@ export const StandButton:React.FC = () => {
 
     const handleStandButton = () => {
           if (userInfo && deckInfo) {
-            setGameStatus("User standing");
+            setGameStatus("Dealer Turn");
           } else {
             setGameStatus("User not logged in");
             console.log(gameStatus);
@@ -28,7 +28,7 @@ export const StandButton:React.FC = () => {
 
     return(
         <>
-        {gameStatus == "User standing" ? <button disabled={true} className="stand-button" >Stand.</button>
+        {gameStatus == "Dealer Turn" ? <button disabled={true} className="stand-button" >Stand.</button>
         : <button className="stand-button" onClick={handleStandButton}>Stand.</button>}
         </>
     )
