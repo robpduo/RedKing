@@ -27,7 +27,6 @@ public class DeckController {
         return ds.initializeDeck(u);
     }
     
-    @CreateMap
     @GetMapping("/deal")
     @ResponseBody
     public Card handleDealCard( @RequestBody Deck deck) throws DeckIsEmptyException {

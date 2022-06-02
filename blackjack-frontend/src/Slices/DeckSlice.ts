@@ -21,31 +21,6 @@ const initialDeckState: DeckSliceState = {
   isDeck: false,
 };
 
-<<<<<<< HEAD
-type userInfo = {
-    id?: number;
-    email: string;
-    firstName: string;
-    lastName: string;
-    money: number
-};
-
-export const initializeDeck = createAsyncThunk(
-    'deck/initialize',
-    async (curUser: userInfo, thunkAPI) => {
-        try {
-            const res = await axios.post('http://localhost:8000/deck/initialize', curUser);
-            console.log("HERE", res.data);
-            return {
-                id: res.data.deckId,
-                user: res.data.userId,
-                card: res.data.card,
-                size: res.data.deckSize
-            }
-        } catch (e) {
-            return thunkAPI.rejectWithValue('something went wrong');
-        }
-=======
 /*
 type userProfile = {
     id?: number | undefined,
@@ -68,32 +43,10 @@ export const initializeDeck = createAsyncThunk(
       return res.data;
     } catch (e) {
       console.log(e);
->>>>>>> efefd117def2af9c2abb39b20042d4b9b2f1b545
     }
   }
 );
 
-<<<<<<< HEAD
-// //Create the slice
-export const UserSlice = createSlice({
-    name: 'deck',
-    initialState: initialUserState,
-    reducers: {
-        toggleError: (state) => {
-            state.error = !state.error;
-        },
-    },
-
-    extraReducers: (builder) => {
-
-        builder.addCase(initializeDeck.fulfilled, (state, action) => {
-            //The payload in this case, is the return from our asyncThunk from above
-            state.deck = action.payload;
-            // state.error = false;
-        });
-
-    },
-=======
 export const getDeck = createAsyncThunk('deck/getDeck', async (thunkAPI) => {
   try {
     const res = await axios.get('http://localhost:8000/deck/getDeck');
@@ -102,7 +55,6 @@ export const getDeck = createAsyncThunk('deck/getDeck', async (thunkAPI) => {
   } catch (e) {
     console.log(e);
   }
->>>>>>> efefd117def2af9c2abb39b20042d4b9b2f1b545
 });
 
 export const getDealPlayer = createAsyncThunk(

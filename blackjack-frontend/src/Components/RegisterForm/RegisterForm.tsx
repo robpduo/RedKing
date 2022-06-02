@@ -159,15 +159,12 @@ export const RegisterForm: React.FC<any> = (spinner: any) => {
         {userInfo === undefined ? 'Register' : 'Update'}
       </button>
 
-<<<<<<< HEAD
-=======
       <Link
         to={userInfo !== undefined ? '/playgame' : '/login'}
         className="backToGame"
       >
         {userInfo === undefined ? 'Already Registered?' : 'Back to Game'}
       </Link>
->>>>>>> ff3e4ea69b3ab55ac424eefeb07aec8490890a23
     </div>
   );
 };

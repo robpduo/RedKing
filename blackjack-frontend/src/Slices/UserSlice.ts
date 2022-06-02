@@ -79,8 +79,6 @@ export const registerUser = createAsyncThunk(
   }
 );
 
-<<<<<<< HEAD
-=======
 type Update = {
   userId: number | undefined;
   email: string | undefined;
@@ -109,7 +107,6 @@ export const updateUser = createAsyncThunk(
   }
 );
 
->>>>>>> ff3e4ea69b3ab55ac424eefeb07aec8490890a23
 export const depositMoney = createAsyncThunk(
   'user/deposit',
   async (amount: ManageMoney, thunkAPI) => {
@@ -174,40 +171,37 @@ export const UserSlice = createSlice({
     });
     builder.addCase(loginUser.rejected, (state, action) => {
       // state.error = true;
-<<<<<<< HEAD
-=======
       //
->>>>>>> efefd117def2af9c2abb39b20042d4b9b2f1b545
     });
 
     builder.addCase(registerUser.fulfilled, (state, action) => {
       state.user = action.payload;
       // state.error = false;
     });
-<<<<<<< HEAD
-<<<<<<< HEAD
+
     builder.addCase(registerUser.rejected, (state, action) => {
       // state.error = true;
-=======
+    });
 
     builder.addCase(updateUser.fulfilled, (state, action) => {
       state.user = action.payload;
       // state.error = false;
     });
 
-=======
->>>>>>> parent of efefd117 (change route register to user)
     builder.addCase(depositMoney.fulfilled, (state, action) => {
       state.user = action.payload;
     });
+
     builder.addCase(withdrawMoney.fulfilled, (state, action) => {
       state.user = action.payload;
     });
+
     builder.addCase(retrieveUserScores.fulfilled, (state, action) => {
       state.users = action.payload;
->>>>>>> efefd117def2af9c2abb39b20042d4b9b2f1b545
     });
+
   },
+
 });
 
 // If we had normal actions and reducers we would export them like this
