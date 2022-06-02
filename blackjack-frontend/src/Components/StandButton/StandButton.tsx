@@ -5,7 +5,7 @@ import { getDealPlayer } from "../../Slices/DeckSlice";
 import { AppDispatch, RootState } from "../../Store";
 
 
-export const HitButton:React.FC = () => {
+export const StandButton:React.FC = () => {
 
     const userInfo = useSelector((state:RootState) => state.user);
     const deckInfo = useSelector((state:RootState) => state.deck);
@@ -16,10 +16,9 @@ export const HitButton:React.FC = () => {
     const navigator = useNavigate();
 
 
-    const handleHitButton = () => {
+    const handleStandButton = () => {
           if (userInfo && deckInfo) {
-            dispatch(getDealPlayer());
-            setGameStatus("Start");
+            setGameStatus("User standing");
           } else {
             setGameStatus("User not logged in");
             console.log(gameStatus);
@@ -27,9 +26,10 @@ export const HitButton:React.FC = () => {
         }
 
 
-        return(
-          <>
-          <button className="hit-button" onClick={handleHitButton}>Hit!</button>
-          </>
-      )
+    return(
+        <>
+        {gameStatus == "User standing" ? <button disabled={true} className="stand-button" >Stand.</button>
+        : <button className="stand-button" onClick={handleStandButton}>Stand.</button>}
+        </>
+    )
 }
