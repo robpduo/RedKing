@@ -81,6 +81,34 @@ export const registerUser = createAsyncThunk(
   }
 );
 
+type Update = {
+  userId: number;
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+};
+
+// called from RegisterForm component
+export const updateUser = createAsyncThunk(
+  'user/updateuser',
+  async (credentials: Update, thunkAPI) => {
+    try {
+      // axios.defaults.withCredentials = true;
+      const res = await axios.post(
+        'http://localhost:8000/user/update',
+        credentials
+      );
+
+      console.log('coming from updateUser async line 103 ', res.data);
+
+      return res.data;
+    } catch (e) {
+      return thunkAPI.rejectWithValue('something went wrong');
+    }
+  }
+);
+
 export const depositMoney = createAsyncThunk(
   'user/deposit',
   async (amount: ManageMoney, thunkAPI) => {
@@ -153,6 +181,12 @@ export const UserSlice = createSlice({
       state.user = action.payload;
       // state.error = false;
     });
+
+    builder.addCase(updateUser.fulfilled, (state, action) => {
+      state.user = action.payload;
+      // state.error = false;
+    });
+
     builder.addCase(depositMoney.fulfilled, (state, action) => {
       state.user = action.payload;
     });
