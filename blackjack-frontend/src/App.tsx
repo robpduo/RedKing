@@ -21,11 +21,15 @@ function App() {
         <Route path="/home" element={<HomeScreen />} />
         <Route path="/login" element={<LoginPage />} />
 <<<<<<< HEAD
+<<<<<<< HEAD
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/playgame" element={<LoginPage />} />
         <Route path="/gameboard" element={<GameBoard />} />
 =======
         <Route path="/user" element={<RegisterPage />} />
+=======
+        <Route path="/register" element={<RegisterPage />} />
+>>>>>>> parent of efefd117 (change route register to user)
         <Route path="/playgame" element={<PlayGamePage />} />
         <Route path="/money" element={<MoneyPage />} />
 >>>>>>> efefd117def2af9c2abb39b20042d4b9b2f1b545

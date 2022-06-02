@@ -24,9 +24,7 @@ export const Navbar: React.FC = () => {
   return (
     <nav className="navBar">
       <div className="navMenu">
-        <Link to="/user">
-          <p>{userInfo ? userInfo.firstName : 'Anonymous'}</p>
-        </Link>
+        <p>{userInfo ? userInfo.firstName : 'Anonymous'}</p>
         <div className="moneyContainer">
           <p>{userInfo ? `$${userInfo.money}` : '$0.00'}</p>
           <Link to="/money">
