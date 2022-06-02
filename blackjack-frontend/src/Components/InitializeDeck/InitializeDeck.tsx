@@ -1,34 +1,34 @@
 import { userInfo } from 'os';
-import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { initializeDeck } from '../../Slices/DeckSlice';
-import { AppDispatch, RootState } from '../../Store'
+import { AppDispatch, RootState } from '../../Store';
 
 const InitializeDeck: React.FC = () => {
-    const userState = useSelector((state: RootState) => state.user);
-    const dispatch: AppDispatch = useDispatch();
+  const userState = useSelector((state: RootState) => state.user);
+  const dispatch: AppDispatch = useDispatch();
 
-    const handleStart = () => {
-        let userInfo = {
-            id: userState.user!.id,
-            email: userState.user!.email,
-            firstName: userState.user!.firstName,
-            lastName: userState.user!.lastName,
-            money: userState.user!.money
-        }
+  const handleStart = () => {
+    let userInfo = {
+      userId: userState.user!.userId,
+      email: userState.user!.email,
+      firstName: userState.user!.firstName,
+      lastName: userState.user!.lastName,
+      money: userState.user!.money,
+    };
 
-        if ( userState.user != null ) {
-            userInfo.email = userState.user!.email;
-
-        }
-
-        dispatch(initializeDeck(userInfo));
-
+    if (userState.user != null) {
+      userInfo.email = userState.user!.email;
     }
 
-    return (
-        <button className='Start Game' onClick={handleStart}>Start Game</button>
-    )
-}
+    dispatch(initializeDeck(userInfo));
+  };
 
-export default InitializeDeck
+  return (
+    <button className="Start Game" onClick={handleStart}>
+      Start Game
+    </button>
+  );
+};
+
+export default InitializeDeck;
