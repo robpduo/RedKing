@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import './Navbar.css';
-
+import { LogOutButton } from '../LogOutButton/LogOutButton';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppDispatch, RootState } from '../../Store';
@@ -33,9 +33,20 @@ export const Navbar: React.FC = () => {
           <Link to="/money">
             <button className="moneyBtn">Add Money</button>
           </Link>
+        </li>
+        <li className="navItem">
+          <Link to="/home" className="navLink">
+            Quit
+          </Link>
+        </li>
+        <li className="logout">
+         <LogOutButton/>
+        </li>
+      </ul>
           <p>{userInfo ? `$${userInfo.money}` : '$0.00'}</p>
         </div>
       </div>
+
     </nav>
   );
 };
