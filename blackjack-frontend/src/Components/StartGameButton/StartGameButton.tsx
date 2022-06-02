@@ -39,8 +39,12 @@ const handleGameInit = () => {
 
 
       //retrieve deck from database
-      dispatch(getDeck);
+      if(deckInfo.deck){
 
+      let deckId:number|undefined = deckInfo.deck.id;
+
+      dispatch(getDeck(deckId));
+      }
 
       //deals out initial 4 cards to player and dealer 
       dispatch(getDealPlayer);

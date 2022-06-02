@@ -9,10 +9,10 @@ interface DeckSliceState {
   loading: boolean;
   error: boolean;
   isDeck: boolean;
-  deck?: IDeck[];
-  cards?: ICard[];
+  deck?: IDeck;
   playerHand?: ICard[];
   dealerHand?: ICard[];
+
 }
 
 const initialDeckState: DeckSliceState = {
@@ -32,6 +32,7 @@ type userProfile = {
 */
 
 export const initializeDeck = createAsyncThunk(
+
   'deck/initialize',
   async (user: IUser, thunkAPI) => {
     try {
@@ -44,18 +45,41 @@ export const initializeDeck = createAsyncThunk(
     } catch (e) {
       console.log(e);
     }
-  }
+}
 );
 
-export const getDeck = createAsyncThunk('deck/getDeck', async (thunkAPI) => {
-  try {
-    const res = await axios.get('http://localhost:8000/deck/getDeck');
-    console.log(res.data);
-    return res.data;
-  } catch (e) {
-    console.log(e);
-  }
-});
+
+
+
+
+export const getDeck = createAsyncThunk(
+    "deck/getDeck",
+    async (deckId:number | undefined, thunkAPI) => {
+        try {
+            
+            const res = await axios.get(`http://localhost:8000/deck/getDeck/${deckId}`);
+            console.log(res.data);
+            return res.data;
+        } catch (e) {
+            console.log(e);
+        }
+    }
+  
+);
+
+
+export const getDeckById = createAsyncThunk(
+    'deck/getDeckById',
+    async (userId: number | undefined, thunkAPI) => {
+        try{
+            const res = await axios.post(`http://localhost:8000/deck/getDeckByUID/${userId}`);
+            console.log(res.data);
+            return res.data;
+        } catch(e) {
+            console.log(e);
+        }
+    }
+);
 
 export const getDealPlayer = createAsyncThunk(
   'deck/getDealPlayer',
@@ -140,19 +164,55 @@ export const deckSlice = createSlice({
 
     // reducers for Dealer Hand
 
-    builder.addCase(getDealDealer.pending, (state, action) => {
-      state.loading = true;
-    });
-    builder.addCase(getDealDealer.rejected, (state, action) => {
-      state.loading = false;
-      state.error = true;
-    });
-    builder.addCase(getDealDealer.fulfilled, (state, action) => {
-      state.dealerHand += action.payload;
-      state.loading = false;
-      state.error = false;
-    });
-  },
+
+        // reducer for getting deck by Id
+
+        builder.addCase(getDeckById.pending, (state,action) =>{
+            state.loading = true;
+        });
+        builder.addCase(getDeckById.rejected, (state,action)=>{
+            state.loading = false;
+            state.error = true;
+        });
+        builder.addCase(getDeckById.fulfilled, (state,action)=>{
+            state.deck = action.payload;
+            state.loading = false;
+            state.error = false;
+        });
+
+
+        //reducers for player Hand
+
+        builder.addCase(getDealPlayer.pending, (state,action) =>{
+            state.loading = true;
+        });
+        builder.addCase(getDealPlayer.rejected, (state,action)=>{
+            state.loading = false;
+            state.error = true;
+        });
+        builder.addCase(getDealPlayer.fulfilled, (state,action)=>{
+            state.playerHand += action.payload;
+            state.loading = false;
+            state.error = false;
+        });
+
+        // reducers for Dealer Hand
+
+        builder.addCase(getDealDealer.pending, (state,action) =>{
+            state.loading = true;
+        });
+        builder.addCase(getDealDealer.rejected, (state,action)=>{
+            state.loading = false;
+            state.error = true;
+        });
+        builder.addCase(getDealDealer.fulfilled, (state,action)=>{
+            state.dealerHand += action.payload;
+            state.loading = false;
+            state.error = false;
+        });
+
+
+    }
 });
 
 export const { clearDeck } = deckSlice.actions;

@@ -33,15 +33,15 @@ public class DeckController {
         return ds.dealCard(deck);
     }
 
-    @GetMapping("/getDeck")
+    @GetMapping("/getDeck/{deckId}")
     @ResponseBody
-    public Deck handleGetDeck (@RequestBody Deck deck) {
+    public Deck handleGetDeck (@PathVariable("deckId") Deck deck) {
         return ds.getDeck(deck.getDeckId());
     }
 
-    @GetMapping("/getDeckByUID")
+    @GetMapping("/getDeckByUID/{userId}")
     @ResponseBody
-    public Deck handleGetDeckByUID (@RequestBody User user) throws NoDeckInPlay {
+    public Deck handleGetDeckByUID (@PathVariable("userId") User user) throws NoDeckInPlay {
         return ds.getDeckByUserId(user);
     }
 
