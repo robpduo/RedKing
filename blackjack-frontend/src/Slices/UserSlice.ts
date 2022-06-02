@@ -50,10 +50,10 @@ export const loginUser = createAsyncThunk(
 );
 
 type Register = {
-  email: string;
-  password: string;
-  firstName: string;
-  lastName: string;
+  email: string | undefined;
+  password: string | undefined;
+  firstName: string | undefined;
+  lastName: string | undefined;
 };
 
 type ManageMoney = {
@@ -82,11 +82,11 @@ export const registerUser = createAsyncThunk(
 );
 
 type Update = {
-  userId: number;
-  email: string;
-  password: string;
-  firstName: string;
-  lastName: string;
+  userId: number | undefined;
+  email: string | undefined;
+  password: string | undefined;
+  firstName: string | undefined;
+  lastName: string | undefined;
 };
 
 // called from RegisterForm component
