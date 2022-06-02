@@ -3,68 +3,46 @@
   --grey: #2d2e2e;
   --btn-blue: #3891a6;
   --accent: #23ce6b;
-  --text-white: #fbfbfb;
+  --text-white: #fff;
 }
 
-.mNavBar {
+.navBar {
   height: 80px;
+  width: 100%;
 
   display: flex;
   justify-content: center;
   align-items: center;
 
+  background-color: black !important;
+  border-bottom: 1px solid white;
+
   font-size: 1.2rem;
   position: sticky;
-  top: 0;
-  width: 100%;
 }
-.mNavBar,
+.navBar,
 .eNavBar {
   background-color: transparent;
 }
 
-.profilePic {
-  border-radius: 100%;
-  object-fit: cover;
-  margin-left: 2rem;
-  text-align: center;
-  color: var(--text-white);
-}
-
 .navMenu {
-  display: grid;
-  grid-template-columns: repeat(5, auto);
-  grid-gap: 10px;
-  list-style: none;
-  justify-content: end;
+  color: white;
 
-  text-align: center;
-  width: 100%;
-  margin: 0 2rem;
+  display: flex;
+  justify-content: space-between !important;
+  align-items: center;
+
+  width: 90%;
 }
 
-.navItem {
+.moneyContainer {
   display: flex;
   align-items: center;
-  height: 100%;
-  margin-right: 8px;
-  margin-left: 8px;
-  padding: 16px;
 }
 
-.navLink {
-  color: var(--text-white);
-  font-size: 1rem;
-  text-decoration: none;
-  cursor: pointer;
-}
-.mNavLink:hover {
-  color: var(--accent);
-  transition: 0.5s;
-}
-.eNavLink:hover {
-  color: var(--btn-blue);
-  transition: 0.5s;
+.moneyContainer p {
+  margin-left: 10px;
+  font-size: 1.4rem;
 }
 
 .logout {
@@ -74,16 +52,15 @@
   outline: none;
 }
 
-.eLogoutBtn {
+.moneyBtn {
   background-color: transparent;
   color: var(--text-white);
 
   border-radius: 10px;
+  font-weight: normal;
+  font-size: 0.8rem;
 
-  font-weight: bold;
-  font-size: 1rem;
-
-  width: 80px;
+  width: fit-content;
   height: 35px;
 
   text-align: center;
@@ -94,12 +71,12 @@
   outline: none;
 }
 
-.eLogoutBtn {
-  border: 1px solid var(--btn-blue) !important;
+.moneyBtn {
+  border: 1px solid var(--text-white) !important;
 }
 
-.eLogoutBtn:hover {
-  transform: scale(0.98);
+.moneyBtn:hover {
   transition: 0.5s;
-  background-color: var(--btn-blue);
+  background-color: var(--text-white);
+  color: black;
 }

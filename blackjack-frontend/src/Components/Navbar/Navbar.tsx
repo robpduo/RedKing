@@ -2,46 +2,51 @@ import React, { useEffect } from 'react';
 import './Navbar.css';
 import { LogOutButton } from '../LogOutButton/LogOutButton';
 import { Link } from 'react-router-dom';
-// import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { AppDispatch, RootState } from '../../Store';
 
-// inside ReimbursementPage
+// inside PlayGamePage
 export const Navbar: React.FC = () => {
-  // const dispatch: AppDispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
   // const navigator = useNavigate();
 
-  // const user = useSelector((state: RootState) => state.user.user);
+  const userInfo = useSelector((state: RootState) => state.user.user);
+  console.log('coming from Navbar line 15 ', userInfo);
 
   // const handleLogout = () => {
   //   dispatch(logoutUser());
   // };
 
   // useEffect(() => {
-
-  // }, []);
+  //   console.log("coming from Navbar line 22 useEffect ", userInfo?.firstName);
+  // }, [userInfo]);
 
   return (
-    <nav className="mNavBar">
-      <Link to="/home" className="navMenu">
-        <p>Home</p>
-      </Link>
+    <nav className="navBar">
+      {/* <Link to="/home" className="navMenu">
+        <p>{userInfo ? userInfo.firstName : "Anonymous"}</p>
+      </Link> */}
 
-      <ul className="navMenu">
-        <li className="navItem">
-          <Link to="/home" className="navLink">
-            Play
+      <div className="navMenu">
+        <p>{userInfo ? userInfo.firstName : 'Anonymous'}</p>
+        <div className="moneyContainer">
+          <Link to="/money">
+            <button className="moneyBtn">Add Money</button>
           </Link>
         </li>
-
         <li className="navItem">
           <Link to="/home" className="navLink">
             Quit
           </Link>
         </li>
-
         <li className="logout">
          <LogOutButton/>
         </li>
       </ul>
+          <p>{userInfo ? `$${userInfo.money}` : '$0.00'}</p>
+        </div>
+      </div>
+
     </nav>
   );
 };
