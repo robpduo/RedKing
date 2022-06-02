@@ -44,7 +44,7 @@ public class UserControllerIntegrationTest {
     private ObjectMapper om = new ObjectMapper();
 
     @Test
-    public void registrationTest() throws Exception {
+    public void testFindByEmailAndPassword() throws Exception {
         User testUser = new User("test@email.com", "test_first", "test_last", "test_password", 8);
 
         mockMvc.perform(post("/user/register")
