@@ -6,10 +6,10 @@ import { IUser } from '../Interfaces/IUser';
 //Figure out our default state for this slice
 
 interface UserSliceState {
-  loading: boolean,
-  error: boolean,
-  user?: IUser,
-  users?: IUser[]
+  loading: boolean;
+  error: boolean;
+  user?: IUser;
+  users?: IUser[];
 }
 
 const initialUserState: UserSliceState = {
@@ -41,8 +41,8 @@ export const loginUser = createAsyncThunk(
         password: res.data.password,
         firstName: res.data.firstName,
         lastName: res.data.lastName,
-        money: res.data.money
-      }
+        money: res.data.money,
+      };
     } catch (e) {
       return thunkAPI.rejectWithValue('something went wrong');
     }
@@ -117,10 +117,10 @@ export const retrieveUserScores = createAsyncThunk(
   async (thunkAPI) => {
     try {
       const res = await axios.get('http://localhost:8000/user/allUsers');
-      console.log("Line 123", res.data);
-      return (res.data);
+      console.log('Line 123', res.data);
+      return res.data;
     } catch (e) {
-      console.log("Some Error");
+      console.log('Some Error');
     }
   }
 );
@@ -132,6 +132,9 @@ export const UserSlice = createSlice({
   reducers: {
     toggleError: (state) => {
       //   state.error = !state.error;
+    },
+    logoutUser: (state) => {
+      state.user = undefined;
     },
   },
 
@@ -164,5 +167,6 @@ export const UserSlice = createSlice({
 
 // If we had normal actions and reducers we would export them like this
 // export const { toggleError } = UserSlice.actions;
+export const { logoutUser } = UserSlice.actions;
 
 export default UserSlice.reducer;
