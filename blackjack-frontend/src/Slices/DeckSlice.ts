@@ -9,7 +9,7 @@ interface DeckSliceState {
   loading: boolean;
   error: boolean;
   isDeck: boolean;
-  deck?: IDeck[];
+  deck?: IDeck;
   cards?: ICard[];
   playerHand?: ICard[];
   dealerHand?: ICard[];
