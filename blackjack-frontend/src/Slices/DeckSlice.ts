@@ -149,7 +149,7 @@ export const deckSlice = createSlice({
       state.error = true;
     });
     builder.addCase(getDealPlayer.fulfilled, (state, action) => {
-      state.playerHand?.push(action.payload);
+      state.playerHand= [state.playerHand, action.payload];
       state.loading = false;
       state.error = false;
     });
@@ -164,7 +164,7 @@ export const deckSlice = createSlice({
       state.error = true;
     });
     builder.addCase(getDealDealer.fulfilled, (state, action) => {
-      state.dealerHand?.push(action.payload);
+      state.dealerHand = [state.dealerHand, action.payload];
       state.loading = false;
       state.error = false;
     });
