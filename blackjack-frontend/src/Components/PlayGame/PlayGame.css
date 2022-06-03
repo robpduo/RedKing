@@ -71,6 +71,9 @@
 .dealContainer {
   width: 80%;
   text-align: center;
+
+  display: flex;
+  flex-direction: row!;
 }
 
 .dealContainer img {

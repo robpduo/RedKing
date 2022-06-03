@@ -1,5 +1,5 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import React from 'react';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { ICard } from '../Interfaces/ICard';
 import { IDeck } from '../Interfaces/IDeck';

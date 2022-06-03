@@ -12,14 +12,15 @@ import { RootState } from '../../Store';
 
 // will go inside App tsx
 export const LoginPage: React.FC = () => {
-  const userInfo = useSelector((state:RootState)=> state.user);
+  const userInfo = useSelector((state: RootState) => state.user);
 
   const navigator = useNavigate();
 
-  useEffect(()=>{
-      if(!userInfo.error && userInfo.user){
-          navigator("/userhome");
-  }}, [userInfo]);
+  useEffect(() => {
+    if (!userInfo.error && userInfo.user) {
+      navigator('/login');
+    }
+  }, [userInfo]);
 
   return (
     <div className="loginPage">
