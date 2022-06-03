@@ -8,22 +8,27 @@ import { StartGameButton } from '../StartGameButton/StartGameButton';
 
 import { AppDispatch, RootState } from '../../Store';
 
-import cloverTwo from '../../images/cloverTwo.png';
-import diamondQueen from '../../images/diamondQueen.png';
-import spadeAce from '../../images/spadeAce.png';
-import heartKing from '../../images/heartKing.png';
+import cloverTwo from '../../images/CLOVERSTWO.png';
+import diamondQueen from '../../images/DIAMONDSQUEEN.png';
+
+import spadeAce from '../../images/SPADESACE.png';
+import heartKing from '../../images/HEARTSKING.png';
+
 import { HitButton } from '../HitButton/HitButton';
 
 // going inside PlaGamePage
 export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
   const dispatch: AppDispatch = useDispatch();
 
-  const deckInfo = useSelector((state: RootState) => state.deck);
+  const deckInfo = useSelector((state: RootState) => state.deck.deck);
   const userInfo = useSelector((state: RootState) => state.user);
+
   const playerHand = useSelector((state: RootState) => state.deck.playerHand);
+
   const dealerHand = useSelector((state: RootState) => state.deck.dealerHand);
 
   const isDeck = useSelector((state: RootState) => state.deck.isDeck);
+  console.log('coming from PlayGame line 31 ', deckInfo);
 
   const [gameStatus, setGameStatus] = useState('Game not initialized');
   // console.log('coming from PlayGame line 28 ', isDeck);
@@ -83,6 +88,12 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
 
   // }
 
+  // useEffect(() => {
+  //   console.log('coming from PlayGame line 93 ', deckInfo);
+  // }, [deckInfo]);
+
+  let imgPath = '../../images/';
+
   return (
     <>
       <div className="gameContainer">
@@ -96,13 +107,39 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
           <button>Score</button>
         </div>
 
-        {isDeck !== false && (
+        <div className="playArea">
+          <h1> dealer </h1>
+          {/* {playerHand?.map((hand) => hand?.suit)} */}
+          {deckInfo &&
+            deckInfo?.card?.map((hand) => {
+              return (
+                <div className="dealContainer">
+                  {/* <img
+                    src={`${imgPath}${hand.suit}${hand.rank}`}
+                    key={hand.id}
+                  /> */}
+
+                  <p>{hand.suit}</p>
+                </div>
+              );
+            })}
+
+          <div className="userContainer">
+            <h1>User</h1>
+            <img src={spadeAce} />
+            <img src={heartKing} />
+          </div>
+        </div>
+
+        {/* {isDeck !== false && (
           <div className="playArea">
-            <div className="dealContainer">
-              <h1> dealer </h1>
-              <img src={cloverTwo} />
-              <img src={diamondQueen} />
-            </div>
+            <h1> dealer </h1>
+            {playerHand?.map((hand) => {
+              <div className="dealContainer" key={hand.id}>
+                <img src={`../../images/${hand.suit}${hand.rank}`} />
+
+              </div>;
+            })}
 
             <div className="userContainer">
               <h1>User</h1>
@@ -110,7 +147,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
               <img src={heartKing} />
             </div>
           </div>
-        )}
+        )} */}
       </div>
     </>
   );

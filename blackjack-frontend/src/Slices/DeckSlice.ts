@@ -19,6 +19,7 @@ const initialDeckState: DeckSliceState = {
   loading: false,
   error: false,
   isDeck: false,
+  deck: {},
 };
 
 /*
@@ -53,32 +54,42 @@ export const initializeDeck = createAsyncThunk(
 // };
 
 // from StartGameButton Component
-export const getDeck = createAsyncThunk('deck/getDeck', async (deckId:number|undefined, thunkAPI) => {
-  try {
-    const res = await axios.get(`http://localhost:8000/deck/getDeck/${deckId}`);
-    console.log(res.data);
-    return res.data;
-  } catch (e) {
-    console.log(e);
+export const getDeck = createAsyncThunk(
+  'deck/getDeck',
+  async (deckId: number | undefined, thunkAPI) => {
+    try {
+      const res = await axios.get(
+        `http://localhost:8000/deck/getDeck/${deckId}`
+      );
+      console.log('coming from getDeck async line 63 ', res.data);
+      return res.data;
+    } catch (e) {
+      console.log(e);
+    }
   }
-});
+);
 
-export const getDeckByUID = createAsyncThunk('deck/getDeckByUID', async (userId:number|undefined, thunkAPI) => {
-  try {
-    const res = await axios.get(`http://localhost:8000/deck/getDeckByUID/${userId}`);
-    console.log(res.data);
-    return res.data;
-  } catch (e) {
-    console.log(e);
+export const getDeckByUID = createAsyncThunk(
+  'deck/getDeckByUID',
+  async (userId: number | undefined, thunkAPI) => {
+    try {
+      const res = await axios.get(
+        `http://localhost:8000/deck/getDeckByUID/${userId}`
+      );
+      console.log('coming from getDeckByUID async line 78 ', res.data);
+      return res.data;
+    } catch (e) {
+      console.log(e);
+    }
   }
-});
+);
 
 export const getDealPlayer = createAsyncThunk(
   'deck/getDealPlayer',
-  async (deckId:number|undefined, thunkAPI) => {
+  async (deckId: number | undefined, thunkAPI) => {
     try {
       const res = await axios.get(`http://localhost:8000/deck/deal/${deckId}`);
-      console.log(res.data);
+      console.log('coming from getDealPlayer async line 91 ', res.data);
       return res.data;
     } catch (e) {
       console.log(e);
@@ -87,10 +98,10 @@ export const getDealPlayer = createAsyncThunk(
 );
 export const getDealDealer = createAsyncThunk(
   'deck/getDealDealer',
-  async (deckId:number|undefined, thunkAPI) => {
+  async (deckId: number | undefined, thunkAPI) => {
     try {
       const res = await axios.get(`http://localhost:8000/deck/deal/${deckId}`);
-      console.log(res.data);
+      console.log('coming from getDealDealer async line 103 ', res.data);
       return res.data;
     } catch (e) {
       console.log(e);
