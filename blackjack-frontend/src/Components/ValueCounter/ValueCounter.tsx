@@ -88,6 +88,7 @@ export const calcHandValue: (hand: ICard[] | undefined) => number = function(
         hand: ICard[] | undefined
     ): number {
         let value = 0;
+        console.log(hand);
         if(hand){
             let aces = 0;
             for (let card of hand){

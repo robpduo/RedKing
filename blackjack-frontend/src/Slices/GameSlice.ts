@@ -65,6 +65,6 @@ export const gameSlice = createSlice({
     }
 });
 
-export const {setDealerCount, setPlayerCount, setGameStatus, setWinner, toggleBlackJack, toggleDealerBust, toggleDealerTurn, toggleHandComplete, togglePlayerBusted} = gameSlice.actions;
+export const {clearHands, setDealerCount, setPlayerCount, setGameStatus, setWinner, toggleBlackJack, toggleDealerBust, toggleDealerTurn, toggleHandComplete, togglePlayerBusted} = gameSlice.actions;
 
 export default gameSlice.reducer;
