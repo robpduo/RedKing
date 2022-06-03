@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getDealDealer, getDealPlayer } from '../../Slices/DeckSlice';
-import { setDealerCount, setGameStatus, setPlayerCount, setWinner, toggleDealerBust, toggleHandComplete, togglePlayerBusted } from '../../Slices/GameSlice';
+import { clearHands, setDealerCount, setGameStatus, setPlayerCount, setWinner, toggleDealerBust, toggleHandComplete, togglePlayerBusted } from '../../Slices/GameSlice';
 import { AppDispatch, RootState } from '../../Store';
 import {
   ValueCounter,
@@ -34,6 +34,7 @@ export const HitButton: React.FC = () => {
       setWinner('player');
       toggleHandComplete();
       setGameStatus('player turn');
+      clearHands();
       console.log(gameInfo.gameStatus);
     }
     if (gameInfo.dealerCount >= 17 && gameInfo.dealerCount < 22 && gameInfo.isDealersTurn) {
@@ -43,6 +44,7 @@ export const HitButton: React.FC = () => {
         setGameStatus('player turn');
         console.log(gameInfo.winner);
         console.log(gameInfo.gameStatus);
+        clearHands();
       }
       if (gameInfo.dealerCount < gameInfo.playerCount && !gameInfo.isPlayerBusted) {
         setWinner('player');
@@ -50,6 +52,7 @@ export const HitButton: React.FC = () => {
         gameInfo.gameStatus = "player turn";
         console.log(gameInfo.winner);
         console.log(gameInfo.gameStatus);
+        clearHands();
 
       }
       if (gameInfo.dealerCount === gameInfo.playerCount && !gameInfo.isPlayerBusted) {
@@ -58,6 +61,7 @@ export const HitButton: React.FC = () => {
         setGameStatus('player turn');
         console.log(gameInfo.winner);
         console.log(gameInfo.gameStatus);
+        clearHands();
 
       }
     }
@@ -67,6 +71,7 @@ export const HitButton: React.FC = () => {
       }, 500);
       setGameStatus('dealer turn');
       console.log(gameInfo.gameStatus);
+      clearHands();
     }
   }, [playerHand, dealerHand]);
 
