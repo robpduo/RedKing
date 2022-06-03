@@ -1,12 +1,13 @@
 .loginPage {
-
-
   display: flex;
   align-items: center !important;
   justify-content: center !important;
 
-  background: black;
-
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    url('../../images/blackingbg.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 /* 
 .loginPage:not(:hover) {
@@ -14,6 +15,5 @@
 } */
 
 .loginPage:hover {
-  filter: invert(100%);
   transition: 0.5s;
 }
