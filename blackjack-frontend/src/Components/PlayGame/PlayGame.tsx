@@ -12,6 +12,7 @@ import spade2 from '../../images/clubTwo.png';
 import diamondQueen from '../../images/diamondQueen.png';
 import spadeAce from '../../images/spadeAce.png';
 import heartKing from '../../images/heartKing.png';
+import { HitButton } from '../HitButton/HitButton';
 
 // going inside PlaGamePage
 export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
@@ -88,7 +89,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
         <div className="selectionArea">
           <h1>BlacKing</h1>
           <StartGameButton />
-          {/*<HitButton/> */}
+          <HitButton/> 
 
           <button>Stand</button>
           <button>Value</button>
