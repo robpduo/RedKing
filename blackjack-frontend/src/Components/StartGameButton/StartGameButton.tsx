@@ -40,9 +40,9 @@ export const StartGameButton: React.FC = () => {
     // if (userInfo != null) {
     //
     // }
-
+      let deckId = deckInfo.deck?.id;
     //retrieve deck from database
-    dispatch(getDeck);
+    dispatch(getDeck(deckId));
 
     //deals out initial 4 cards to player and dealer
     dispatch(getDealPlayer);
