@@ -71,7 +71,7 @@ export const HitButton: React.FC = () => {
         setIsPlayerBusted(true);
         setIsDealersTurn(true);
         setGameStatus('dealer turn');
-        setIsHandComplete('true');
+        setIsHandComplete(true);
         setWinner('dealer');
       }
     } else {
