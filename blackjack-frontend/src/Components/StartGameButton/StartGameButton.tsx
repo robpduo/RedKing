@@ -41,16 +41,17 @@ export const StartGameButton: React.FC = () => {
     //
     // }
 
+    let deckId = deckInfo.deck?.deckId;
     //retrieve deck from database
-    dispatch(getDeck);
+    dispatch(getDeck(deckId));
 
     //deals out initial 4 cards to player and dealer
-    dispatch(getDealPlayer);
-    dispatch(getDealPlayer);
-    dispatch(getDealDealer);
-    dispatch(getDealDealer);
-    console.log(playerHand);
-    console.log(dealerHand);
+    dispatch(getDealPlayer(deckId));
+    dispatch(getDealPlayer(deckId));
+    dispatch(getDealDealer(deckId));
+    dispatch(getDealDealer(deckId));
+    // console.log(playerHand);
+    // console.log(dealerHand);
     setGameStatus('begin');
   };
 

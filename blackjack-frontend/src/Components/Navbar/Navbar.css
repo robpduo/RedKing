@@ -35,9 +35,18 @@
   width: 90%;
 }
 
+.navMenu a {
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+}
+
 .moneyContainer {
   display: flex;
   align-items: center;
+  justify-content: space-around !important;
+  justify-content: center;
+  width: 30%;
 }
 
 .moneyContainer p {
@@ -61,7 +70,7 @@
   font-size: 0.8rem;
 
   width: fit-content;
-  height: 35px;
+  height: 100%;
 
   text-align: center;
   text-decoration: none;
@@ -69,6 +78,9 @@
   display: inline-block;
   cursor: pointer;
   outline: none;
+
+  padding: 6px;
+  margin: 0 6px;
 }
 
 .moneyBtn {

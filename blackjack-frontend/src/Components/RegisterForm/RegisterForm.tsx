@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { registerUser, updateUser } from '../../Slices/UserSlice';
+import { registerUser, sendMail, updateUser } from '../../Slices/UserSlice';
 import { AppDispatch, RootState } from '../../Store';
 
 // will go inside RegisterPage
@@ -61,9 +61,20 @@ export const RegisterForm: React.FC<any> = (spinner: any) => {
     console.log('coming from handleRegister line 41 ', credentials);
 
     dispatch(registerUser(credentials));
-    navigator('/playgame');
+    
   };
 
+  useEffect(()=>{
+    if(userInfo){
+      let data = {
+        firstName: userInfo.firstName,
+        email: userInfo.email,
+        msgType: "Register"
+      }
+      dispatch(sendMail(data));
+      navigator('/playgame');
+    }
+  },[userInfo])
   // form submit handler
   const handleUpdate = (event: React.MouseEvent<HTMLButtonElement>) => {
     let userUpdate = {

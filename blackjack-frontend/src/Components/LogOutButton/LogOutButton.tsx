@@ -1,4 +1,6 @@
 import React from 'react';
+import './LogOutButton.css';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { logoutUser } from '../../Slices/UserSlice';
@@ -17,8 +19,8 @@ export const LogOutButton: React.FC = () => {
 
   return (
     <>
-      <button className="elogout-btn" onClick={handleLogOut}>
-        Log Out
+      <button className="logoutBtn" onClick={handleLogOut}>
+        Logout
       </button>
     </>
   );

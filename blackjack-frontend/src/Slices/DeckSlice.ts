@@ -19,6 +19,7 @@ const initialDeckState: DeckSliceState = {
   loading: false,
   error: false,
   isDeck: false,
+  deck: {},
 };
 
 /*
@@ -31,6 +32,7 @@ type userProfile = {
 } 
 */
 
+// from StartGameButton Component
 export const initializeDeck = createAsyncThunk(
   'deck/initialize',
   async (user: IUser, thunkAPI) => {
@@ -47,22 +49,47 @@ export const initializeDeck = createAsyncThunk(
   }
 );
 
-export const getDeck = createAsyncThunk('deck/getDeck', async (thunkAPI) => {
-  try {
-    const res = await axios.get('http://localhost:8000/deck/getDeck');
-    console.log(res.data);
-    return res.data;
-  } catch (e) {
-    console.log(e);
+// type deckid = {
+//   deckId: number;
+// };
+
+// from StartGameButton Component
+export const getDeck = createAsyncThunk(
+  'deck/getDeck',
+  async (deckId: number | undefined, thunkAPI) => {
+    try {
+      const res = await axios.get(
+        `http://localhost:8000/deck/getDeck/${deckId}`
+      );
+      console.log('coming from getDeck async line 63 ', res.data);
+      return res.data;
+    } catch (e) {
+      console.log(e);
+    }
   }
-});
+);
+
+export const getDeckByUID = createAsyncThunk(
+  'deck/getDeckByUID',
+  async (userId: number | undefined, thunkAPI) => {
+    try {
+      const res = await axios.get(
+        `http://localhost:8000/deck/getDeckByUID/${userId}`
+      );
+      console.log('coming from getDeckByUID async line 78 ', res.data);
+      return res.data;
+    } catch (e) {
+      console.log(e);
+    }
+  }
+);
 
 export const getDealPlayer = createAsyncThunk(
   'deck/getDealPlayer',
-  async (thunkAPI) => {
+  async (deckId: number | undefined, thunkAPI) => {
     try {
-      const res = await axios.get('http://localhost:8000/deck/deal');
-      console.log(res.data);
+      const res = await axios.get(`http://localhost:8000/deck/deal/${deckId}`);
+      console.log('coming from getDealPlayer async line 91 ', res.data);
       return res.data;
     } catch (e) {
       console.log(e);
@@ -71,10 +98,10 @@ export const getDealPlayer = createAsyncThunk(
 );
 export const getDealDealer = createAsyncThunk(
   'deck/getDealDealer',
-  async (thunkAPI) => {
+  async (deckId: number | undefined, thunkAPI) => {
     try {
-      const res = await axios.get('http://localhost:8000/deck/deal');
-      console.log(res.data);
+      const res = await axios.get(`http://localhost:8000/deck/deal/${deckId}`);
+      console.log('coming from getDealDealer async line 103 ', res.data);
       return res.data;
     } catch (e) {
       console.log(e);
@@ -106,10 +133,10 @@ export const deckSlice = createSlice({
       state.loading = false;
       state.error = false;
       state.isDeck = true;
+      state.deck = action.payload;
     });
 
     // reducers for deck
-
     builder.addCase(getDeck.pending, (state, action) => {
       state.loading = true;
     });

@@ -3,36 +3,35 @@ import './PlayGame.css';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { IDeck } from '../../Interfaces/IDeck';
-import { IUser } from '../../Interfaces/IUser';
-import {
-  getDealPlayer,
-  getDealDealer,
-  initializeDeck,
-  getDeck,
-} from '../../Slices/DeckSlice';
 
 import { StartGameButton } from '../StartGameButton/StartGameButton';
 
 import { AppDispatch, RootState } from '../../Store';
 
-import spade2 from '../../images/clubTwo.png';
-import diamondQueen from '../../images/diamondQueen.png';
-import spadeAce from '../../images/spadeAce.png';
-import heartKing from '../../images/heartKing.png';
+import cloverTwo from '../../images/CLOVERSTWO.png';
+import diamondQueen from '../../images/DIAMONDSQUEEN.png';
+
+import spadeAce from '../../images/SPADESACE.png';
+import heartKing from '../../images/HEARTSKING.png';
+
+import { HitButton } from '../HitButton/HitButton';
 
 // going inside PlaGamePage
 export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
   const dispatch: AppDispatch = useDispatch();
 
-  const deckInfo = useSelector((state: RootState) => state.deck);
+  const deckInfo = useSelector((state: RootState) => state.deck.deck);
   const userInfo = useSelector((state: RootState) => state.user);
+
   const playerHand = useSelector((state: RootState) => state.deck.playerHand);
+
   const dealerHand = useSelector((state: RootState) => state.deck.dealerHand);
 
   const isDeck = useSelector((state: RootState) => state.deck.isDeck);
+  console.log('coming from PlayGame line 31 ', deckInfo);
 
   const [gameStatus, setGameStatus] = useState('Game not initialized');
-  console.log('coming from PlayGame line 31 ', isDeck);
+  // console.log('coming from PlayGame line 28 ', isDeck);
 
   // const [chipCount, setChipCount] = useState(1000);
   // const [betAmount, setBetAmount] = useState(0);
@@ -89,34 +88,58 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
 
   // }
 
+  // useEffect(() => {
+  //   console.log('coming from PlayGame line 93 ', deckInfo);
+  // }, [deckInfo]);
+
+  let imgPath = '../../images/';
+
   return (
     <>
       <div className="gameContainer">
-        {/* {gameStatus.includes("Game not initialized") ?
-          <div className="game-start-btn-container">
-            {/* <button className="game-start-btn" onClick={handleGameInit}>Start Game</button> 
-
-          </div> : <></>
-        } */}
-
         <div className="selectionArea">
           <h1>BlacKing</h1>
           <StartGameButton />
-          {/*<StartGameButton/>
-          <HitButton/> */}
+          <HitButton />
 
           <button>Stand</button>
           <button>Value</button>
           <button>Score</button>
         </div>
 
-        {isDeck && (
+        <div className="playArea">
+          <h1> dealer </h1>
+          {/* {playerHand?.map((hand) => hand?.suit)} */}
+          {deckInfo &&
+            deckInfo?.card?.map((hand) => {
+              return (
+                <div className="dealContainer">
+                  {/* <img
+                    src={`${imgPath}${hand.suit}${hand.rank}`}
+                    key={hand.id}
+                  /> */}
+
+                  <p>{hand.suit}</p>
+                </div>
+              );
+            })}
+
+          <div className="userContainer">
+            <h1>User</h1>
+            <img src={spadeAce} />
+            <img src={heartKing} />
+          </div>
+        </div>
+
+        {/* {isDeck !== false && (
           <div className="playArea">
-            <div className="dealContainer">
-              <h1> dealer </h1>
-              <img src={spade2} />
-              <img src={diamondQueen} />
-            </div>
+            <h1> dealer </h1>
+            {playerHand?.map((hand) => {
+              <div className="dealContainer" key={hand.id}>
+                <img src={`../../images/${hand.suit}${hand.rank}`} />
+
+              </div>;
+            })}
 
             <div className="userContainer">
               <h1>User</h1>
@@ -124,7 +147,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
               <img src={heartKing} />
             </div>
           </div>
-        )}
+        )} */}
       </div>
     </>
   );
