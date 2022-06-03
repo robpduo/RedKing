@@ -61,6 +61,11 @@ type ManageMoney = {
   amount: number;
 };
 
+type Mail = {
+  firstName: string,
+  email: string
+}
+
 // called from LoginForm component
 export const registerUser = createAsyncThunk(
   'user/register',
@@ -125,6 +130,18 @@ export const retrieveUserScores = createAsyncThunk(
   }
 );
 
+export const sendMail = createAsyncThunk(
+  'user/mail',
+  async (data:Mail, thunkAPI) => {
+    try {
+      const res = await axios.post('http://localhost:8000/mail', data);
+      return (res.data);
+    } catch (e) {
+      console.log("Some Error");
+    }
+  }
+);
+
 // //Create the slice
 export const UserSlice = createSlice({
   name: 'user',
@@ -159,8 +176,11 @@ export const UserSlice = createSlice({
     builder.addCase(retrieveUserScores.fulfilled, (state, action) => {
       state.users = action.payload;
     });
+    builder.addCase(sendMail.fulfilled, (state, action) => {
+      //state.users = action.payload;
+    });
   },
-});
+}); 
 
 // If we had normal actions and reducers we would export them like this
 // export const { toggleError } = UserSlice.actions;
