@@ -3,13 +3,6 @@ import './PlayGame.css';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { IDeck } from '../../Interfaces/IDeck';
-import { IUser } from '../../Interfaces/IUser';
-import {
-  getDealPlayer,
-  getDealDealer,
-  initializeDeck,
-  getDeck,
-} from '../../Slices/DeckSlice';
 
 import { StartGameButton } from '../StartGameButton/StartGameButton';
 
@@ -32,7 +25,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
   const isDeck = useSelector((state: RootState) => state.deck.isDeck);
 
   const [gameStatus, setGameStatus] = useState('Game not initialized');
-  console.log('coming from PlayGame line 31 ', isDeck);
+  // console.log('coming from PlayGame line 28 ', isDeck);
 
   // const [chipCount, setChipCount] = useState(1000);
   // const [betAmount, setBetAmount] = useState(0);
@@ -92,25 +85,17 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
   return (
     <>
       <div className="gameContainer">
-        {/* {gameStatus.includes("Game not initialized") ?
-          <div className="game-start-btn-container">
-            {/* <button className="game-start-btn" onClick={handleGameInit}>Start Game</button> 
-
-          </div> : <></>
-        } */}
-
         <div className="selectionArea">
           <h1>BlacKing</h1>
           <StartGameButton />
-          {/*<StartGameButton/>
-          <HitButton/> */}
+          {/*<HitButton/> */}
 
           <button>Stand</button>
           <button>Value</button>
           <button>Score</button>
         </div>
 
-        {isDeck && (
+        {isDeck !== false && (
           <div className="playArea">
             <div className="dealContainer">
               <h1> dealer </h1>

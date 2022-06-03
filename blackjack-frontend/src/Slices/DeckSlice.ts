@@ -31,6 +31,7 @@ type userProfile = {
 } 
 */
 
+// from StartGameButton Component
 export const initializeDeck = createAsyncThunk(
   'deck/initialize',
   async (user: IUser, thunkAPI) => {
@@ -47,15 +48,25 @@ export const initializeDeck = createAsyncThunk(
   }
 );
 
-export const getDeck = createAsyncThunk('deck/getDeck', async (thunkAPI) => {
-  try {
-    const res = await axios.get('http://localhost:8000/deck/getDeck');
-    console.log(res.data);
-    return res.data;
-  } catch (e) {
-    console.log(e);
+type deckid = {
+  deckId: number;
+};
+
+// from StartGameButton Component
+export const getDeck = createAsyncThunk(
+  'deck/getDeck',
+  async (deckId: deckid, thunkAPI) => {
+    try {
+      const res = await axios.get(
+        `http://localhost:8000/deck/getDeck${deckId}`
+      );
+      console.log('coming from async getDeck line 55 ', res.data);
+      return res.data;
+    } catch (e) {
+      console.log(e);
+    }
   }
-});
+);
 
 export const getDealPlayer = createAsyncThunk(
   'deck/getDealPlayer',
@@ -106,10 +117,10 @@ export const deckSlice = createSlice({
       state.loading = false;
       state.error = false;
       state.isDeck = true;
+      state.deck = action.payload;
     });
 
     // reducers for deck
-
     builder.addCase(getDeck.pending, (state, action) => {
       state.loading = true;
     });

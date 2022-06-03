@@ -11,7 +11,7 @@ export const Navbar: React.FC = () => {
   // const navigator = useNavigate();
 
   const userInfo = useSelector((state: RootState) => state.user.user);
-  console.log('coming from Navbar line 15 ', userInfo);
+  // console.log('coming from Navbar line 15 ', userInfo);
 
   // const handleLogout = () => {
   //   dispatch(logoutUser());

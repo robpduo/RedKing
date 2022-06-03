@@ -7,18 +7,25 @@ import {
   getDealPlayer,
   getDeck,
   initializeDeck,
+  deckSlice,
 } from '../../Slices/DeckSlice';
 import { AppDispatch, RootState } from '../../Store';
 
 // go inside PlayGame
 export const StartGameButton: React.FC = () => {
   const userInfo = useSelector((state: RootState) => state.user);
-  const deckInfo = useSelector((state: RootState) => state.deck);
+
+  const deckInfo = useSelector((state: RootState) => state.deck.deck);
+
   const playerHand = useSelector((state: RootState) => state.deck.playerHand);
+
   const dealerHand = useSelector((state: RootState) => state.deck.dealerHand);
+
   const [gameStatus, setGameStatus] = useState('Game not initialized');
   const dispatch: AppDispatch = useDispatch();
   const navigator = useNavigate();
+
+  console.log('coming from StartGameButton line 27 ', deckInfo);
 
   const handleGameInit = () => {
     if (userInfo.user) {
@@ -35,14 +42,14 @@ export const StartGameButton: React.FC = () => {
       dispatch(initializeDeck(user));
     }
 
-    console.log(userInfo.user);
+    console.log('coming from StartGameButton line 38 ', userInfo.user);
 
     // if (userInfo != null) {
     //
     // }
 
     //retrieve deck from database
-    dispatch(getDeck);
+    // dispatch(getDeck(deckInfo && deckInfo));
 
     //deals out initial 4 cards to player and dealer
     dispatch(getDealPlayer);
@@ -57,12 +64,10 @@ export const StartGameButton: React.FC = () => {
   return (
     <>
       {gameStatus.includes('Game not initialized') ? (
-        <div className="start-game-btn-container">
-          {
-            <button className="start-game-btn" onClick={handleGameInit}>
-              Start Game
-            </button>
-          }
+        <div className="startGameBtnContainer">
+          <button className="startGameBtn" onClick={handleGameInit}>
+            Start Game
+          </button>
         </div>
       ) : (
         <></>
