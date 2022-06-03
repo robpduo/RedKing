@@ -9,7 +9,7 @@ interface DeckSliceState {
   loading: boolean;
   error: boolean;
   isDeck: boolean;
-  deck?: IDeck[];
+  deck?: IDeck;
   cards?: ICard[];
   playerHand?: ICard[];
   dealerHand?: ICard[];
@@ -53,9 +53,19 @@ type deckid = {
 };
 
 // from StartGameButton Component
-export const getDeck = createAsyncThunk('deck/getDeck', async (thunkAPI) => {
+export const getDeck = createAsyncThunk('deck/getDeck', async (deckId:number|undefined, thunkAPI) => {
   try {
-    const res = await axios.get('http://localhost:8000/deck/getDeck');
+    const res = await axios.get(`http://localhost:8000/deck/getDeck/${deckId}`);
+    console.log(res.data);
+    return res.data;
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+export const getDeckByUID = createAsyncThunk('deck/getDeckByUID', async (userId:number|undefined, thunkAPI) => {
+  try {
+    const res = await axios.get(`http://localhost:8000/deck/getDeckByUID/${userId}`);
     console.log(res.data);
     return res.data;
   } catch (e) {
