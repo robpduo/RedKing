@@ -216,12 +216,12 @@ export const UserSlice = createSlice({
     builder.addCase(retrieveUserScores.fulfilled, (state, action) => {
       state.users = action.payload;
     });
+    
     builder.addCase(sendMail.fulfilled, (state, action) => {
       //state.users = action.payload;
     });
   },
 }); 
-
 // If we had normal actions and reducers we would export them like this
 // export const { toggleError } = UserSlice.actions;
 export const { logoutUser } = UserSlice.actions;

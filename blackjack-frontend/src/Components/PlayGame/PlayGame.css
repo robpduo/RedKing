@@ -17,12 +17,12 @@
 .selectionArea {
   min-width: 15%;
   background: transparent !important;
+
   border-right: 1px solid white;
 
   display: flex;
   flex-direction: column;
-  justify-content: start;
-  /* border-top: 1px solid white !important; */
+  justify-content: center;
   text-align: center;
 }
 
@@ -30,6 +30,7 @@
   font-size: 1.4rem;
   font-weight: 400;
   color: white;
+  margin-top: 16px;
 }
 
 .selectionArea button {
@@ -41,8 +42,10 @@
 }
 
 .selectionArea button:hover {
-  transition: 0.5s;
-  background: black;
+  transition: 0.8s;
+  background: transparent;
+  border-style: dashed;
+  border-color: salmon;
   color: white;
   cursor: pointer;
 }

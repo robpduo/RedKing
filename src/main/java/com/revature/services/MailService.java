@@ -27,7 +27,14 @@ public class MailService {
             helper.setFrom(from);
             helper.setTo(to);
             boolean html = true;
-            String text = "<b>Congratulation " + mailHelper.getFirstName() +" !!!</b><br><i>You win BackJack.</i>";
+            String text ="";
+            if(mailHelper.getMsgType().equals("Register")){
+                text = "<b>Hello " + mailHelper.getFirstName() +",</b><br><i>You've registered for BackJack.</i>";
+            } else {
+                text = "<b>Congratulation " + mailHelper.getFirstName() +" !!!</b><br><i>You won BackJack.</i>";
+            }
+
+
             helper.setText(text, html);
             mailSender.send(message);
 

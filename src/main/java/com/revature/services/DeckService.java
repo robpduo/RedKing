@@ -45,8 +45,6 @@ public class DeckService {
         deck.setCards(lCards);
         deck.setUser(user);
         deck.setDeckSize(52);
-        System.out.println(deck.getCards());
-        System.out.println(lCards);
         return dr.save(deck);
     }
 

@@ -9,7 +9,7 @@ interface DeckSliceState {
   loading: boolean;
   error: boolean;
   isDeck: boolean;
-  deck?: IDeck[];
+  deck?: IDeck;
   cards?: ICard[];
   playerHand?: ICard[];
   dealerHand?: ICard[];
@@ -31,6 +31,7 @@ type userProfile = {
 } 
 */
 
+// from StartGameButton Component
 export const initializeDeck = createAsyncThunk(
   'deck/initialize',
   async (user: IUser, thunkAPI) => {
@@ -47,9 +48,24 @@ export const initializeDeck = createAsyncThunk(
   }
 );
 
-export const getDeck = createAsyncThunk('deck/getDeck', async (thunkAPI) => {
+type deckid = {
+  deckId: number;
+};
+
+// from StartGameButton Component
+export const getDeck = createAsyncThunk('deck/getDeck', async (deckId:number|undefined, thunkAPI) => {
   try {
-    const res = await axios.get('http://localhost:8000/deck/getDeck');
+    const res = await axios.get(`http://localhost:8000/deck/getDeck/${deckId}`);
+    console.log(res.data);
+    return res.data;
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+export const getDeckByUID = createAsyncThunk('deck/getDeckByUID', async (userId:number|undefined, thunkAPI) => {
+  try {
+    const res = await axios.get(`http://localhost:8000/deck/getDeckByUID/${userId}`);
     console.log(res.data);
     return res.data;
   } catch (e) {
@@ -106,10 +122,10 @@ export const deckSlice = createSlice({
       state.loading = false;
       state.error = false;
       state.isDeck = true;
+      state.deck = action.payload;
     });
 
     // reducers for deck
-
     builder.addCase(getDeck.pending, (state, action) => {
       state.loading = true;
     });
