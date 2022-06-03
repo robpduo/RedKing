@@ -10,6 +10,9 @@ import {
   initializeDeck,
   getDeck,
 } from '../../Slices/DeckSlice';
+
+import { StartGameButton } from '../StartGameButton/StartGameButton';
+
 import { AppDispatch, RootState } from '../../Store';
 
 import spade2 from '../../images/clubTwo.png';
@@ -25,6 +28,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
   const userInfo = useSelector((state: RootState) => state.user);
   const playerHand = useSelector((state: RootState) => state.deck.playerHand);
   const dealerHand = useSelector((state: RootState) => state.deck.dealerHand);
+
   const isDeck = useSelector((state: RootState) => state.deck.isDeck);
 
   const [gameStatus, setGameStatus] = useState('Game not initialized');
@@ -77,50 +81,6 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
   // const [dealerCount, setDealerCount] = useState(0)
   // const [playerCount, setPlayerCount] = useState(0)
 
-  const handleGameInit = () => {
-    if (userInfo.user) {
-      // init and shuffle deck
-      let user: IUser = {
-        userId: userInfo.user!.userId,
-        email: userInfo.user!.email,
-        password: userInfo.user!.password,
-        firstName: userInfo.user!.firstName,
-        lastName: userInfo.user!.lastName,
-        money: userInfo.user!.money,
-      };
-
-      dispatch(initializeDeck(user));
-    }
-
-    console.log(userInfo.user);
-
-    // if (userInfo != null) {
-    //
-    // }
-
-    //retrieve deck from database
-    dispatch(getDeck);
-
-    //deals out initial 4 cards to player and dealer
-    dispatch(getDealPlayer);
-    dispatch(getDealPlayer);
-    dispatch(getDealDealer);
-    dispatch(getDealDealer);
-    console.log(playerHand);
-    console.log(dealerHand);
-    setGameStatus('begin');
-  };
-
-  // const handleHitButton = () => {
-  //   if (userInfo && deckInfo) {
-  //     dispatch(getDealPlayer());
-  //     setGameStatus("Start");
-  //   } else {
-  //     setGameStatus("User not logged in");
-  //     console.log(gameStatus);
-  //   }
-  // }
-
   // const handleStandButton = () => {
 
   //   if (deckInfo && playerHand) {
@@ -141,8 +101,10 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
 
         <div className="selectionArea">
           <h1>BlacKing</h1>
+          <StartGameButton />
+          {/*<StartGameButton/>
+          <HitButton/> */}
 
-          <button onClick={handleGameInit}>Start</button>
           <button>Stand</button>
           <button>Value</button>
           <button>Score</button>
@@ -158,23 +120,9 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
 
             <div className="userContainer">
               <h1>User</h1>
-
               <img src={spadeAce} />
               <img src={heartKing} />
             </div>
-
-            {/* <div className="dealer-hand-container">
-
-          </div> */}
-
-            {/* <div className="deck-container"></div>
-
-          <div className="player-hand-container">
-
-
-          </div> */}
-            {/* <button className="hit-button" onClick={handleHitButton}>Hit!</button>
-          <button className="stand-button" onClick={handleStandButton}>Stand!</button> */}
           </div>
         )}
       </div>

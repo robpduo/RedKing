@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import './Navbar.css';
-
+import { LogOutButton } from '../LogOutButton/LogOutButton';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppDispatch, RootState } from '../../Store';
@@ -23,17 +23,17 @@ export const Navbar: React.FC = () => {
 
   return (
     <nav className="navBar">
-      {/* <Link to="/home" className="navMenu">
-        <p>{userInfo ? userInfo.firstName : "Anonymous"}</p>
-      </Link> */}
-
       <div className="navMenu">
-        <p>{userInfo ? userInfo.firstName : 'Anonymous'}</p>
+        <Link to="/user">
+          <p>{userInfo ? userInfo.firstName : 'Anonymous'}</p>
+        </Link>
         <div className="moneyContainer">
+          <p>{userInfo ? `$${userInfo.money}` : '$0.00'}</p>
           <Link to="/money">
             <button className="moneyBtn">Add Money</button>
           </Link>
-          <p>{userInfo ? `$${userInfo.money}` : '$0.00'}</p>
+
+          <LogOutButton />
         </div>
       </div>
     </nav>

@@ -6,10 +6,10 @@ import { IUser } from '../Interfaces/IUser';
 //Figure out our default state for this slice
 
 interface UserSliceState {
-  loading: boolean,
-  error: boolean,
-  user?: IUser,
-  users?: IUser[]
+  loading: boolean;
+  error: boolean;
+  user?: IUser;
+  users?: IUser[];
 }
 
 const initialUserState: UserSliceState = {
@@ -27,7 +27,6 @@ export const loginUser = createAsyncThunk(
   'user/login',
   async (credentials: Login, thunkAPI) => {
     try {
-      // axios.defaults.withCredentials = true;
       const res = await axios.post(
         'http://localhost:8000/user/login',
         credentials
@@ -41,8 +40,8 @@ export const loginUser = createAsyncThunk(
         password: res.data.password,
         firstName: res.data.firstName,
         lastName: res.data.lastName,
-        money: res.data.money
-      }
+        money: res.data.money,
+      };
     } catch (e) {
       return thunkAPI.rejectWithValue('something went wrong');
     }
@@ -50,10 +49,10 @@ export const loginUser = createAsyncThunk(
 );
 
 type Register = {
-  email: string;
-  password: string;
-  firstName: string;
-  lastName: string;
+  email: string | undefined;
+  password: string | undefined;
+  firstName: string | undefined;
+  lastName: string | undefined;
 };
 
 type ManageMoney = {
@@ -71,13 +70,40 @@ export const registerUser = createAsyncThunk(
   'user/register',
   async (credentials: Register, thunkAPI) => {
     try {
-      // axios.defaults.withCredentials = true;
       const res = await axios.post(
         'http://localhost:8000/user/register',
         credentials
       );
 
       console.log('coming from registerUser async line 59 ', res.data);
+
+      return res.data;
+    } catch (e) {
+      return thunkAPI.rejectWithValue('something went wrong');
+    }
+  }
+);
+
+type Update = {
+  userId: number | undefined;
+  email: string | undefined;
+  password: string | undefined;
+  firstName: string | undefined;
+  lastName: string | undefined;
+};
+
+// called from RegisterForm component
+export const updateUser = createAsyncThunk(
+  'user/updateuser',
+  async (credentials: Update, thunkAPI) => {
+    try {
+      // axios.defaults.withCredentials = true;
+      const res = await axios.post(
+        'http://localhost:8000/user/update',
+        credentials
+      );
+
+      console.log('coming from updateUser async line 103 ', res.data);
 
       return res.data;
     } catch (e) {
@@ -122,10 +148,10 @@ export const retrieveUserScores = createAsyncThunk(
   async (thunkAPI) => {
     try {
       const res = await axios.get('http://localhost:8000/user/allUsers');
-      console.log("Line 123", res.data);
-      return (res.data);
+      console.log('Line 123', res.data);
+      return res.data;
     } catch (e) {
-      console.log("Some Error");
+      console.log('Some Error');
     }
   }
 );
@@ -150,13 +176,15 @@ export const UserSlice = createSlice({
     toggleError: (state) => {
       //   state.error = !state.error;
     },
+    logoutUser: (state) => {
+      state.user = undefined;
+    },
   },
 
   extraReducers: (builder) => {
     builder.addCase(loginUser.fulfilled, (state, action) => {
       state.user = action.payload;
       // state.error = false;
-      // state.loading = false;
     });
     builder.addCase(loginUser.rejected, (state, action) => {
       // state.error = true;
@@ -167,22 +195,42 @@ export const UserSlice = createSlice({
       state.user = action.payload;
       // state.error = false;
     });
+
+    builder.addCase(registerUser.rejected, (state, action) => {
+      // state.error = true;
+    });
+
+    builder.addCase(updateUser.fulfilled, (state, action) => {
+      state.user = action.payload;
+      // state.error = false;
+    });
+
     builder.addCase(depositMoney.fulfilled, (state, action) => {
       state.user = action.payload;
     });
+
     builder.addCase(withdrawMoney.fulfilled, (state, action) => {
       state.user = action.payload;
     });
+
     builder.addCase(retrieveUserScores.fulfilled, (state, action) => {
       state.users = action.payload;
     });
+<<<<<<< HEAD
     builder.addCase(sendMail.fulfilled, (state, action) => {
       //state.users = action.payload;
     });
   },
 }); 
+=======
+
+  },
+
+});
+>>>>>>> 1fea6e8b71b988cabf81c909aa63fd4def35c7b3
 
 // If we had normal actions and reducers we would export them like this
 // export const { toggleError } = UserSlice.actions;
+export const { logoutUser } = UserSlice.actions;
 
 export default UserSlice.reducer;
