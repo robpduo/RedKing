@@ -27,6 +27,6 @@ A Game similar to BlackJack, with slight alteration to the rules to win. As with
 - JUnit
 
 ## Usage
-1. Players may login or register a new account
+1. Players may login or register a new account<br/>
 ![image](https://user-images.githubusercontent.com/101683611/171944639-b03c942a-02e1-4cd7-aaba-ccd06fb79eaf.png)<br/>
 
