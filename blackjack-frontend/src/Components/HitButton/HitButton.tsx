@@ -70,8 +70,13 @@ export const HitButton:React.FC = () => {
             setIsHandComplete(false);
             dispatch(getDealPlayer());
             setGameStatus("player turn");
-          } else if (gameStatus == 'dealer turn') {
-            dispatch(getDealDealer());
+              if(playerCount > 21){
+                  setIsPlayerBusted(true);
+                  setIsDealersTurn(true);
+                  setGameStatus("dealer turn");
+                  setIsHandComplete("true");
+                  setWinner("dealer");
+              }
           }
           else {
             setGameStatus("User not logged in");
