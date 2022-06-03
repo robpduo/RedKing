@@ -28,9 +28,9 @@ export const HitButton: React.FC = () => {
   const navigator = useNavigate();
 
   useEffect(() => {
-    setDealerCount(calcVisibleDealerHandValue(dealerHand));
+    setDealerCount(calcHandValue(dealerHand));
     setPlayerCount(calcHandValue(playerHand));
-
+    let deckId = deckInfo.deck?.deckId;
     if (dealerCount > 21) {
       setIsDealerBusted(true);
       setWinner('player');
@@ -56,16 +56,19 @@ export const HitButton: React.FC = () => {
     }
     if (dealerCount < 17 && isDealersTurn && !isPlayerBusted) {
       setTimeout(() => {
-        dispatch(getDealDealer());
+        dispatch(getDealDealer(deckId));
       }, 500);
       setGameStatus('dealer turn');
     }
   }, [playerHand, dealerHand]);
 
   const handleHitButton = () => {
+
+    let deckId = deckInfo.deck?.deckId;
+
     if (userInfo && deckInfo) {
       setIsHandComplete(false);
-      dispatch(getDealPlayer());
+      dispatch(getDealPlayer(deckId));
       setGameStatus('player turn');
       if (playerCount > 21) {
         setIsPlayerBusted(true);
