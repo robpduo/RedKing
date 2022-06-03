@@ -25,3 +25,5 @@ A Game similar to BlackJack, with slight alteration to the rules to win. As with
 - Mockito
 - MockMVC
 - JUnit
+
+## Usage
