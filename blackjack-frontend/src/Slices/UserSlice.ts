@@ -62,7 +62,8 @@ type ManageMoney = {
 
 type Mail = {
   firstName: string,
-  email: string
+  email: string,
+  msgType: string
 }
 
 // called from LoginForm component
