@@ -31,6 +31,7 @@ type userProfile = {
 } 
 */
 
+// from StartGameButton Component
 export const initializeDeck = createAsyncThunk(
   'deck/initialize',
   async (user: IUser, thunkAPI) => {
@@ -47,6 +48,11 @@ export const initializeDeck = createAsyncThunk(
   }
 );
 
+type deckid = {
+  deckId: number;
+};
+
+// from StartGameButton Component
 export const getDeck = createAsyncThunk('deck/getDeck', async (thunkAPI) => {
   try {
     const res = await axios.get('http://localhost:8000/deck/getDeck');
@@ -106,10 +112,10 @@ export const deckSlice = createSlice({
       state.loading = false;
       state.error = false;
       state.isDeck = true;
+      state.deck = action.payload;
     });
 
     // reducers for deck
-
     builder.addCase(getDeck.pending, (state, action) => {
       state.loading = true;
     });

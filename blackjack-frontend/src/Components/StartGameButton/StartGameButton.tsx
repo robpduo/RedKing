@@ -40,7 +40,7 @@ export const StartGameButton: React.FC = () => {
     // if (userInfo != null) {
     //
     // }
-      let deckId = deckInfo.deck?.id;
+    let deckId = deckInfo.deck?.id;
     //retrieve deck from database
     dispatch(getDeck(deckId));
 
