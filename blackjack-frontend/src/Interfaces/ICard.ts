@@ -1,7 +1,7 @@
 export interface ICard {
   id?: number;
-  rank: Rank;
-  suit: Suit;
+  rank: Rank | string;
+  suit: Suit | string;
 }
 
 export enum Rank {

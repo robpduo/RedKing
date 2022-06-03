@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { AppDispatch, RootState } from '../../Store';
-import { ICard } from "../../Interfaces/ICard";
+import { Rank,  ICard } from "../../Interfaces/ICard";
 import { access, readlink } from 'fs';
 import './ValueCounter.css';
 
@@ -52,34 +52,35 @@ export const calcCardValue: (card: ICard) => number = function(
     card: ICard
 ): number {
     let x = card.rank;
-    if (x == 1){
+    if (x == Rank.TWO){
         return 2;
-    }else if(x == 2){
+    }else if(x == Rank.THREE){
         return 3;
-    }else if(x == 3){
+    }else if(x == Rank.FOUR){
         return 4;
-    }else if(x == 4){
+    }else if(x == Rank.FIVE){
         return 5;
-    }else if(x == 5){
+    }else if(x == Rank.SIX){
         return 6;
-    }else if(x == 6){
+    }else if(x == Rank.SEVEN){
         return 7;
-    }else if(x == 7){
+    }else if(x == Rank.EIGHT){
         return 8;
-    }else if(x == 8){
+    }else if(x == Rank.NINE){
         return 9;
-    }else if(x == 9){
+    }else if(x == Rank.TEN){
         return 10;
-    }else if(x == 10){
+    }else if(x == Rank.JACK){
         return 10;
-    }else if(x == 11){
+    }else if(x == Rank.QUEEN){
         return 10;
-    }else if(x == 12){
+    }else if(x == Rank.KING){
         return 10;
-    }else if(x == 0){
+    }else if(x == Rank.ACE){
         return 1;
     }else{
         return -1;
+        console.log("in the negative number");
     }
 };
 //takes in a hand and calculates its value
@@ -88,16 +89,19 @@ export const calcHandValue: (hand: ICard[] | undefined) => number = function(
         hand: ICard[] | undefined
     ): number {
         let value = 0;
+        console.log(hand);
         if(hand){
             let aces = 0;
             for (let card of hand){
                 let current = calcCardValue(card); 
+                
                 if(current == 1){
                     aces++;
                 }else{
                     value += current;
                 }
             }
+            
             for (let i = 0; i < aces; i++){
                 if(value + 11 + (aces - i - 1) > 21){
                     value += 1;
@@ -106,6 +110,7 @@ export const calcHandValue: (hand: ICard[] | undefined) => number = function(
                 }
             }
         }
+        
         return value;
     }
     //calculates what you can see of the dealer's hand
@@ -133,6 +138,8 @@ export const calcVisibleDealerHandValue: (hand: ICard[] | undefined) => number =
                     value += 11;
                 }
             }
+        }else{
+            console.log("hand was undefined");
         }
         return value;
     }

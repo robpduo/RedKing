@@ -4,6 +4,6 @@ import { IUser } from './IUser';
 export interface IDeck {
   deckId?: number;
   user?: IUser;
-  card?: ICard[];
+  cards?: ICard[];
   size?: number;
 }

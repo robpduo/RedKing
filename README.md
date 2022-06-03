@@ -1,75 +1,32 @@
-# Development Process
+# RedKing
+## Summary Description
 
-## Things to remember
-  Always git pull before creating a new branch
-  
-## Creating a new branch
-  1. git checkout develop (Start from the develop branch)
-  2. git pull
-  3. git checkout -b feature/<your-feature> OR style/<component-to-style> OR bug/(bug-to-fix)
+A Game similar to BlackJack, with slight alteration to the rules to win. As with traditional blackjack, users play against the dealer in a one-on-one, turn based scenario, to draw cards from the deck until the cumulative value on either side reaches 21 or over. The player may 'stand' to hold the value of their cards and pass the turn to the dealer. Which ever hand is closest to 21 wins.
 
-## Merging feature branch into develop
-  1. save your work and push it to yor branch
-    git add . -> git commit -m " " -> git push origin feature/<your-feature>
-  2. git checkout develop
-  3. git pull (always do a pull before you merge, you will get an error if you try to merge when the develop branch is behind)
-  4. git merge your-branch-name
-  5. git push (push the changes that you merged into develop)
+## Features
 
-## Merge Conflicts
-  When you get a merge conflict, open VS Code and see what changes need to be approved <br/> <br/>
-  ![image](https://user-images.githubusercontent.com/101683611/170808502-61732634-3ad2-442b-914b-a1eb5898a8b8.png)
-  
-  Click on the changes you want to accept
-  Please don't change the models in the Backend or Frontend(IUser, IDeck, ICard) unless everyone agrees, if the models change then all methods that rely on it will    break and there will be a merge conflict for unmerged branches 
+### Users
+1. Users may register for a new account and log into the system with the credentials provided
+2. Users may deposit/withdraw money into their account
+3. Users may start a new game which initializes a new deck of 52 shuffled cards
+4. Users may display the highscores board which displays all users in the system and their scores/money value
+5. Users can load a previous deck that they have initialized previously, and continue playing the deck
+6. during each game, users may bet a certain amount of money. If they win the round, they will receive double the amount the have betted
+7. user's may withdraw their money at the homepage
 
-  
-## Services Implemented
-  Users Services<br/>
-    Login: Param: email, passowrd. Ret: user.<br/>
-    Register: Param: email, password, firstName, lastName, money. Ret: user <br/>
-    Update: Param: user. Ret: updated user <br/>
-    Deposit: Param: deckId, amount. Ret: user with updated amount <br/>
-    Retrieve All Users: Ret: list of all users with password omitted <br/>
-    getDeckByUserId: Param: user. Ret: deck. <br/>
-    Withdraw Money: Param: withdrawHelper (userId, amount). Ret: updated user <br/>
-  <br/>
-  Deck Services<br/>
-    Initialize: Param: user. Ret: deck (shuffled)<br/>
-    Deal Card: Param: deck. Ret: card. <br/>
-  
-  *Possibly add a moderator to delete accounts if needed
-  
-## Pending Services (Complete - Please Provide Suggestions)
-  
-## Suggestions to improve utilization of RDS 
-  Add a moderator / game master account 
-    * Able to Retrieve all game records played
-      1. amount won/loss by the player
-      2. date the game was played
-      3. player that played that particular round
-      4. players hand
-      5. dealers hand
-  
-    * Caluclate Total Earnings / Losses
-  
-  ### How to implement Moderator
-      1. Need new model on backend + CRUD functionality
-      2. Need front end interface models, components, and views
-        a. log-in functionality for managers
-        b. display records navigator
-        c. totals earning / losses can be presented at the bottom of the screen
-  
-## Node.js
-  npx create-react-app name-of-app --template typescript<br/>
+## Technologies Used
+- Java version 1.8.0
+- React
+- AWS S3
+- Hibernate,
+- Spring Boot
+- Spring Data
+- PostgreSQL
+- Mockito
+- MockMVC
+- JUnit
 
-  ### Install Node Modules to be used in React
-  (May not have to install all these modules because I may have pushed everything up)
-  1. Open Terminal
-  2. CD into blackjack-frontend
-  3. Run each of these commands in the terminal<br/>
-    (npm install)<br/>
-    npm i axios<br/>
-    npm i react-router-dom<br/>
-    npm i react-redux<br/>
-    npm i @reduxjs/toolkit<br/>
+## Usage
+1. Players may login or register a new account<br/>
+![image](https://user-images.githubusercontent.com/101683611/171944639-b03c942a-02e1-4cd7-aaba-ccd06fb79eaf.png)<br/>
+
