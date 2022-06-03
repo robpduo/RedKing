@@ -1,12 +1,10 @@
 .login {
   border-radius: 10px !important;
 
-
   background-color: white;
-
+  border: 1px solid white;
 
   width: 50%;
-
   padding: 3rem;
 
   display: flex;
@@ -14,9 +12,14 @@
   justify-content: center;
 
   margin: 8rem auto;
-  over-flow: none;
 }
 
+.login:hover {
+  filter: invert(100%);
+  transition: 0.5s;
+  border: 1px solid black;
+  background-color: transparent;
+}
 
 .loginHeader {
   margin-bottom: 50px;
@@ -30,7 +33,7 @@
 }
 
 .inputH4 {
-  color: var(--text-white);
+  color: black !important;
   font-size: 0.6rem;
   margin-left: 4px;
   margin-bottom: 4px;
@@ -40,7 +43,7 @@
   height: 40px;
   margin-bottom: 10px;
   background-color: var(--text-white);
-  
+
   /* filter: invert(100%); */
   width: 100%;
 
@@ -51,11 +54,10 @@
   font-size: 0.8rem;
 }
 
-input[type="text"]{
+input[type='text'] {
   background-color: white;
-
 }
-input[type="password"]{
+input[type='password'] {
   background-color: white;
 }
 
@@ -65,7 +67,6 @@ input[type="password"]{
 
 .loginInput:focus {
   outline-width: 0;
-
 }
 
 .loginBtn {
@@ -88,7 +89,14 @@ input[type="password"]{
   transition: 0.5s;
   background-color: white;
   color: black;
-
 }
 
+.backToGame {
+  margin-top: 8px;
+  text-decoration: none;
+  color: black;
+}
 
+.backToGame:hover {
+  cursor: pointer;
+}

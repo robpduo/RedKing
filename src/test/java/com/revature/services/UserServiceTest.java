@@ -1,4 +1,4 @@
-package com.revature;
+package com.revature.services;
 
 import com.revature.exceptions.InsufficientFundsException;
 import com.revature.exceptions.InvalidDepositAmount;

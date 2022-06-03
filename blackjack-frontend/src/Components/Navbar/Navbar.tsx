@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import './Navbar.css';
-
+import { LogOutButton } from '../LogOutButton/LogOutButton';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppDispatch, RootState } from '../../Store';
@@ -11,8 +11,7 @@ export const Navbar: React.FC = () => {
   // const navigator = useNavigate();
 
   const userInfo = useSelector((state: RootState) => state.user.user);
-    console.log("coming from Navbar line 22 useEffect ", userInfo && userInfo.firstName );
-
+  // console.log('coming from Navbar line 15 ', userInfo);
 
   // const handleLogout = () => {
   //   dispatch(logoutUser());
@@ -24,16 +23,19 @@ export const Navbar: React.FC = () => {
 
   return (
     <nav className="navBar">
-      {/* <Link to="/home" className="navMenu">
-        <p>{userInfo ? userInfo.firstName : "Anonymous"}</p>
-      </Link> */}
-
       <div className="navMenu">
-          <p>{userInfo ? userInfo.firstName : "Anonymous"}</p>
-          <Link to="/money"><button className="moneyBtn">Money</button></Link>
-          
-      </div>
+        <Link to="/user">
+          <p>{userInfo ? userInfo.firstName : 'Anonymous'}</p>
+        </Link>
+        <div className="moneyContainer">
+          <p>{userInfo ? `$${userInfo.money}` : '$0.00'}</p>
+          <Link to="/money">
+            <button className="moneyBtn">Add Money</button>
+          </Link>
 
+          <LogOutButton />
+        </div>
+      </div>
     </nav>
   );
 };

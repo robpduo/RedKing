@@ -18,7 +18,7 @@ export const HomeScreen: React.FC = () => {
           <h3 className="blackingHeader">BlacKing</h3>
 
           <div className="buttonContainer">
-            <Link to="/register">
+            <Link to="/user">
               <button className="registerButton">Register</button>
             </Link>
             <Link to="/login">

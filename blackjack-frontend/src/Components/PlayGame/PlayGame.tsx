@@ -1,22 +1,37 @@
-import React, { useEffect, useState } from "react";
-import "./PlayGame.css";
+import React, { useEffect, useState } from 'react';
+import './PlayGame.css';
 
-import { useDispatch, useSelector } from "react-redux";
-import { IDeck } from "../../Interfaces/IDeck";
-import { IUser } from "../../Interfaces/IUser";
-import { getDealPlayer, getDealDealer, initializeDeck, getDeck } from "../../Slices/DeckSlice";
-import { AppDispatch, RootState } from "../../Store";
+import { useDispatch, useSelector } from 'react-redux';
+import { IDeck } from '../../Interfaces/IDeck';
+
+import { StartGameButton } from '../StartGameButton/StartGameButton';
+
+import { AppDispatch, RootState } from '../../Store';
+
+import cloverTwo from '../../images/CLOVERSTWO.png';
+import diamondQueen from '../../images/DIAMONDSQUEEN.png';
+
+import spadeAce from '../../images/SPADESACE.png';
+import heartKing from '../../images/HEARTSKING.png';
+
+import { HitButton } from '../HitButton/HitButton';
 
 // going inside PlaGamePage
 export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
-
-
   const dispatch: AppDispatch = useDispatch();
-  const deckInfo = useSelector((state: RootState) => state.deck);
+
+  const deckInfo = useSelector((state: RootState) => state.deck.deck);
   const userInfo = useSelector((state: RootState) => state.user);
+
   const playerHand = useSelector((state: RootState) => state.deck.playerHand);
+
   const dealerHand = useSelector((state: RootState) => state.deck.dealerHand);
-  const [gameStatus, setGameStatus] = useState("Game not initialized");
+
+  const isDeck = useSelector((state: RootState) => state.deck.isDeck);
+  console.log('coming from PlayGame line 31 ', deckInfo);
+
+  const [gameStatus, setGameStatus] = useState('Game not initialized');
+  // console.log('coming from PlayGame line 28 ', isDeck);
 
   // const [chipCount, setChipCount] = useState(1000);
   // const [betAmount, setBetAmount] = useState(0);
@@ -31,8 +46,6 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
   // const [isDealerBusted, setIsDealerBusted] = useState(false);
   // const [isHandComplete, setIsHandComplete] = useState(true);
   // const [winner, setWinner] = useState("");
-
-  console.log("coming from PlayGame line 32 ", userInfo.user);
 
   /* useEffect(() => {
       if(dealerCount > 21) {
@@ -67,53 +80,6 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
   // const [dealerCount, setDealerCount] = useState(0)
   // const [playerCount, setPlayerCount] = useState(0)
 
-  const handleGameInit = () => {
-    if (userInfo.user) {
-      // init and shuffle deck
-      let user:IUser = {
-        userId: userInfo.user!.userId,
-        email: userInfo.user!.email,
-        password: userInfo.user!.password,
-        firstName: userInfo.user!.firstName,
-        lastName: userInfo.user!.lastName,
-        money: userInfo.user!.money
-    }
-
-    dispatch(initializeDeck(user));
-  }
-
-      console.log(userInfo.user);
-
-      // if (userInfo != null) {
-      //   
-      // }
-
-
-      //retrieve deck from database
-      dispatch(getDeck);
-
-
-      //deals out initial 4 cards to player and dealer 
-      dispatch(getDealPlayer);
-      dispatch(getDealPlayer);
-      dispatch(getDealDealer);
-      dispatch(getDealDealer);
-      console.log(playerHand);
-      console.log(dealerHand);
-      setGameStatus("begin");
-     
-  }
-
-  // const handleHitButton = () => {
-  //   if (userInfo && deckInfo) {
-  //     dispatch(getDealPlayer());
-  //     setGameStatus("Start");
-  //   } else {
-  //     setGameStatus("User not logged in");
-  //     console.log(gameStatus);
-  //   }
-  // }
-
   // const handleStandButton = () => {
 
   //   if (deckInfo && playerHand) {
@@ -122,52 +88,67 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
 
   // }
 
+  // useEffect(() => {
+  //   console.log('coming from PlayGame line 93 ', deckInfo);
+  // }, [deckInfo]);
+
+  let imgPath = '../../images/';
+
   return (
     <>
       <div className="gameContainer">
-        {/* {gameStatus.includes("Game not initialized") ?
-          <div className="game-start-btn-container">
-            {/* <button className="game-start-btn" onClick={handleGameInit}>Start Game</button> 
-
-          </div> : <></>
-        } */}
-
         <div className="selectionArea">
-            <h1>BlacKing</h1>
+          <h1>BlacKing</h1>
+          <StartGameButton />
+          <HitButton />
 
-            <button>
-              Start
-            </button>
-            <button>
-              Stand
-            </button>
-            <button>
-              Value
-            </button>
-            <button>
-              Score
-            </button>
+          <button>Stand</button>
+          <button>Value</button>
+          <button>Score</button>
         </div>
 
         <div className="playArea">
+          <h1> dealer </h1>
+          {/* {playerHand?.map((hand) => hand?.suit)} */}
+          {deckInfo &&
+            deckInfo?.card?.map((hand) => {
+              return (
+                <div className="dealContainer">
+                  {/* <img
+                    src={`${imgPath}${hand.suit}${hand.rank}`}
+                    key={hand.id}
+                  /> */}
 
-          <h1> Play Area </h1>
-          {/* <div className="dealer-hand-container">
+                  <p>{hand.suit}</p>
+                </div>
+              );
+            })}
 
-          </div> */}
-
-          {/* <div className="deck-container"></div>
-
-          <div className="player-hand-container">
-
-
-          </div> */}
-          {/* <button className="hit-button" onClick={handleHitButton}>Hit!</button>
-          <button className="stand-button" onClick={handleStandButton}>Stand!</button> */}
+          <div className="userContainer">
+            <h1>User</h1>
+            <img src={spadeAce} />
+            <img src={heartKing} />
+          </div>
         </div>
 
+        {/* {isDeck !== false && (
+          <div className="playArea">
+            <h1> dealer </h1>
+            {playerHand?.map((hand) => {
+              <div className="dealContainer" key={hand.id}>
+                <img src={`../../images/${hand.suit}${hand.rank}`} />
 
+              </div>;
+            })}
+
+            <div className="userContainer">
+              <h1>User</h1>
+              <img src={spadeAce} />
+              <img src={heartKing} />
+            </div>
+          </div>
+        )} */}
       </div>
     </>
-  )
-}
+  );
+};

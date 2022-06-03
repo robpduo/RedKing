@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
 @RequestMapping("/deck")
 public class DeckController {
 
@@ -26,22 +26,22 @@ public class DeckController {
     public Deck handleLogin( @RequestBody User u) {
         return ds.initializeDeck(u);
     }
-
-    @GetMapping("/deal")
+    
+    @GetMapping("/deal/{deckId}")
     @ResponseBody
-    public Card handleDealCard( @RequestBody Deck deck) throws DeckIsEmptyException {
+    public Card handleDealCard( @PathVariable("deckId") Deck deck) throws DeckIsEmptyException {
         return ds.dealCard(deck);
     }
-
-    @GetMapping("/getDeck")
+    
+    @GetMapping("/getDeck/{deckId}")
     @ResponseBody
-    public Deck handleGetDeck (@RequestBody Deck deck) {
+    public Deck handleGetDeck (@PathVariable("deckId") Deck deck) {
         return ds.getDeck(deck.getDeckId());
     }
 
-    @GetMapping("/getDeckByUID")
+    @GetMapping("/getDeckByUID/{userId}")
     @ResponseBody
-    public Deck handleGetDeckByUID (@RequestBody User user) throws NoDeckInPlay {
+    public Deck handleGetDeckByUID (@PathVariable("userId") User user) throws NoDeckInPlay {
         return ds.getDeckByUserId(user);
     }
 
