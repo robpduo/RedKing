@@ -27,9 +27,9 @@ public class DeckController {
         return ds.initializeDeck(u);
     }
     
-    @GetMapping("/deal")
+    @GetMapping("/deal/{deckId}")
     @ResponseBody
-    public Card handleDealCard( @RequestBody Deck deck) throws DeckIsEmptyException {
+    public Card handleDealCard( @PathVariable("deckId") Deck deck) throws DeckIsEmptyException {
         return ds.dealCard(deck);
     }
     

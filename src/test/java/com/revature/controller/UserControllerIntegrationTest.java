@@ -7,9 +7,7 @@ import com.revature.models.LoginHelper;
 import com.revature.models.User;
 import com.revature.models.WithdrawHelper;
 import com.revature.repository.UserRepo;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -41,7 +39,7 @@ public class UserControllerIntegrationTest {
     @Autowired
     private UserRepo ur;
 
-    @BeforeEach
+    @AfterEach
     public void resetDatabase() {
         ur.deleteAll();
     }
