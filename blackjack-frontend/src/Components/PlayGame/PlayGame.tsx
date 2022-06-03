@@ -8,7 +8,7 @@ import { StartGameButton } from '../StartGameButton/StartGameButton';
 
 import { AppDispatch, RootState } from '../../Store';
 
-import spade2 from '../../images/clubTwo.png';
+import cloverTwo from '../../images/cloverTwo.png';
 import diamondQueen from '../../images/diamondQueen.png';
 import spadeAce from '../../images/spadeAce.png';
 import heartKing from '../../images/heartKing.png';
@@ -89,7 +89,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
         <div className="selectionArea">
           <h1>BlacKing</h1>
           <StartGameButton />
-          <HitButton/> 
+          <HitButton />
 
           <button>Stand</button>
           <button>Value</button>
@@ -100,7 +100,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
           <div className="playArea">
             <div className="dealContainer">
               <h1> dealer </h1>
-              <img src={spade2} />
+              <img src={cloverTwo} />
               <img src={diamondQueen} />
             </div>
 
