@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getDealDealer, getDealPlayer } from '../../Slices/DeckSlice';
+import { setDealerCount, setGameStatus, setPlayerCount, setWinner, toggleDealerBust, toggleHandComplete, togglePlayerBusted } from '../../Slices/GameSlice';
 import { AppDispatch, RootState } from '../../Store';
 import {
   ValueCounter,
@@ -15,15 +16,7 @@ export const HitButton: React.FC = () => {
   const deckInfo = useSelector((state: RootState) => state.deck);
   const playerHand = useSelector((state: RootState) => state.deck.playerHand);
   const dealerHand = useSelector((state: RootState) => state.deck.dealerHand);
-  const [gameStatus, setGameStatus] = useState('Game not initialized');
-  const [dealerCount, setDealerCount] = useState(0);
-  const [playerCount, setPlayerCount] = useState(0);
-  const [isDealersTurn, setIsDealersTurn] = useState(false);
-  const [isDealerBusted, setIsDealerBusted] = useState(false);
-  const [isHandComplete, setIsHandComplete] = useState(true);
-  const [isBlackjack, setIsBlackJack] = useState(false);
-  const [isPlayerBusted, setIsPlayerBusted] = useState(false);
-  const [winner, setWinner] = useState('');
+  const gameInfo = useSelector((state:RootState) => state.game);
   const dispatch: AppDispatch = useDispatch();
   const navigator = useNavigate();
 
@@ -31,34 +24,49 @@ export const HitButton: React.FC = () => {
     setDealerCount(calcHandValue(dealerHand));
     setPlayerCount(calcHandValue(playerHand));
     let deckId = deckInfo.deck?.deckId;
-    if (dealerCount > 21) {
-      setIsDealerBusted(true);
+    console.log("is black jack" + gameInfo.isBlackJack);
+    console.log("is player busted " + gameInfo.isPlayerBusted);
+    console.log("is dealer busted" + gameInfo.isDealerBusted);
+    console.log("dealer hand value: " +calcHandValue(dealerHand));
+    console.log("player hand value: " + calcHandValue(playerHand));
+    if (gameInfo.dealerCount > 21) {
+      toggleDealerBust();
       setWinner('player');
-      setIsHandComplete(true);
+      toggleHandComplete();
       setGameStatus('player turn');
+      console.log(gameInfo.gameStatus);
     }
-    if (dealerCount >= 17 && dealerCount < 22 && isDealersTurn) {
-      if (dealerCount > playerCount) {
+    if (gameInfo.dealerCount >= 17 && gameInfo.dealerCount < 22 && gameInfo.isDealersTurn) {
+      if (gameInfo.dealerCount > gameInfo.playerCount) {
         setWinner('dealer');
-        setIsHandComplete(true);
+        toggleHandComplete();
         setGameStatus('player turn');
+        console.log(gameInfo.winner);
+        console.log(gameInfo.gameStatus);
       }
-      if (dealerCount < playerCount && !isPlayerBusted) {
+      if (gameInfo.dealerCount < gameInfo.playerCount && !gameInfo.isPlayerBusted) {
         setWinner('player');
-        setIsHandComplete(true);
-        setGameStatus('player turn');
+        toggleHandComplete();
+        gameInfo.gameStatus = "player turn";
+        console.log(gameInfo.winner);
+        console.log(gameInfo.gameStatus);
+
       }
-      if (dealerCount === playerCount && !isPlayerBusted) {
+      if (gameInfo.dealerCount === gameInfo.playerCount && !gameInfo.isPlayerBusted) {
         setWinner('push');
-        setIsHandComplete(true);
+        toggleHandComplete();
         setGameStatus('player turn');
+        console.log(gameInfo.winner);
+        console.log(gameInfo.gameStatus);
+
       }
     }
-    if (dealerCount < 17 && isDealersTurn && !isPlayerBusted) {
+    if (gameInfo.dealerCount < 17 && gameInfo.isDealersTurn && !gameInfo.isPlayerBusted) {
       setTimeout(() => {
         dispatch(getDealDealer(deckId));
       }, 500);
       setGameStatus('dealer turn');
+      console.log(gameInfo.gameStatus);
     }
   }, [playerHand, dealerHand]);
 
@@ -67,19 +75,24 @@ export const HitButton: React.FC = () => {
     let deckId = deckInfo.deck?.deckId;
 
     if (userInfo && deckInfo) {
-      setIsHandComplete(false);
+      toggleHandComplete();
+      console.log(gameInfo.isHandComplete);
       dispatch(getDealPlayer(deckId));
-      setGameStatus('player turn');
-      if (playerCount > 21) {
-        setIsPlayerBusted(true);
-        setIsDealersTurn(true);
+      setGameStatus("player turn");
+      console.log(gameInfo.gameStatus);
+      if (gameInfo.playerCount > 21) {
+        togglePlayerBusted();
+        toggleDealerBust();
         setGameStatus('dealer turn');
-        setIsHandComplete(true);
-        setWinner('dealer');
+        toggleHandComplete();
+        setWinner("dealer");
+        console.log(gameInfo.winner);
+        calcHandValue(deckInfo.playerHand);
+
       }
     } else {
       setGameStatus('User not logged in');
-      console.log(gameStatus);
+      console.log(gameInfo.gameStatus);
     }
   };
 

@@ -15,7 +15,7 @@ import {
 //We would import our reducers from the slices we have to create
 import userReducer from './Slices/UserSlice';
 import deckReducer from './Slices/DeckSlice';
-
+import gameReducer from './Slices/GameSlice';
 //store.js
 const persistConfig = {
   key: 'root',
@@ -25,6 +25,7 @@ const persistConfig = {
 const reducers = combineReducers({
   user: userReducer,
   deck: deckReducer,
+  game: gameReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);
