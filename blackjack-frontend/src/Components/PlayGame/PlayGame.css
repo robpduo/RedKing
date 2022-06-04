@@ -59,8 +59,7 @@
   flex-direction: column;
   justify-content: space-between !important;
   align-items: center;
-
-  margin: 1rem auto 2rem auto;
+  margin: 1rem auto;
 }
 
 .playArea h1 {
@@ -73,15 +72,15 @@
   text-align: center;
 
   display: flex;
-  flex-direction: row!;
+  justify-content: center;
+  margin-top: -12rem;
 }
 
 .dealContainer img {
   margin: 0 10px;
-  margin-top: 10px;
   width: 150px;
   height: 150px;
-  cursor: pointer;
+  /* cursor: pointer; */
 }
 
 .userContainer {

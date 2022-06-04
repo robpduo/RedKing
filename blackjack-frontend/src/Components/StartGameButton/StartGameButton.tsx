@@ -63,7 +63,14 @@ export const StartGameButton: React.FC = () => {
 
   return (
     <>
-      {gameStatus.includes('Game not initialized') ? (
+      <div className="start-game-btn-container">
+        {
+          <button className="start-game-btn" onClick={handleGameInit}>
+            Start Game
+          </button>
+        }
+      </div>
+      {/* {gameStatus.includes('Game not initialized') ? (
         <div className="start-game-btn-container">
           {
             <button className="start-game-btn" onClick={handleGameInit}>
@@ -73,7 +80,7 @@ export const StartGameButton: React.FC = () => {
         </div>
       ) : (
         <></>
-      )}
+      )} */}
     </>
   );
 };

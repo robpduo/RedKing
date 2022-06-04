@@ -8,12 +8,6 @@ import { StartGameButton } from '../StartGameButton/StartGameButton';
 
 import { AppDispatch, RootState } from '../../Store';
 
-import cloverTwo from '../../images/CLOVERSTWO.png';
-import diamondQueen from '../../images/DIAMONDSQUEEN.png';
-
-import spadeAce from '../../images/SPADESACE.png';
-import heartKing from '../../images/HEARTSKING.png';
-
 import { HitButton } from '../HitButton/HitButton';
 import { useNavigate } from 'react-router-dom';
 
@@ -21,19 +15,17 @@ import { useNavigate } from 'react-router-dom';
 export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
   const dispatch: AppDispatch = useDispatch();
   const navigator = useNavigate();
+  const isDeck = useSelector((state: RootState) => state.deck.isDeck);
 
   const deckInfo = useSelector((state: RootState) => state.deck.deck);
   const userInfo = useSelector((state: RootState) => state.user);
 
-  const playerHand = useSelector((state: RootState) => state.deck.playerHand);
+  const playerHand = useSelector((state: RootState) => state.deck);
+  const dealerHand = useSelector((state: RootState) => state.deck);
 
-  const dealerHand = useSelector((state: RootState) => state.deck.dealerHand);
-
-  const isDeck = useSelector((state: RootState) => state.deck.isDeck);
-  console.log('coming from PlayGame line 31 ', deckInfo);
-
-  const [gameStatus, setGameStatus] = useState('Game not initialized');
-  // console.log('coming from PlayGame line 28 ', isDeck);
+  // console.log('coming from PlayGame line 24 ', isDeck);
+  // console.log('coming from PlayGame line 25 ', deckInfo);
+  console.log('coming from playerHand line 26 ', playerHand.playerHand);
 
   // const [chipCount, setChipCount] = useState(1000);
   // const [betAmount, setBetAmount] = useState(0);
@@ -169,33 +161,44 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
 
         <div className="playArea">
           <h1> dealer </h1>
-          {isDeck !== false &&
-            deckInfo?.cards?.slice(0, 2)?.map((card: any) => {
-              let imagePath = imageArray.find((imgArr) => {
-                return imgArr.rank === card.rank && imgArr.suit === card.suit
-                  ? imgArr.path
-                  : '../../images/DIAMONDSKING.png';
-              });
 
-              console.log('coming from imagePath line 180 ', imagePath?.path);
+          <div className="dealContainer">
+            {isDeck !== false &&
+              deckInfo?.cards?.slice(0, 2)?.map((card) => {
+                let suit1 = card.suit.toString();
+                let rank1 = card.rank.toString();
+                let path1 = suit1.split('').join().replace(/,/g, '');
+                let path2 = rank1.split('').join().replace(/,/g, '');
+                let imagePath = '../../images/' + path1 + path2;
 
-              return (
-                <div className="dealContainer" key={card.id}>
+                return (
                   <img
-                    key={card.id}
-                    src={imagePath?.path}
-                    // src={`../../images/${card.suit}${card.rank}.png`}
+                    key={card.suit + '' + card.rank}
+                    src={`${imagePath}.png`}
                     alt={`${card.suit}${card.rank}`}
                   />
-                  {/* <p>{card.suit}</p> */}
-                </div>
-              );
-            })}
+                );
+              })}
+          </div>
 
           <div className="userContainer">
             <h1>User</h1>
-            <img src={spadeAce} />
-            <img src={heartKing} />
+            {isDeck !== false &&
+              deckInfo?.cards?.slice(0, 2)?.map((card) => {
+                let suit1 = card.suit.toString();
+                let rank1 = card.rank.toString();
+                let path1 = suit1.split('').join().replace(/,/g, '');
+                let path2 = rank1.split('').join().replace(/,/g, '');
+                let imagePath = '../../images/' + path1 + path2;
+
+                return (
+                  <img
+                    key={card.suit + '' + card.rank}
+                    src={`${imagePath}.png`}
+                    alt={`${card.suit}${card.rank}`}
+                  />
+                );
+              })}
           </div>
         </div>
 

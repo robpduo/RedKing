@@ -10,13 +10,13 @@ interface UserSliceState {
   error: boolean;
   user?: IUser;
   users?: IUser[];
-  bet: number
+  bet: number;
 }
 
 const initialUserState: UserSliceState = {
   error: false,
   loading: true,
-  bet: 0
+  bet: 0,
 };
 
 type Login = {
@@ -34,7 +34,7 @@ export const loginUser = createAsyncThunk(
         credentials
       );
 
-      console.log('coming from loginUser async line 32 ', res.data);
+      // console.log('coming from loginUser async line 32 ', res.data);
 
       return {
         userId: res.data.userId,
@@ -63,10 +63,10 @@ type ManageMoney = {
 };
 
 type Mail = {
-  firstName: string,
-  email: string,
-  msgType: string
-}
+  firstName: string;
+  email: string;
+  msgType: string;
+};
 
 // called from LoginForm component
 export const registerUser = createAsyncThunk(
@@ -160,12 +160,12 @@ export const retrieveUserScores = createAsyncThunk(
 
 export const sendMail = createAsyncThunk(
   'user/mail',
-  async (data:Mail, thunkAPI) => {
+  async (data: Mail, thunkAPI) => {
     try {
       const res = await axios.post('http://localhost:8000/mail', data);
-      return (res.data);
+      return res.data;
     } catch (e) {
-      console.log("Some Error");
+      console.log('Some Error');
     }
   }
 );
@@ -225,7 +225,7 @@ export const UserSlice = createSlice({
       sortScores = action.payload;
       for (let i = 0; i < sortScores.length; i++) {
         for (let j = i + 1; j < sortScores.length; j++) {
-          if(sortScores[i].money < sortScores[j].money) {
+          if (sortScores[i].money < sortScores[j].money) {
             userBuffer = sortScores[i];
             sortScores[i] = sortScores[j];
             sortScores[j] = userBuffer;
@@ -235,12 +235,12 @@ export const UserSlice = createSlice({
       state.users = sortScores;
       console.log(state.users);
     });
-    
+
     builder.addCase(sendMail.fulfilled, (state: any, action: any) => {
       //state.users = action.payload;
     });
   },
-}); 
+});
 // If we had normal actions and reducers we would export them like this
 // export const { toggleError } = UserSlice.actions;
 export const { logoutUser, userBet } = UserSlice.actions;
