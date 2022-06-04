@@ -1,0 +1,32 @@
+.page-container {
+    height: 100%;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    url('../../images/blackingbg.jpg');
+    background-size: cover;
+}
+
+.score-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 10fr 1fr 1fr 10fr;
+}
+
+.score-table {
+    grid-column-start: 2;
+}
+
+.rows {
+    color: aliceblue;
+    text-align: center;
+}
+
+.headers {
+    color:aliceblue;
+}
+
+.button {
+    width: 100px;
+    grid-column-start: 2;
+    grid-row-start: 3;
+    justify-self: center;
+}

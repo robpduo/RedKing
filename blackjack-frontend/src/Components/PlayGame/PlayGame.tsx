@@ -15,10 +15,12 @@ import spadeAce from '../../images/SPADESACE.png';
 import heartKing from '../../images/HEARTSKING.png';
 
 import { HitButton } from '../HitButton/HitButton';
+import { useNavigate } from 'react-router-dom';
 
 // going inside PlaGamePage
 export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
   const dispatch: AppDispatch = useDispatch();
+  const navigator = useNavigate();
 
   const deckInfo = useSelector((state: RootState) => state.deck.deck);
   const userInfo = useSelector((state: RootState) => state.user);
@@ -148,6 +150,10 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
     { suit: 'DIAMONDS', rank: 'KING', path: '../../images/DIAMONDSKING.png' },
   ];
 
+  const handleScoreBoard = (event: React.MouseEvent<HTMLButtonElement>) => {
+    navigator("/scores");
+  }
+
   return (
     <>
       <div className="gameContainer">
@@ -158,7 +164,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
 
           <button>Stand</button>
           <button>Value</button>
-          <button>Score</button>
+          <button onClick={handleScoreBoard}>Score</button>
         </div>
 
         <div className="playArea">
