@@ -104,7 +104,9 @@ export const deckSlice = createSlice({
   reducers: {
     clearDeck: (state) => {
       state.deck = undefined;
-    },
+      state.playerHand = undefined;
+      state.dealerHand = undefined
+    }
   },
   extraReducers: (builder) => {
     //reducers for shuffling deck
@@ -149,7 +151,7 @@ export const deckSlice = createSlice({
       state.error = true;
     });
     builder.addCase(getDealPlayer.fulfilled, (state, action) => {
-      state.playerHand = state.playerHand ? [...state.playerHand, action.payload ] : [action.payload];
+      state.playerHand= state.playerHand ? [...state.playerHand, action.payload] : action.payload;
       state.loading = false;
       state.error = false;
     });
@@ -164,7 +166,7 @@ export const deckSlice = createSlice({
       state.error = true;
     });
     builder.addCase(getDealDealer.fulfilled, (state, action) => {
-      state.dealerHand = state.dealerHand ? [...state.dealerHand, action.payload ] : [action.payload];
+      state.dealerHand = state.dealerHand ? [...state.dealerHand, action.payload] : action.payload;
       state.loading = false;
       state.error = false;
     });
