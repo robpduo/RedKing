@@ -151,7 +151,6 @@ export const retrieveUserScores = createAsyncThunk(
   async (thunkAPI) => {
     try {
       const res = await axios.get('http://localhost:8000/user/allUsers');
-      console.log('Line 123', res.data);
       return res.data;
     } catch (e) {
       console.log('Some Error');
@@ -225,16 +224,16 @@ export const UserSlice = createSlice({
 
       sortScores = action.payload;
       for (let i = 0; i < sortScores.length; i++) {
-        for (let j = i + 1; j < sortScores.length - 1; j++) {
+        for (let j = i + 1; j < sortScores.length; j++) {
           if(sortScores[i].money < sortScores[j].money) {
             userBuffer = sortScores[i];
             sortScores[i] = sortScores[j];
             sortScores[j] = userBuffer;
           }
-
         }
       }
       state.users = sortScores;
+      console.log(state.users);
     });
     
     builder.addCase(sendMail.fulfilled, (state: any, action: any) => {

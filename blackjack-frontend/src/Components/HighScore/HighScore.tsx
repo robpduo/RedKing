@@ -15,8 +15,6 @@ const HighScore: React.FC = () => {
 
   useEffect(() => {
     dispatch(retrieveUserScores());
-    console.log(userState.users);
-    console.log('X');
   }, []);
 
   const handleReturn = (event: React.MouseEvent<HTMLButtonElement>) => {
