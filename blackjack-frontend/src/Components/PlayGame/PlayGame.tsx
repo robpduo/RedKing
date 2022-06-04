@@ -177,7 +177,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
                   : '../../images/DIAMONDSKING.png';
               });
 
-              console.log('coming from imagePath line 174 ', imagePath?.path);
+              console.log('coming from imagePath line 180 ', imagePath?.path);
 
               return (
                 <div className="dealContainer" key={card.id}>
