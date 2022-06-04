@@ -11,8 +11,11 @@ import java.util.LinkedHashMap;
 @CrossOrigin(origins = "http://localhost:3000")
 public class MailController {
 
-    @Autowired
     private MailService mailService;
+    @Autowired
+    public MailController(MailService mailService){
+        this.mailService = mailService;
+    }
 
     @PostMapping("/mail")
     public String sendEmail(@RequestBody MailHelper mailHelper) {

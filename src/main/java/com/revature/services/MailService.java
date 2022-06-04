@@ -11,11 +11,12 @@ import javax.mail.internet.MimeMessage;
 @Service
 public class MailService {
 
-    @Autowired
     private JavaMailSender mailSender;
-
+    @Autowired
+    public MailService(JavaMailSender mailSender){
+        this.mailSender = mailSender;
+    }
     public void sendEmail(MailHelper mailHelper) {
-        // use mailSender here...
         String from = "zamanuap140182@gmail.com";
         String to = mailHelper.getEmail();
 
@@ -23,7 +24,6 @@ public class MailService {
         MimeMessageHelper helper = new MimeMessageHelper(message);
 
         try{
-
             helper.setFrom(from);
             helper.setTo(to);
             boolean html = true;
@@ -40,7 +40,7 @@ public class MailService {
             mailSender.send(message);
 
         } catch (Exception e){
-                System.out.println(e.getMessage());
+
         }
     }
 }

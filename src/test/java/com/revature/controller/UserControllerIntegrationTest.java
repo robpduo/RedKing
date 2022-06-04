@@ -7,12 +7,16 @@ import com.revature.models.LoginHelper;
 import com.revature.models.User;
 import com.revature.models.WithdrawHelper;
 import com.revature.repository.UserRepo;
+import org.aspectj.lang.annotation.After;
 import org.junit.jupiter.api.*;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -21,12 +25,14 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.mockito.Mockito.reset;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@DirtiesContext(classMode= DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = BlackJackAppApplication.class)
 @AutoConfigureMockMvc
 @AutoConfigureTestDatabase
@@ -39,12 +45,9 @@ public class UserControllerIntegrationTest {
     @Autowired
     private UserRepo ur;
 
-    @AfterEach
-    public void resetDatabase() {
-        ur.deleteAll();
-    }
-
     private ObjectMapper om = new ObjectMapper();
+
+
 
     @Test
     public void testRegisterHandler() throws Exception {
