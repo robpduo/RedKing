@@ -8,6 +8,7 @@ import { AppDispatch, RootState } from '../../Store';
 
 export const LogOutButton: React.FC = () => {
   const userInfo = useSelector((state: RootState) => state.user);
+  const deckInfo = useSelector((state: RootState) => state.deck);
 
   const dispatch: AppDispatch = useDispatch();
   const navigator = useNavigate();
@@ -15,6 +16,9 @@ export const LogOutButton: React.FC = () => {
   const handleLogOut = () => {
     dispatch(logoutUser());
     navigator('/login');
+    // if (deckInfo.isDeck === true) {
+    //   deckInfo.isDeck = false;
+    // }
   };
 
   return (

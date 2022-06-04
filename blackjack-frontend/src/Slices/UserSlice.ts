@@ -32,7 +32,7 @@ export const loginUser = createAsyncThunk(
         credentials
       );
 
-      console.log('coming from loginUser async line 32 ', res.data);
+      // console.log('coming from loginUser async line 32 ', res.data);
 
       return {
         userId: res.data.userId,
@@ -61,10 +61,10 @@ type ManageMoney = {
 };
 
 type Mail = {
-  firstName: string,
-  email: string,
-  msgType: string
-}
+  firstName: string;
+  email: string;
+  msgType: string;
+};
 
 // called from LoginForm component
 export const registerUser = createAsyncThunk(
@@ -159,12 +159,12 @@ export const retrieveUserScores = createAsyncThunk(
 
 export const sendMail = createAsyncThunk(
   'user/mail',
-  async (data:Mail, thunkAPI) => {
+  async (data: Mail, thunkAPI) => {
     try {
       const res = await axios.post('http://localhost:8000/mail', data);
-      return (res.data);
+      return res.data;
     } catch (e) {
-      console.log("Some Error");
+      console.log('Some Error');
     }
   }
 );
@@ -217,12 +217,12 @@ export const UserSlice = createSlice({
     builder.addCase(retrieveUserScores.fulfilled, (state, action) => {
       state.users = action.payload;
     });
-    
+
     builder.addCase(sendMail.fulfilled, (state, action) => {
       //state.users = action.payload;
     });
   },
-}); 
+});
 // If we had normal actions and reducers we would export them like this
 // export const { toggleError } = UserSlice.actions;
 export const { logoutUser } = UserSlice.actions;

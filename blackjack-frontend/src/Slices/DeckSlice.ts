@@ -1,9 +1,12 @@
+import storage from 'redux-persist/lib/storage';
 import React from 'react';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { ICard } from '../Interfaces/ICard';
 import { IDeck } from '../Interfaces/IDeck';
 import { IUser } from '../Interfaces/IUser';
+
+import { PURGE } from 'redux-persist';
 
 interface DeckSliceState {
   loading: boolean;
@@ -41,7 +44,7 @@ export const initializeDeck = createAsyncThunk(
         'http://localhost:8000/deck/initialize',
         user
       );
-      console.log('coming from async initializeDeck ', res.data);
+      console.log('coming from async initializeDeck line 44 ', res.data);
       return res.data;
     } catch (e) {
       console.log(e);
@@ -89,7 +92,7 @@ export const getDealPlayer = createAsyncThunk(
   async (deckId: number | undefined, thunkAPI) => {
     try {
       const res = await axios.get(`http://localhost:8000/deck/deal/${deckId}`);
-      console.log('coming from getDealPlayer async line 91 ', res.data);
+      console.log('coming from getDealPlayer async line 92 ', res.data);
       return res.data;
     } catch (e) {
       console.log(e);
@@ -101,7 +104,7 @@ export const getDealDealer = createAsyncThunk(
   async (deckId: number | undefined, thunkAPI) => {
     try {
       const res = await axios.get(`http://localhost:8000/deck/deal/${deckId}`);
-      console.log('coming from getDealDealer async line 103 ', res.data);
+      console.log('coming from getDealDealer async line 104 ', res.data);
       return res.data;
     } catch (e) {
       console.log(e);
@@ -160,13 +163,19 @@ export const deckSlice = createSlice({
       state.error = true;
     });
     builder.addCase(getDealPlayer.fulfilled, (state, action) => {
-      state.playerHand += action.payload;
+      state.playerHand = state.playerHand
+        ? [...state.playerHand, action.payload]
+        : [];
+      // state.playerHand += action.payload;
       state.loading = false;
       state.error = false;
     });
 
-    // reducers for Dealer Hand
+    builder.addCase(PURGE, (state) => {
+      storage.removeItem('root');
+    });
 
+    // reducers for Dealer Hand
     builder.addCase(getDealDealer.pending, (state, action) => {
       state.loading = true;
     });
@@ -175,7 +184,10 @@ export const deckSlice = createSlice({
       state.error = true;
     });
     builder.addCase(getDealDealer.fulfilled, (state, action) => {
-      state.dealerHand += action.payload;
+      state.dealerHand = state.dealerHand
+        ? [...state.dealerHand, action.payload]
+        : [];
+      // state.dealerHand += action.payload;
       state.loading = false;
       state.error = false;
     });
