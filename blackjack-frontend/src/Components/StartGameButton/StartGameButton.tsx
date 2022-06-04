@@ -14,6 +14,7 @@ import { AppDispatch, RootState } from '../../Store';
 export const StartGameButton: React.FC = () => {
   const userInfo = useSelector((state: RootState) => state.user);
   const deckInfo = useSelector((state: RootState) => state.deck);
+  const gameInfo = useSelector((state:RootState) => state.game);
   const playerHand = useSelector((state: RootState) => state.deck.playerHand);
   const dealerHand = useSelector((state: RootState) => state.deck.dealerHand);
   const [gameStatus, setGameStatus] = useState('Game not initialized');
@@ -21,6 +22,7 @@ export const StartGameButton: React.FC = () => {
   const navigator = useNavigate();
 
   const handleGameInit = () => {
+    //navigator('/PlayGamePage');
     if (userInfo.user) {
       // init and shuffle deck
       let user: IUser = {
@@ -50,9 +52,13 @@ export const StartGameButton: React.FC = () => {
     dispatch(getDealPlayer(deckId));
     dispatch(getDealDealer(deckId));
     dispatch(getDealDealer(deckId));
-    // console.log(playerHand);
-    // console.log(dealerHand);
+
+    console.log(playerHand);
+    console.log(dealerHand);
+    console.log(gameInfo.gameStatus);
+
     setGameStatus('begin');
+    console.log(gameInfo.gameStatus);
   };
 
   return (
