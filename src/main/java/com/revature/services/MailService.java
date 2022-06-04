@@ -11,11 +11,12 @@ import javax.mail.internet.MimeMessage;
 @Service
 public class MailService {
 
-    @Autowired
     private JavaMailSender mailSender;
-
+    @Autowired
+    public MailService(JavaMailSender mailSender){
+        this.mailSender = mailSender;
+    }
     public void sendEmail(MailHelper mailHelper) {
-        // use mailSender here...
         String from = "zamanuap140182@gmail.com";
         String to = mailHelper.getEmail();
 
@@ -23,16 +24,23 @@ public class MailService {
         MimeMessageHelper helper = new MimeMessageHelper(message);
 
         try{
-            helper.setSubject("Congratulation for winning BackJack!!!!!!");
             helper.setFrom(from);
             helper.setTo(to);
             boolean html = true;
-            String text = "<b>Congratulation " + mailHelper.getFirstName() +" !!!</b><br><i>You win BackJack.</i>";
+            String text ="";
+            if(mailHelper.getMsgType().equals("Register")){
+                helper.setSubject("Registration for BackJack confirmed");
+                text = "<b>Hello " + mailHelper.getFirstName() +",</b><br><i>You've registered for BackJack.</i>";
+            } else {
+                helper.setSubject("Congratulation for winning BackJack!!!!!!");
+                text = "<b>Congratulation " + mailHelper.getFirstName() +" !!!</b><br><i>You won BackJack.</i>";
+            }
+
             helper.setText(text, html);
             mailSender.send(message);
 
         } catch (Exception e){
-                System.out.println(e.getMessage());
+
         }
     }
 }

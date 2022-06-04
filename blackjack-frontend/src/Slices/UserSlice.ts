@@ -10,11 +10,13 @@ interface UserSliceState {
   error: boolean;
   user?: IUser;
   users?: IUser[];
+  bet: number
 }
 
 const initialUserState: UserSliceState = {
   error: false,
   loading: true,
+  bet: 0
 };
 
 type Login = {
@@ -62,7 +64,8 @@ type ManageMoney = {
 
 type Mail = {
   firstName: string,
-  email: string
+  email: string,
+  msgType: string
 }
 
 // called from LoginForm component
@@ -179,6 +182,9 @@ export const UserSlice = createSlice({
     logoutUser: (state) => {
       state.user = undefined;
     },
+    userBet: (state, action) => {
+      state.bet = action.payload;
+    },
   },
 
   extraReducers: (builder) => {
@@ -213,19 +219,31 @@ export const UserSlice = createSlice({
       state.user = action.payload;
     });
 
-    builder.addCase(retrieveUserScores.fulfilled, (state, action) => {
-      state.users = action.payload;
+    builder.addCase(retrieveUserScores.fulfilled, (state: any, action: any) => {
+      let sortScores: IUser[] | any = new Array();
+      let userBuffer: IUser | any;
+
+      sortScores = action.payload;
+      for (let i = 0; i < sortScores.length; i++) {
+        for (let j = i + 1; j < sortScores.length - 1; j++) {
+          if(sortScores[i].money < sortScores[j].money) {
+            userBuffer = sortScores[i];
+            sortScores[i] = sortScores[j];
+            sortScores[j] = userBuffer;
+          }
+
+        }
+      }
+      state.users = sortScores;
     });
     
-    builder.addCase(sendMail.fulfilled, (state, action) => {
+    builder.addCase(sendMail.fulfilled, (state: any, action: any) => {
       //state.users = action.payload;
     });
   },
 }); 
-
-
 // If we had normal actions and reducers we would export them like this
 // export const { toggleError } = UserSlice.actions;
-export const { logoutUser } = UserSlice.actions;
+export const { logoutUser, userBet } = UserSlice.actions;
 
 export default UserSlice.reducer;

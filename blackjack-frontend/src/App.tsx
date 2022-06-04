@@ -8,6 +8,8 @@ import { LoginPage } from './Views/LoginPage/LoginPage';
 import { RegisterPage } from './Views/RegisterPage/RegisterPage';
 import { PlayGamePage } from './Views/PlayGamePage/PlayGamePage';
 import { MoneyPage } from './Views/MoneyPage/MoneyPage';
+import HighScore from './Components/HighScore/HighScore';
+import { BetPage } from './Views/BetPage/BetPage';
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
 
         <Route path="/playgame" element={<PlayGamePage />} />
         <Route path="/money" element={<MoneyPage />} />
+        <Route path="/bet" element={<BetPage />} />
+        <Route path="/scores" element={<HighScore />} />
       </Routes>
     </BrowserRouter>
   );

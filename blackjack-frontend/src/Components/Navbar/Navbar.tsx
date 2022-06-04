@@ -30,7 +30,10 @@ export const Navbar: React.FC = () => {
         <div className="moneyContainer">
           <p>{userInfo ? `$${userInfo.money}` : '$0.00'}</p>
           <Link to="/money">
-            <button className="moneyBtn">Add Money</button>
+            <button className="moneyBtn">Money</button>
+          </Link>
+          <Link to="/bet">
+            <button className="betBtn">Bet</button>
           </Link>
 
           <LogOutButton />
