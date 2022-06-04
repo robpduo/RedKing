@@ -10,11 +10,13 @@ interface UserSliceState {
   error: boolean;
   user?: IUser;
   users?: IUser[];
+  bet: number
 }
 
 const initialUserState: UserSliceState = {
   error: false,
   loading: true,
+  bet: 0
 };
 
 type Login = {
@@ -180,6 +182,9 @@ export const UserSlice = createSlice({
     logoutUser: (state) => {
       state.user = undefined;
     },
+    userBet: (state, action) => {
+      state.bet = action.payload;
+    },
   },
 
   extraReducers: (builder) => {
@@ -239,6 +244,6 @@ export const UserSlice = createSlice({
 }); 
 // If we had normal actions and reducers we would export them like this
 // export const { toggleError } = UserSlice.actions;
-export const { logoutUser } = UserSlice.actions;
+export const { logoutUser, userBet } = UserSlice.actions;
 
 export default UserSlice.reducer;
