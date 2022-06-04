@@ -214,11 +214,25 @@ export const UserSlice = createSlice({
       state.user = action.payload;
     });
 
-    builder.addCase(retrieveUserScores.fulfilled, (state, action) => {
-      state.users = action.payload;
+    builder.addCase(retrieveUserScores.fulfilled, (state: any, action: any) => {
+      let sortScores: IUser[] | any = new Array();
+      let userBuffer: IUser | any;
+
+      sortScores = action.payload;
+      for (let i = 0; i < sortScores.length; i++) {
+        for (let j = i + 1; j < sortScores.length - 1; j++) {
+          if(sortScores[i].money < sortScores[j].money) {
+            userBuffer = sortScores[i];
+            sortScores[i] = sortScores[j];
+            sortScores[j] = userBuffer;
+          }
+
+        }
+      }
+      state.users = sortScores;
     });
     
-    builder.addCase(sendMail.fulfilled, (state, action) => {
+    builder.addCase(sendMail.fulfilled, (state: any, action: any) => {
       //state.users = action.payload;
     });
   },
