@@ -170,7 +170,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
         <div className="playArea">
           <h1> dealer </h1>
           {isDeck !== false &&
-            deckInfo?.cards?.slice(0, 2)?.map((card) => {
+            deckInfo?.cards?.slice(0, 2)?.map((card: any) => {
               let imagePath = imageArray.find((imgArr) => {
                 return imgArr.rank === card.rank && imgArr.suit === card.suit
                   ? imgArr.path
