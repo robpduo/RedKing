@@ -18,9 +18,7 @@ public class MailController {
     }
 
     @PostMapping("/mail")
-    public String sendEmail(@RequestBody MailHelper mailHelper) {
+    public void handleSendEmail(@RequestBody MailHelper mailHelper) {
         mailService.sendEmail(mailHelper);
-        return "mail sent";
-
     }
 }
