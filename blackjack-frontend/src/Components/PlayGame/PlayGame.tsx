@@ -151,8 +151,8 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
   ];
 
   const handleScoreBoard = (event: React.MouseEvent<HTMLButtonElement>) => {
-    navigator("/scores");
-  }
+    navigator('/scores');
+  };
 
   return (
     <>
