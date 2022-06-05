@@ -13,7 +13,7 @@ import { setGameStatus, setWinner, togglePlayerBusted } from '../../Slices/GameS
 import { getDealDealer, quitGame } from '../../Slices/DeckSlice';
 import { StandButton } from '../StandButton/StandButton';
 import NextRound from '../NextRound/NextRound';
-import { sendMail } from '../../Slices/UserSlice';
+import { depositMoney, sendMail, userBet } from '../../Slices/UserSlice';
 
 import { ValueCounter, calcCardValue, calcHandValue, calcVisibleDealerHandValue } from '../ValueCounter/ValueCounter';
 
@@ -26,6 +26,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
   const dispatch: AppDispatch = useDispatch();
   const gameState = useSelector((state: RootState) => state.game);
   const deckState = useSelector((state: RootState) => state.deck);
+  const myUserState = useSelector((state: RootState) => state.user);
 
   const isDeck = useSelector((state: RootState) => state.deck.isDeck);
   const deckInfo = useSelector((state: RootState) => state.deck.deck);
@@ -47,7 +48,25 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
     dispatch(togglePlayerBusted());
   };
 
+  useEffect(() => {
+    let amount = {
+      userId: userState?.userId ? userState.userId : 0,
+      amount: myUserState.bet,
+    };
 
+    if (gameState.winner.includes("player")) {
+      amount.amount = myUserState.bet * 2;
+      console.log("WINS: ", amount.amount);
+      dispatch(depositMoney(amount));
+      dispatch(userBet(0));
+    } else if (gameState.winner.includes("dealer")) {
+      console.log("Player Loses with", myUserState.bet);
+      dispatch(userBet(0));
+    } else if (gameState.winner.includes("tie")) {
+      console.log("Ties", myUserState.bet);
+      dispatch(userBet(0));
+    }
+  }, [gameState.winner])
 
   //central place for dealer ai to function
   useEffect(() => {
@@ -106,11 +125,14 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
           calcHandValue(deckState.playerHand) !=
           calcHandValue(deckState.dealerHand)
         ) {
-          dispatch(setWinner('dealer'));
+          dispatch(setWinner('player'));
         } else {
           console.log("No conditions satisfied");
         }
       }
+
+      //if player wins or loses doing something with the bet amount
+
     }
 
   }, [gameState.isDealersTurn, deckState.dealerHand]);
@@ -144,7 +166,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
     playerNum: number
   }
 
-  let num : propNum ={
+  let num: propNum = {
     dealerNum: 1,
     playerNum: 0
   }
@@ -195,7 +217,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
 
         <div className="playArea">
           <div className="dealContainer">
-            <h1>Dealer: <ValueCounter propNum ={num.dealerNum}/></h1>
+            <h1>Dealer: <ValueCounter propNum={num.dealerNum} /></h1>
             {isDeck !== false &&
               dealerCards?.map((card) => {
                 let suit1 = card.suit.toString();
@@ -223,7 +245,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
           )}
 
           <div className="userContainer">
-            <h1>User: <ValueCounter propNum ={num.playerNum}/></h1>
+            <h1>User: <ValueCounter propNum={num.playerNum} /></h1>
             {isDeck !== false &&
               playerCards?.map((card) => {
                 let suit1 = card.suit.toString();
@@ -242,7 +264,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
               })}
           </div>
         </div>
-        
+
         <ToastContainer position="top-center" />
       </div>
     </>
