@@ -43,19 +43,27 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
   return (
     <>
       <div className="gameContainer">
-        <div className="selectionArea">
+        <div
+          className={
+            gameState.gameStatus.includes('Game not Initialized')
+              ? 'selectionArea '
+              : 'selectionArea borderRight'
+          }
+        >
           {deckState.loading == false ? (
             <>
-              <h1>{gameState.gameStatus}</h1>
+              {/* <h1>{gameState.gameStatus}</h1> */}
+              <h1>BlacKing</h1>
             </>
           ) : (
-            <h1>Loading -- Give us a Moment</h1>
+            // <h1>Loading -- Give us a Moment</h1>
+            <h1>Shuffling Your Deck</h1>
           )}
 
           {gameState.gameStatus.includes('Game not Initialized') ? (
             //if true (game not initialized)
 
-            <div className="buttons-sidepanel">
+            <div className="buttonsSidepanel">
               <StartGameButton />
 
               {deckState.loading == false ? (
@@ -67,7 +75,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
               )}
             </div>
           ) : (
-            <div className="game-buttons">
+            <div className="gameButtons">
               <HitButton />
               <StandButton />
               <button onClick={handleQuit}>Quit</button>

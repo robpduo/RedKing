@@ -11,15 +11,18 @@
   background-size: cover;
   opacity: 0.95;
 
-  z-index: 100 !important;
+  /* z-index: 100 !important; */
+}
+.borderRight {
+  transition: 0.8s;
+  border-right: 1px solid white !important;
 }
 
 .selectionArea {
-  min-width: 15%;
+  min-width: 18%;
   background: transparent !important;
 
-  border-right: 1px solid white;
-
+  border-right: 1px solid var(--grey);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -42,12 +45,22 @@
 }
 
 .selectionArea button:hover {
-  transition: 0.8s;
+  transition: 0.5s;
   background: transparent;
   border-style: dashed;
-  border-color: salmon;
+  border-color: white;
   color: white;
   cursor: pointer;
+}
+
+.buttonsSidepanel {
+  display: flex;
+  flex-direction: column;
+}
+
+.gameButtons {
+  display: flex;
+  flex-direction: column;
 }
 
 .playArea {
