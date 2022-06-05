@@ -59,7 +59,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
 
   useEffect(() => {
     let amount = {
-      userId: userState?.userId ? userState.userId : 0,
+      userId: myUserState.user?.userId ? myUserState.user.userId : 0,
       amount: myUserState.bet,
     };
 
