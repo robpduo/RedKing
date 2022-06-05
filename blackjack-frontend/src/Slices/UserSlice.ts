@@ -11,9 +11,11 @@ interface UserSliceState {
   user?: IUser;
   users?: IUser[];
   bet: number;
+  lockBet: boolean;
 }
 
 const initialUserState: UserSliceState = {
+  lockBet: false,
   error: false,
   loading: true,
   bet: 0,
@@ -184,6 +186,9 @@ export const UserSlice = createSlice({
     userBet: (state, action) => {
       state.bet = action.payload;
     },
+    toggleLock: (state) => {
+      state.lockBet = !state.lockBet;
+    }
   },
 
   extraReducers: (builder) => {
@@ -243,6 +248,6 @@ export const UserSlice = createSlice({
 });
 // If we had normal actions and reducers we would export them like this
 // export const { toggleError } = UserSlice.actions;
-export const { logoutUser, userBet } = UserSlice.actions;
+export const { logoutUser, userBet, toggleLock } = UserSlice.actions;
 
 export default UserSlice.reducer;
