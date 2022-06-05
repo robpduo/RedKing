@@ -9,13 +9,22 @@ import { AppDispatch, RootState } from '../../Store';
 import StartGameButton from '../StartGameButton/StartGameButton';
 import { HitButton } from '../HitButton/HitButton';
 
-import { setGameStatus, setWinner, togglePlayerBusted } from '../../Slices/GameSlice';
+import {
+  setGameStatus,
+  setWinner,
+  togglePlayerBusted,
+} from '../../Slices/GameSlice';
 import { getDealDealer, quitGame } from '../../Slices/DeckSlice';
 import { StandButton } from '../StandButton/StandButton';
 import NextRound from '../NextRound/NextRound';
 import { depositMoney, sendMail, userBet } from '../../Slices/UserSlice';
 
-import { ValueCounter, calcCardValue, calcHandValue, calcVisibleDealerHandValue } from '../ValueCounter/ValueCounter';
+import {
+  ValueCounter,
+  calcCardValue,
+  calcHandValue,
+  calcVisibleDealerHandValue,
+} from '../ValueCounter/ValueCounter';
 
 import { ToastContainer, toast, TypeOptions } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -70,16 +79,18 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
 
   //central place for dealer ai to function
   useEffect(() => {
-
     if (gameState.isDealersTurn) {
-
       console.log("Dealer's Turn: ", gameState.isDealersTurn);
-      if (calcHandValue(deckState.dealerHand) < 17 && gameState.isDealersTurn) { //dealer must draw until 17
-        console.log("dealer draws");
+      if (calcHandValue(deckState.dealerHand) < 17 && gameState.isDealersTurn) {
+        //dealer must draw until 17
+        console.log('dealer draws');
         dispatch(getDealDealer(deckState.deck?.deckId));
-
-      } else if (calcHandValue(deckState.dealerHand) >= 17 && gameState.isDealersTurn) { //dealer has finished his turn
-        console.log("Iam dealer, and Im done drawing!!");
+      } else if (
+        calcHandValue(deckState.dealerHand) >= 17 &&
+        gameState.isDealersTurn
+      ) {
+        //dealer has finished his turn
+        console.log('Iam dealer, and Im done drawing!!');
 
         //Determine if dealer busts!
         if (
@@ -90,18 +101,18 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
         } else if (
           calcHandValue(deckState.dealerHand) == 21 &&
           calcHandValue(deckState.playerHand) !=
-          calcHandValue(deckState.dealerHand)
+            calcHandValue(deckState.dealerHand)
         ) {
           dispatch(setWinner('dealer'));
         } else if (
           calcHandValue(deckState.playerHand) <
-          calcHandValue(deckState.dealerHand) &&
+            calcHandValue(deckState.dealerHand) &&
           calcHandValue(deckState.dealerHand) < 21
         ) {
           dispatch(setWinner('dealer'));
         } else if (
           calcHandValue(deckState.playerHand) >
-          calcHandValue(deckState.dealerHand) &&
+            calcHandValue(deckState.dealerHand) &&
           calcHandValue(deckState.playerHand) < 21
         ) {
           dispatch(setWinner('player'));
@@ -123,18 +134,17 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
         } else if (
           calcHandValue(deckState.playerHand) == 21 &&
           calcHandValue(deckState.playerHand) !=
-          calcHandValue(deckState.dealerHand)
+            calcHandValue(deckState.dealerHand)
         ) {
           dispatch(setWinner('player'));
         } else {
-          console.log("No conditions satisfied");
+          console.log('No conditions satisfied');
         }
       }
 
       //if player wins or loses doing something with the bet amount
 
     }
-
   }, [gameState.isDealersTurn, deckState.dealerHand]);
   // useEffect(() => {
   //   if (userState) {
@@ -150,26 +160,15 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
   //   }
   // }, [gameState.winner]);
 
-  toast.success('Hurray! Login Successfull.', {
-    position: 'top-center',
-    autoClose: 1500,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: 'dark',
-  });
-
   type propNum = {
-    dealerNum: number,
-    playerNum: number
-  }
+    dealerNum: number;
+    playerNum: number;
+  };
 
   let num: propNum = {
     dealerNum: 1,
-    playerNum: 0
-  }
+    playerNum: 0,
+  };
 
   return (
     <>
@@ -268,5 +267,5 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
         <ToastContainer position="top-center" />
       </div>
     </>
-  )
+  );
 };
