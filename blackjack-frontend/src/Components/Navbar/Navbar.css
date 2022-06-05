@@ -20,8 +20,7 @@
   font-size: 1.2rem;
   position: sticky;
 }
-.navBar,
-.eNavBar {
+.navBar {
   background-color: transparent;
 }
 
@@ -46,22 +45,20 @@
   align-items: center;
   justify-content: space-around !important;
   justify-content: center;
-  width: 30%;
+  width: 50%;
 }
 
 .moneyContainer p {
-  margin-left: 10px;
+  margin: 0 4px;
   font-size: 1.4rem;
 }
 
-.logout {
-  display: flex;
-  align-items: center;
-  height: 100%;
-  outline: none;
+.moneyContainer .betsLocked {
+  text-align: center;
 }
 
-.moneyBtn {
+.moneyBtn,
+.betBtn {
   background-color: transparent;
   color: var(--text-white);
 
@@ -69,7 +66,7 @@
   font-weight: normal;
   font-size: 0.8rem;
 
-  width: fit-content;
+  width: 80px;
   height: 100%;
 
   text-align: center;
@@ -83,11 +80,40 @@
   margin: 0 6px;
 }
 
-.moneyBtn {
+.betnBtnDisabled {
+  background-color: transparent;
+  color: var(--text-white);
+
+  border-radius: 10px;
+  font-weight: normal;
+  font-size: 0.8rem;
+
+  width: 80px;
+  height: 100%;
+
+  text-align: center;
+  text-decoration: none;
+
+  display: inline-block;
+  cursor: not-allowed;
+  outline: none;
+
+  padding: 6px;
+  margin: 0 6px;
+}
+
+.moneyBtn,
+.betBtn {
   border: 1px solid var(--text-white) !important;
 }
 
-.moneyBtn:hover {
+.betnBtnDisabled {
+  border: 1px solid var(--grey);
+  color: var(--grey);
+}
+
+.moneyBtn:hover,
+.betBtn:hover {
   transition: 0.5s;
   background-color: var(--text-white);
   color: black;

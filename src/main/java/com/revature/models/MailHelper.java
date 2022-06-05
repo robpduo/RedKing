@@ -6,6 +6,16 @@ public class MailHelper {
 
     private String msgType;
 
+    public MailHelper(){
+
+    }
+
+    public MailHelper(String firstName, String email, String msgType) {
+        this.firstName = firstName;
+        this.email = email;
+        this.msgType = msgType;
+    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -28,5 +38,14 @@ public class MailHelper {
 
     public void setMsgType(String msgType) {
         this.msgType = msgType;
+    }
+
+    @Override
+    public String toString() {
+        return "MailHelper{" +
+                "firstName='" + firstName + '\'' +
+                ", email='" + email + '\'' +
+                ", msgType='" + msgType + '\'' +
+                '}';
     }
 }

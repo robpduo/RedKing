@@ -11,15 +11,18 @@
   background-size: cover;
   opacity: 0.95;
 
-  z-index: 100 !important;
+  /* z-index: 100 !important; */
+}
+.borderRight {
+  transition: 0.8s;
+  border-right: 1px solid white !important;
 }
 
 .selectionArea {
-  min-width: 15%;
+  min-width: 18%;
   background: transparent !important;
 
-  border-right: 1px solid white;
-
+  border-right: 1px solid var(--grey);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -42,12 +45,22 @@
 }
 
 .selectionArea button:hover {
-  transition: 0.8s;
+  transition: 0.5s;
   background: transparent;
   border-style: dashed;
-  border-color: salmon;
+  border-color: white;
   color: white;
   cursor: pointer;
+}
+
+.buttonsSidepanel {
+  display: flex;
+  flex-direction: column;
+}
+
+.gameButtons {
+  display: flex;
+  flex-direction: column;
 }
 
 .playArea {
@@ -59,8 +72,7 @@
   flex-direction: column;
   justify-content: space-between !important;
   align-items: center;
-
-  margin: 1rem auto 2rem auto;
+  /* margin: 1rem auto; */
 }
 
 .playArea h1 {
@@ -71,17 +83,27 @@
 .dealContainer {
   width: 80%;
   text-align: center;
+}
 
-  display: flex;
-  flex-direction: row!;
+.dealContainer h1 {
+  margin: 12px 0;
 }
 
 .dealContainer img {
   margin: 0 10px;
-  margin-top: 10px;
   width: 150px;
   height: 150px;
-  cursor: pointer;
+  /* cursor: pointer; */
+}
+
+.winnerContainer {
+  background-color: transparent;
+  width: 90%;
+  margin: 0 auto;
+  text-align: center;
+
+  border-radius: 12px;
+  border: 1px solid white;
 }
 
 .userContainer {
@@ -89,10 +111,15 @@
   text-align: center;
 }
 
+.userContainer h1 {
+  margin-bottom: 12px;
+}
+
 .userContainer img {
   margin: 0 10px;
   width: 150px;
   height: 150px;
-  margin-top: 10px;
-  cursor: pointer;
+  margin-bottom: 12px;
+  /* margin-top: 10px;
+  cursor: pointer; */
 }

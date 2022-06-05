@@ -1,215 +1,274 @@
 import React, { useEffect, useState } from 'react';
-import './PlayGame.css';
-
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
+import './PlayGame.css';
 import { IDeck } from '../../Interfaces/IDeck';
 
-import { StartGameButton } from '../StartGameButton/StartGameButton';
-
 import { AppDispatch, RootState } from '../../Store';
-
-import cloverTwo from '../../images/CLOVERSTWO.png';
-import diamondQueen from '../../images/DIAMONDSQUEEN.png';
-
-import spadeAce from '../../images/SPADESACE.png';
-import heartKing from '../../images/HEARTSKING.png';
-
+import StartGameButton from '../StartGameButton/StartGameButton';
 import { HitButton } from '../HitButton/HitButton';
+
+import {
+  setGameStatus,
+  setWinner,
+  togglePlayerBusted,
+} from '../../Slices/GameSlice';
+import { getDealDealer, quitGame } from '../../Slices/DeckSlice';
+import { StandButton } from '../StandButton/StandButton';
+import NextRound from '../NextRound/NextRound';
+import { sendMail } from '../../Slices/UserSlice';
+
+import {
+  ValueCounter,
+  calcCardValue,
+  calcHandValue,
+  calcVisibleDealerHandValue,
+} from '../ValueCounter/ValueCounter';
+
+import { ToastContainer, toast, TypeOptions } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // going inside PlaGamePage
 export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
+  const navigator = useNavigate();
   const dispatch: AppDispatch = useDispatch();
 
-  const deckInfo = useSelector((state: RootState) => state.deck.deck);
-  const userInfo = useSelector((state: RootState) => state.user);
-
-  const playerHand = useSelector((state: RootState) => state.deck.playerHand);
-
-  const dealerHand = useSelector((state: RootState) => state.deck.dealerHand);
+  const gameState = useSelector((state: RootState) => state.game);
+  const deckState = useSelector((state: RootState) => state.deck);
 
   const isDeck = useSelector((state: RootState) => state.deck.isDeck);
-  console.log('coming from PlayGame line 31 ', deckInfo);
+  const deckInfo = useSelector((state: RootState) => state.deck.deck);
 
-  const [gameStatus, setGameStatus] = useState('Game not initialized');
-  // console.log('coming from PlayGame line 28 ', isDeck);
+  const playerCards = useSelector((state: RootState) => state.deck.playerHand);
+  const dealerCards = useSelector((state: RootState) => state.deck.dealerHand);
 
-  // const [chipCount, setChipCount] = useState(1000);
-  // const [betAmount, setBetAmount] = useState(0);
-  // const [lockedBet, setLockedBet] = useState(0);
-  // const [previousBet, setPreviousBet] = useState(0);
-  // const [dealerCount, setDealerCount] = useState(0);
-  // const [playerCount, setPlayerCount] = useState(0);
-  // const [isBlackjack, setIsBlackJack] = useState(false);
-  // const [isPlayerBusted, setIsPlayerBusted] = useState(false);
-  // //const [didDouble, setDidDouble] = useState(false);
-  // const [isDealersTurn, setIsDealersTurn] = useState(false);
-  // const [isDealerBusted, setIsDealerBusted] = useState(false);
-  // const [isHandComplete, setIsHandComplete] = useState(true);
-  // const [winner, setWinner] = useState("");
+  const userState = useSelector((state: RootState) => state.user);
 
-  /* useEffect(() => {
-      if(dealerCount > 21) {
-        setIsDealerBusted(true);
-        setWinner("player");
-        setIsHandComplete(true);
-      }
-      if(dealerCount >= 17 && dealerCount < 22 && isDealersTurn) {
-        if(dealerCount > playerCount) {
-          setWinner("dealer");
-          setIsHandComplete(true);
+  console.log('coming from PlayGame line 39', userState);
+
+  const handleScoreBoard = (event: React.MouseEvent<HTMLButtonElement>) => {
+    navigator('/scores');
+  };
+
+  const handleQuit = (event: React.MouseEvent<HTMLButtonElement>) => {
+    dispatch(setGameStatus('Game not Initialized')); //set game status to not initiated
+    dispatch(quitGame());
+    dispatch(setWinner('none'));
+    dispatch(togglePlayerBusted());
+  };
+
+  //central place for dealer ai to function
+  useEffect(() => {
+    if (gameState.isDealersTurn) {
+      console.log("Dealer's Turn: ", gameState.isDealersTurn);
+      if (calcHandValue(deckState.dealerHand) < 17 && gameState.isDealersTurn) {
+        //dealer must draw until 17
+        console.log('dealer draws');
+        dispatch(getDealDealer(deckState.deck?.deckId));
+      } else if (
+        calcHandValue(deckState.dealerHand) >= 17 &&
+        gameState.isDealersTurn
+      ) {
+        //dealer has finished his turn
+        console.log('Iam dealer, and Im done drawing!!');
+
+        //Determine if dealer busts!
+        if (
+          calcHandValue(deckState.dealerHand) > 21 &&
+          calcHandValue(deckState.playerHand) < 21
+        ) {
+          console.log(
+            'player wins with: ',
+            calcHandValue(deckState.playerHand)
+          );
+          dispatch(setWinner('player'));
+        } else if (
+          calcHandValue(deckState.dealerHand) == 21 &&
+          calcHandValue(deckState.playerHand) !=
+            calcHandValue(deckState.dealerHand)
+        ) {
+          console.log(
+            'dealer wins with: ',
+            calcHandValue(deckState.dealerHand)
+          );
+          dispatch(setWinner('dealer'));
+        } else if (
+          calcHandValue(deckState.playerHand) <
+            calcHandValue(deckState.dealerHand) &&
+          calcHandValue(deckState.dealerHand) < 21
+        ) {
+          dispatch(setWinner('dealer'));
+          console.log(
+            'dealer wins with: ',
+            calcHandValue(deckState.dealerHand)
+          );
+        } else if (
+          calcHandValue(deckState.playerHand) >
+            calcHandValue(deckState.dealerHand) &&
+          calcHandValue(deckState.playerHand) < 21
+        ) {
+          dispatch(setWinner('player'));
+          console.log(
+            'player wins with: ',
+            calcHandValue(deckState.playerHand)
+          );
+        } else if (
+          calcHandValue(deckState.dealerHand) > 21 &&
+          calcHandValue(deckState.playerHand) > 21
+        ) {
+          dispatch(setWinner('tie'));
+          console.log('Both players busted');
+        } else if (
+          calcHandValue(deckState.playerHand) ==
+          calcHandValue(deckState.dealerHand)
+        ) {
+          dispatch(setWinner('tie'));
+          console.log('TIE');
+        } else if (
+          calcHandValue(deckState.playerHand) > 21 &&
+          calcHandValue(deckState.dealerHand) < 21
+        ) {
+          dispatch(setWinner('dealer'));
+          console.log('Dealer won with: ', calcHandValue(deckState.dealerHand));
+        } else if (
+          calcHandValue(deckState.playerHand) == 21 &&
+          calcHandValue(deckState.playerHand) !=
+            calcHandValue(deckState.dealerHand)
+        ) {
+          dispatch(setWinner('dealer'));
+          console.log(
+            'player wins with: ',
+            calcHandValue(deckState.playerHand)
+          );
+        } else {
+          console.log('No conditions satisfied');
         }
-        if(dealerCount < playerCount && !isPlayerBusted) {
-          setWinner("player")
-          setIsHandComplete(true)
-        }
-        if(dealerCount === playerCount && !isPlayerBusted) {
-          setWinner("push")
-          setIsHandComplete(true)
-        }
       }
-      if(dealerCount < 17 && isDealersTurn && !isPlayerBusted) {
-        setTimeout(() => {
-          dispatch(getDealDealer())
-        }, 500);
-      }
-    }, [dealerCount]) */
+    }
+  }, [gameState.isDealersTurn, deckState.dealerHand]);
 
-  // const [id, setId] = useState(userInfo.user?.id)
-  // const [lockedBet, setLockedBet] = useState(0)
-  // const [previousBet, setPreviousBet] = useState(0)
-  // const [dealerCount, setDealerCount] = useState(0)
-  // const [playerCount, setPlayerCount] = useState(0)
-
-  // const handleStandButton = () => {
-
-  //   if (deckInfo && playerHand) {
-  //     dispatch(getDealDealer);
-  //   }
-
-  // }
-
+  // comment out this useEffect that was accepting as current changes
   // useEffect(() => {
-  //   console.log('coming from PlayGame line 93 ', deckInfo);
-  // }, [deckInfo]);
+  //   if (userState) {
+  //     let mailData = {
+  //       firstName: userState?.firstName,
+  //       email: userState?.email,
+  //       msgType: 'Win',
+  //     };
 
-  // let imgPath = '../../images';
-  let imageArray = [
-    { suit: 'SPADES', rank: 'ACE', path: '../../images/SPADESACE.png' },
-    { suit: 'SPADES', rank: 'TWO', path: '../../images/SPADESTWO.png' },
-    { suit: 'SPADES', rank: 'THREE', path: '../../images/SPADESTHREE.png' },
-    { suit: 'SPADES', rank: 'FOUR', path: '../../images/SPADESFOUR.png' },
-    { suit: 'SPADES', rank: 'FIVE', path: '../../images/SPADESFIVE.png' },
-    { suit: 'SPADES', rank: 'SIX', path: '../../images/SPADESSIX.png' },
-    { suit: 'SPADES', rank: 'SEVEN', path: '../../images/SPADESEVEN.png' },
-    { suit: 'SPADES', rank: 'EIGHT', path: '../../imageS/SPADESEIGHT.png' },
-    { suit: 'SPADES', rank: 'NINE', path: '../../images/SPADESNINE.png' },
-    { suit: 'SPADES', rank: 'TEN', path: '../../images/SPADESTEN.png' },
-    { suit: 'SPADES', rank: 'JACK', path: '../../images/SPADESJACK.png' },
-    { suit: 'SPADES', rank: 'QUEEN', path: '../../images/SPADESQUEEN.png' },
-    { suit: 'SPADES', rank: 'KING', path: '../../images/SPADESKING.png' },
-    { suit: 'HEARTS', rank: 'ACE', path: '../../images/HEARTSACE.png' },
-    { suit: 'HEARTS', rank: 'TWO', path: '../../images/HEARTSTWO.png' },
-    { suit: 'HEARTS', rank: 'THREE', path: '../../images/HEARTSTHREE.png' },
-    { suit: 'HEARTS', rank: 'FOUR', path: '../../images/HEARTSFOUR.png' },
-    { suit: 'HEARTS', rank: 'FIVE', path: '../../images/HEARTSFIVE.png' },
-    { suit: 'HEARTS', rank: 'SIX', path: '../../images/HEARTSSIX.png' },
-    { suit: 'HEARTS', rank: 'SEVEN', path: '../../images/HEARTSSEVEN.png' },
-    { suit: 'HEARTS', rank: 'EIGHT', path: '../../images/HEARTSEIGHT.png' },
-    { suit: 'HEARTS', rank: 'NINE', path: '../../images/HEARTSNINE.png' },
-    { suit: 'HEARTS', rank: 'TEN', path: '../../images/HEARTSTEN.png' },
-    { suit: 'HEARTS', rank: 'JACK', path: '../../images/HEARTSJACK.png' },
-    { suit: 'HEARTS', rank: 'QUEEN', path: '../../images/HEARTSQUEEN.png' },
-    { suit: 'HEARTS', rank: 'KING', path: '../../images/HEARTSKING.png' },
-    { suit: 'CLOVERS', rank: 'ACE', path: '../../images/CLOVERSACE.png' },
-    { suit: 'CLOVERS', rank: 'TWO', path: '../../images/CLOVERSTWO.png' },
-    { suit: 'CLOVERS', rank: 'THREE', path: '../../images/CLOVERSTHREE.png' },
-    { suit: 'CLOVERS', rank: 'FOUR', path: '../../images/CLOVERSFOUR.png' },
-    { suit: 'CLOVERS', rank: 'FIVE', path: '../../images/CLOVERSFIVE.png' },
-    { suit: 'CLOVERS', rank: 'SIX', path: '../../images/CLOVERSSIX.png' },
-    { suit: 'CLOVERS', rank: 'SEVEN', path: '../../images/CLOVERSSEVEN.png' },
-    { suit: 'CLOVERS', rank: 'EIGHT', path: '../../images/CLOVERSEIGHT.png' },
-    { suit: 'CLOVERS', rank: 'NINE', path: '../../images/CLOVERSNINE.png' },
-    { suit: 'CLOVERS', rank: 'TEN', path: '../../images/CLOVERSTEN.png' },
-    { suit: 'CLOVERS', rank: 'JACK', path: '../../images/CLOVERSJACK.png' },
-    { suit: 'CLOVERS', rank: 'QUEEN', path: '../../images/CLOVERSQUEEN.png' },
-    { suit: 'CLOVERS', rank: 'KING', path: '../../images/CLOVERSKING.png' },
-    { suit: 'DIAMONDS', rank: 'ACE', path: '../../images/DIAMONDSACE.png' },
-    { suit: 'DIAMONDS', rank: 'TWO', path: '../../images/DIAMONDSTWO.png' },
-    { suit: 'DIAMONDS', rank: 'THREE', path: '../../images/DIAMONDSTHREE.png' },
-    { suit: 'DIAMONDS', rank: 'FOUR', path: '../../images/DIAMONDSFOUR.png' },
-    { suit: 'DIAMONDS', rank: 'FIVE', path: '../../images/DIAMONDSFIVE.png' },
-    { suit: 'DIAMONDS', rank: 'SIX', path: '../../images/DIAMONDSSIX.png' },
-    { suit: 'DIAMONDS', rank: 'SEVEN', path: '../../images/DIAMONDSSEVEN.png' },
-    { suit: 'DIAMONDS', rank: 'EIGHT', path: '../../images/DIAMONDSEIGHT.png' },
-    { suit: 'DIAMONDS', rank: 'NINE', path: '../../images/DIAMONDSNINE.png' },
-    { suit: 'DIAMONDS', rank: 'TEN', path: '../../images/DIAMONDSTEN.png' },
-    { suit: 'DIAMONDS', rank: 'JACK', path: '../../images/DIAMONDSJACK.png' },
-    { suit: 'DIAMONDS', rank: 'QUEEN', path: '../../images/DIAMONDSQUEEN.png' },
-    { suit: 'DIAMONDS', rank: 'KING', path: '../../images/DIAMONDSKING.png' },
-  ];
+  //     if (gameState.winner !== 'none' && gameState.winner !== 'dealer') {
+  //       dispatch(sendMail(mailData));
+  //     }
+  //   }
+  // }, [gameState.winner]);
+
+  toast.success('Hurray! Login Successfull.', {
+    position: 'top-center',
+    autoClose: 1500,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: 'dark',
+  });
 
   return (
     <>
       <div className="gameContainer">
-        <div className="selectionArea">
-          <h1>BlacKing</h1>
-          <StartGameButton />
-          <HitButton />
+        <div
+          className={
+            gameState.gameStatus.includes('Game not Initialized')
+              ? 'selectionArea '
+              : 'selectionArea borderRight'
+          }
+        >
+          {deckState.loading == false ? (
+            <>
+              {/* <h1>{gameState.gameStatus}</h1> */}
+              <h1>BlacKing</h1>
+            </>
+          ) : (
+            // <h1>Loading -- Give us a Moment</h1>
+            <h1>Shuffling Your Deck</h1>
+          )}
 
-          <button>Stand</button>
-          <button>Value</button>
-          <button>Score</button>
+          {gameState.gameStatus.includes('Game not Initialized') ? (
+            //if true (game not initialized)
+
+            <div className="buttonsSidepanel">
+              <StartGameButton />
+
+              {deckState.loading == false ? (
+                <button onClick={handleScoreBoard}>Score</button>
+              ) : (
+                <button onClick={handleScoreBoard} disabled={true}>
+                  Score
+                </button>
+              )}
+            </div>
+          ) : (
+            <div className="gameButtons">
+              <HitButton />
+              <StandButton />
+              <NextRound />
+              <button onClick={handleQuit}>Quit</button>
+            </div>
+          )}
         </div>
 
         <div className="playArea">
-          <h1> dealer </h1>
-          {isDeck !== false &&
-            deckInfo?.cards?.slice(0, 2)?.map((card) => {
-              let imagePath = imageArray.find((imgArr) => {
-                return imgArr.rank === card.rank && imgArr.suit === card.suit
-                  ? imgArr.path
-                  : '../../images/DIAMONDSKING.png';
-              });
+          <div className="dealContainer">
+            <h1>Dealer</h1>
+            {isDeck !== false &&
+              dealerCards?.map((card) => {
+                let suit1 = card.suit.toString();
+                let rank1 = card.rank.toString();
+                let path1 = suit1.split('').join().replace(/,/g, '');
+                let path2 = rank1.split('').join().replace(/,/g, '');
+                let imagePath = '../../images/' + path1 + path2;
 
-              console.log('coming from imagePath line 174 ', imagePath?.path);
-
-              return (
-                <div className="dealContainer" key={card.id}>
+                return (
                   <img
-                    key={card.id}
-                    src={imagePath?.path}
-                    // src={`../../images/${card.suit}${card.rank}.png`}
+                    key={card.suit + '' + card.rank}
+                    src={`${imagePath}.png`}
                     alt={`${card.suit}${card.rank}`}
                   />
-                  {/* <p>{card.suit}</p> */}
-                </div>
-              );
-            })}
+                );
+              })}
+          </div>
+
+          {gameState.winner === 'none' ? (
+            <></>
+          ) : (
+            <div className="winnerContainer">
+              <h1>{gameState.winner.toLocaleUpperCase()} wins</h1>
+            </div>
+          )}
 
           <div className="userContainer">
             <h1>User</h1>
-            <img src={spadeAce} />
-            <img src={heartKing} />
+            {isDeck !== false &&
+              playerCards?.map((card) => {
+                let suit1 = card.suit.toString();
+                let rank1 = card.rank.toString();
+                let path1 = suit1.split('').join().replace(/,/g, '');
+                let path2 = rank1.split('').join().replace(/,/g, '');
+                let imagePath = '../../images/' + path1 + path2;
+
+                return (
+                  <img
+                    key={card.suit + '' + card.rank}
+                    src={`${imagePath}.png`}
+                    alt={`${card.suit}${card.rank}`}
+                  />
+                );
+              })}
           </div>
         </div>
 
-        {/* {isDeck !== false && (
-          <div className="playArea">
-            <h1> dealer </h1>
-            {playerHand?.map((hand) => {
-              <div className="dealContainer" key={hand.id}>
-                <img src={`../../images/${hand.suit}${hand.rank}`} />
-
-              </div>;
-            })}
-
-            <div className="userContainer">
-              <h1>User</h1>
-              <img src={spadeAce} />
-              <img src={heartKing} />
-            </div>
-          </div>
-        )} */}
+        <ToastContainer position="top-center" />
       </div>
     </>
   );

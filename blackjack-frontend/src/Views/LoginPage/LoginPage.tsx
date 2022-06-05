@@ -19,8 +19,14 @@ export const LoginPage: React.FC = () => {
   useEffect(() => {
     if (!userInfo.error && userInfo.user) {
       navigator('/login');
-    }
+    } 
   }, [userInfo]);
+
+  useEffect( () => {
+    if (userInfo.user?.userId && userInfo.user?.userId > 0) { //if user is logged in, navigate user to userhome page
+      navigator('/playgame');
+    }
+  }, []);
 
   return (
     <div className="loginPage">
