@@ -34,7 +34,7 @@ export const Navbar: React.FC = () => {
           ) : (
             // <p className="betsLocked">Bets Are Locked!</p>
             <Link to="/bet">
-              <button className="betnBtnDisabled" disabled={false}>
+              <button className="betnBtnDisabled" disabled={true}>
                 Bet's Locked
               </button>
             </Link>
