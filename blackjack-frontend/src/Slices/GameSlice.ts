@@ -3,8 +3,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 interface GameSliceState {
     gameStatus: string;
-    dealerCount: number,
-    playerCount: number,
+    dealerCount: number,    //dealer hand value
+    playerCount: number,    //player hand value
     isDealersTurn: boolean,
     isDealerBusted: boolean,
     isHandComplete: boolean,

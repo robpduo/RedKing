@@ -58,8 +58,7 @@ export const calcCardValue: (card: ICard) => number = function (
     } else if (x == "ACE") {
         return 1;
     } else {
-        return -1;
-        console.log("in the negative number");
+        return -100;
     }
 };
 
@@ -69,7 +68,6 @@ export const calcHandValue: (hand: ICard[] | undefined) => number = function (
     hand: ICard[] | undefined
 ): number {
     let value = 0;
-    console.log(hand);
     if (hand) {
         let aces = 0;
         for (let card of hand) {
@@ -118,8 +116,6 @@ export const calcVisibleDealerHandValue: (hand: ICard[] | undefined) => number =
                 value += 11;
             }
         }
-    } else {
-        console.log("hand was undefined");
-    }
+    } 
     return value;
 }

@@ -18,7 +18,6 @@ export const HitButton: React.FC = () => {
   const dealerHand = useSelector((state: RootState) => state.deck.dealerHand);
   const gameInfo = useSelector((state:RootState) => state.game);
   const dispatch: AppDispatch = useDispatch();
-  const navigator = useNavigate();
 
   useEffect(() => {
     setDealerCount(calcHandValue(dealerHand));
@@ -26,10 +25,11 @@ export const HitButton: React.FC = () => {
     let deckId = deckInfo.deck?.deckId;
     console.log("is black jack" + gameInfo.isBlackJack);
     console.log("is player busted " + gameInfo.isPlayerBusted);
-    console.log("is dealer busted" + gameInfo.isDealerBusted);
+    console.log("is dealer busted " + gameInfo.isDealerBusted);
     console.log("dealer hand value: " +calcHandValue(dealerHand));
     console.log("player hand value: " + calcHandValue(playerHand));
-    if (gameInfo.dealerCount > 21) {
+
+    if (gameInfo.dealerCount > 21) {  //dealer hand value > 21
       toggleDealerBust();
       setWinner('player');
       toggleHandComplete();
@@ -37,7 +37,8 @@ export const HitButton: React.FC = () => {
       clearHands();
       console.log(gameInfo.gameStatus);
     }
-    if (gameInfo.dealerCount >= 17 && gameInfo.dealerCount < 22 && gameInfo.isDealersTurn) {
+
+    if (gameInfo.dealerCount >= 17 && gameInfo.dealerCount < 22 && gameInfo.isDealersTurn) { // REVISIT
       if (gameInfo.dealerCount > gameInfo.playerCount) {
         setWinner('dealer');
         toggleHandComplete();
@@ -46,6 +47,7 @@ export const HitButton: React.FC = () => {
         console.log(gameInfo.gameStatus);
         clearHands();
       }
+
       if (gameInfo.dealerCount < gameInfo.playerCount && !gameInfo.isPlayerBusted) {
         setWinner('player');
         toggleHandComplete();
@@ -55,6 +57,7 @@ export const HitButton: React.FC = () => {
         clearHands();
 
       }
+
       if (gameInfo.dealerCount === gameInfo.playerCount && !gameInfo.isPlayerBusted) {
         setWinner('push');
         toggleHandComplete();
@@ -65,6 +68,7 @@ export const HitButton: React.FC = () => {
 
       }
     }
+
     if (gameInfo.dealerCount < 17 && gameInfo.isDealersTurn && !gameInfo.isPlayerBusted) {
       setTimeout(() => {
         dispatch(getDealDealer(deckId));
@@ -81,10 +85,15 @@ export const HitButton: React.FC = () => {
 
     if (userInfo && deckInfo) {
       toggleHandComplete();
+
       console.log(gameInfo.isHandComplete);
+
       dispatch(getDealPlayer(deckId));
+
       setGameStatus("player turn");
+
       console.log(gameInfo.gameStatus);
+
       if (gameInfo.playerCount > 21) {
         togglePlayerBusted();
         toggleDealerBust();
@@ -93,8 +102,8 @@ export const HitButton: React.FC = () => {
         setWinner("dealer");
         console.log(gameInfo.winner);
         calcHandValue(deckInfo.playerHand);
-
       }
+      
     } else {
       setGameStatus('User not logged in');
       console.log(gameInfo.gameStatus);

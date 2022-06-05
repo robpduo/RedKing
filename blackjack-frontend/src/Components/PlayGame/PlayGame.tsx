@@ -89,6 +89,11 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
     dispatch(quitGame());
   };
 
+  //Game Logic will go here
+  useEffect(() => {
+    
+  }, [gameState.gameStatus]);
+
   return (
     <>
       <div className="gameContainer">
