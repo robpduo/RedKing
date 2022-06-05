@@ -53,6 +53,7 @@ export const gameSlice = createSlice({
             state.winner = action.payload;
         },
         setGameStatus: (state, action) => {
+            console.log("Game-Status: ", action.payload);
             state.gameStatus = action.payload;
         },
         setPlayerCount: (state, action)=>{

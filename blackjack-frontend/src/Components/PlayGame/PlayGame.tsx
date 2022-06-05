@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import './PlayGame.css';
-
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
+import './PlayGame.css';
 import { IDeck } from '../../Interfaces/IDeck';
+import heartKing from '../../images/HEARTSKING.png';
+
 
 import { AppDispatch, RootState } from '../../Store';
-import heartKing from '../../images/HEARTSKING.png';
-import { useNavigate } from 'react-router-dom';
 import StartGameButton from '../StartGameButton/StartGameButton';
-import { setGameStatus } from '../../Slices/GameSlice';
 import { HitButton } from '../HitButton/HitButton';
 
-
+import { setGameStatus } from '../../Slices/GameSlice';
+import { quitGame } from '../../Slices/DeckSlice';
 
 // going inside PlaGamePage
 export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
@@ -83,17 +84,15 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
   };
 
   const handleQuit = (event: React.MouseEvent<HTMLButtonElement>) => {
-    dispatch(setGameStatus('Game not Initialized')); //set game status to not initiated
-    //set deck to null | undefined
-    //clear dealer and hand values
-    navigator('/login');
+    dispatch(setGameStatus("Game not Initialized")); //set game status to not initiated
+    dispatch(quitGame());
   };
 
   return (
     <>
       <div className="gameContainer">
         <div className="selectionArea">
-          <h1>BlacKing</h1>
+          <h1>Game Status {gameState.gameStatus}</h1>
 
           {gameState.gameStatus.includes('Game not Initialized')
             ? //if true (game not initialized)

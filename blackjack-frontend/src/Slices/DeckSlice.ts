@@ -29,16 +29,6 @@ const initialDeckState: DeckSliceState = {
   dealerHand: []
 };
 
-/*
-type userProfile = {
-    id?: number | undefined,
-    email: string | undefined,
-    firstName: string | undefined,
-    lastName: string | undefined,
-    money: number | undefined
-} 
-*/
-
 // from StartGameButton Component
 export const initializeDeck = createAsyncThunk(
   'deck/initialize',
@@ -56,10 +46,6 @@ export const initializeDeck = createAsyncThunk(
     }
   }
 );
-
-// type deckid = {
-//   deckId: number;
-// };
 
 // from StartGameButton Component
 export const getDeck = createAsyncThunk(
@@ -121,12 +107,14 @@ export const deckSlice = createSlice({
   name: 'deck',
   initialState: initialDeckState,
   reducers: {
-    clearDeck: (state) => {
-      // state.deck = undefined;
-      // state.playerHand = undefined;
-      // state.dealerHand = undefined
+    quitGame: (state) => {
+       state.deck = undefined;
+       state.playerHand = undefined;
+       state.dealerHand = undefined;
+       state.startGame = false;
     }
   },
+
   extraReducers: (builder) => {
     //reducers for shuffling deck
 
@@ -205,6 +193,6 @@ export const deckSlice = createSlice({
   },
 });
 
-export const { clearDeck } = deckSlice.actions;
+export const { quitGame } = deckSlice.actions;
 
 export default deckSlice.reducer;

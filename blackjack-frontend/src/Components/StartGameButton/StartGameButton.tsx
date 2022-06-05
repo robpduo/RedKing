@@ -16,7 +16,9 @@ const StartGameButton: React.FC = () => {
 
   useEffect(()  => {
     if (deckState.startGame) {
+      console.log("STARTED GAME")
       dispatch(setGameStatus('Game is Initialized')); //change the state of the game to initialized
+
       if (deckState.deck) {
         
         if(deckState.playerHand) {
