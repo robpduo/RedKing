@@ -109,11 +109,16 @@ export const deckSlice = createSlice({
       state.playerHand = [];
       state.dealerHand = [];
       state.startGame = false;
+      state.isDeck = false;
     },
 
     clearHands: (state) => {
       state.playerHand = [];
       state.dealerHand = [];
+    }, 
+
+    toggleStartGame: (state) => {
+      state.startGame = !state.startGame;
     }
   },
 
@@ -194,6 +199,6 @@ export const deckSlice = createSlice({
   },
 });
 
-export const { quitGame, clearHands } = deckSlice.actions;
+export const { quitGame, clearHands, toggleStartGame } = deckSlice.actions;
 
 export default deckSlice.reducer;
