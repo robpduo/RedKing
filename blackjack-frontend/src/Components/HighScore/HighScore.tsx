@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
+import '../HighScore/Scoreboard.css';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { IUser } from '../../Interfaces/IUser';
 import { retrieveUserScores } from '../../Slices/UserSlice';
 import { AppDispatch, RootState } from '../../Store';
 import ScoreRows from './ScoreRows';
-import '../HighScore/Scoreboard.css';
+
 import { Navbar } from '../Navbar/Navbar';
 import { useNavigate } from 'react-router-dom';
 
@@ -18,16 +20,18 @@ const HighScore: React.FC = () => {
   }, []);
 
   const handleReturn = (event: React.MouseEvent<HTMLButtonElement>) => {
-    navigator("/playgame");
-  }
+    navigator('/playgame');
+  };
 
   return (
-    <div className='page-container'>
+    <div className="page-container">
       <Navbar />
-      <div className='score-container'>
-        <table className='score-table'>
+
+      {/* <h1>Score</h1> */}
+      <div className="score-container">
+        <table className="score-table">
           <thead>
-            <tr className='headers'>
+            <tr className="headers">
               <th>First Name</th>
               <th>Last Name</th>
               <th>Email</th>
@@ -40,7 +44,9 @@ const HighScore: React.FC = () => {
             })}
           </tbody>
         </table>
-        <button className='button' onClick={handleReturn}>Return</button>
+        <button className="scoreReturnButton" onClick={handleReturn}>
+          Return
+        </button>
       </div>
     </div>
   );

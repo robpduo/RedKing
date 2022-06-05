@@ -163,17 +163,6 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
   //   }
   // }, [gameState.winner]);
 
-  toast.success('Hurray! Login Successfull.', {
-    position: 'top-center',
-    autoClose: 1500,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: 'dark',
-  });
-
   return (
     <>
       <div className="gameContainer">
