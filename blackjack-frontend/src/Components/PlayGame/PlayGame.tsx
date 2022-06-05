@@ -92,7 +92,11 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
     <>
       <div className="gameContainer">
         <div className="selectionArea">
-          <h1>Game Status {gameState.gameStatus}</h1>
+
+          {deckState.loading == false
+            ? <h1>RedKing: {gameState.gameStatus}</h1>
+            : <h1>RedKing: Loading -- Give us a Moment</h1>
+          }
 
           {gameState.gameStatus.includes('Game not Initialized')
             ? //if true (game not initialized)

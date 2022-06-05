@@ -31,10 +31,8 @@ export const Navbar: React.FC = () => {
             ? <Link to="/bet">
               <button className="betBtn">Bet</button>
             </Link>
-            : <>Bet Locked!</>
+            : <>Bets Are Locked!</>
           }
-
-
 
           <LogOutButton />
         </div>

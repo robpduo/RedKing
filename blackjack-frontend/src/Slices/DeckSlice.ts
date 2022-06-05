@@ -39,7 +39,6 @@ export const initializeDeck = createAsyncThunk(
         user
       );
 
-      console.log('coming from async initializeDeck ', res.data);
       return res.data;
     } catch (e) {
       console.log(e);
@@ -131,7 +130,6 @@ export const deckSlice = createSlice({
 
     builder.addCase(initializeDeck.fulfilled, (state, action) => {
       state.deck = action.payload;
-      console.log(state.deck);
       state.startGame = true;
       state.loading = false;
       state.error = false;
