@@ -33,7 +33,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
   const playerCards = useSelector((state: RootState) => state.deck.playerHand);
 
   const dealerCards = useSelector((state: RootState) => state.deck.dealerHand);
-  const userState = useSelector((state: RootState) => state.user.user);
+  
   console.log('coming from PlayGame line 36', gameState.winner);
 
   const handleScoreBoard = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -114,20 +114,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
     }
 
   }, [gameState.isDealersTurn, deckState.dealerHand]);
-  // useEffect(() => {
-  //   if (userState) {
-  //     let mailData = {
-  //       firstName: userState?.firstName,
-  //       email: userState?.email,
-  //       msgType: "Win"
-  //     }
-
-  //     if (gameState.winner !== 'none' && gameState.winner !== 'dealer') {
-  //       dispatch(sendMail(mailData))
-  //     }
-  //   }
-  // }, [gameState.winner]);
-
+  
   toast.success('Hurray! Login Successfull.', {
     position: 'top-center',
     autoClose: 1500,
