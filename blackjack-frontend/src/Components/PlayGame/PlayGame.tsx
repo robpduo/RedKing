@@ -95,7 +95,9 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
         <div className="selectionArea">
 
           {deckState.loading == false
-            ? <h1>{gameState.gameStatus}</h1>
+            ? <>
+              <h1>{gameState.gameStatus}</h1>
+            </>
             : <h1>Loading -- Give us a Moment</h1>
           }
 
@@ -104,7 +106,12 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
 
             <div className='buttons-sidepanel'>
               <StartGameButton />
-              <button onClick={handleScoreBoard}>Score</button>
+
+              {deckState.loading == false
+                ? <button onClick={handleScoreBoard}>Score</button>
+                : <button onClick={handleScoreBoard} disabled={true}>Score</button>
+              }
+
             </div>
             :
             <div className='game-buttons'>

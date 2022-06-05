@@ -14,14 +14,14 @@ const StartGameButton: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
   const navigator = useNavigate();
 
-  useEffect(()  => {
+  useEffect(() => {
     if (deckState.startGame) {
       console.log("STARTED GAME")
       dispatch(setGameStatus('Game is Initialized')); //change the state of the game to initialized
 
       if (deckState.deck) {
-        
-        if(deckState.playerHand) {
+
+        if (deckState.playerHand) {
           console.log("ID: ", deckState.deck.deckId);
           dispatch(getDealPlayer(deckState.deck.deckId));
           dispatch(getDealDealer(deckState.deck.deckId));
@@ -30,7 +30,7 @@ const StartGameButton: React.FC = () => {
         }
       }
     }
-  },[deckState.startGame, deckState.deck]);
+  }, [deckState.startGame, deckState.deck]);
 
   const handleInitGame = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -42,7 +42,13 @@ const StartGameButton: React.FC = () => {
   }
 
   return (
-    <button className="start-game-btn" onClick={handleInitGame}>Start</button>
+    <>
+      {deckState.loading == true
+        ? <button className="start-game-btn" disabled={true} onClick={handleInitGame}>Start</button>
+        : <button className="start-game-btn" onClick={handleInitGame}>Start</button>
+      }
+    </>
+
   )
 }
 
