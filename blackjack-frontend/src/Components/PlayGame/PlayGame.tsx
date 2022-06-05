@@ -9,6 +9,7 @@ import heartKing from '../../images/HEARTSKING.png';
 import { useNavigate } from 'react-router-dom';
 import StartGameButton from '../StartGameButton/StartGameButton';
 import { setGameStatus } from '../../Slices/GameSlice';
+import { HitButton } from '../HitButton/HitButton';
 
 
 
@@ -17,6 +18,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
   const navigator = useNavigate();
   const dispatch: AppDispatch = useDispatch();
   const gameState = useSelector((state: RootState) => state.game);
+  const deckState = useSelector((state: RootState) => state.deck);
 
   let imageArray = [
     { suit: 'SPADES', rank: 'ACE', path: '../../images/SPADESACE.png' },
@@ -78,9 +80,11 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
   };
 
   const handleQuit = (event: React.MouseEvent<HTMLButtonElement>) => {
-    console.log(gameState.gameStatus);
     dispatch(setGameStatus('Game not Initialized'));
+    console.log("QUIT: ", gameState.gameStatus);
   };
+
+  console.log(deckState.playerHand);
 
   return (
     <>
@@ -94,10 +98,9 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
               <StartGameButton />
               <button onClick={handleScoreBoard}>Score</button>
             </div>
-
             : 
-
             <div className='game-buttons'>
+              <HitButton />
               <button onClick={handleQuit}>Quit</button>
             </div>
           }

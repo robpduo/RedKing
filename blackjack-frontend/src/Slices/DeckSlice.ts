@@ -6,6 +6,7 @@ import { IDeck } from '../Interfaces/IDeck';
 import { IUser } from '../Interfaces/IUser';
 
 interface DeckSliceState {
+  startGame: boolean;
   loading: boolean;
   error: boolean;
   isDeck: boolean;
@@ -16,6 +17,7 @@ interface DeckSliceState {
 }
 
 const initialDeckState: DeckSliceState = {
+  startGame: false,
   loading: false,
   error: false,
   isDeck: false,
@@ -41,6 +43,7 @@ export const initializeDeck = createAsyncThunk(
         'http://localhost:8000/deck/initialize',
         user
       );
+
       console.log('coming from async initializeDeck ', res.data);
       return res.data;
     } catch (e) {
@@ -126,26 +129,32 @@ export const deckSlice = createSlice({
       state.loading = true;
       state.isDeck = false;
     });
+    
     builder.addCase(initializeDeck.rejected, (state, action) => {
       state.loading = false;
       state.error = true;
       state.isDeck = false;
     });
+
     builder.addCase(initializeDeck.fulfilled, (state, action) => {
+      state.deck = action.payload;
+      console.log(state.deck);
+      state.startGame = true;
       state.loading = false;
       state.error = false;
       state.isDeck = true;
-      state.deck = action.payload;
     });
 
     // reducers for deck
     builder.addCase(getDeck.pending, (state, action) => {
       state.loading = true;
     });
+
     builder.addCase(getDeck.rejected, (state, action) => {
       state.loading = false;
       state.error = true;
     });
+
     builder.addCase(getDeck.fulfilled, (state, action) => {
       state.deck = action.payload;
       state.loading = false;

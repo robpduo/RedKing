@@ -28,26 +28,26 @@ const reducers = combineReducers({
   game: gameReducer
 });
 
-const persistedReducer = persistReducer(persistConfig, reducers);
+// const persistedReducer = persistReducer(persistConfig, reducers);
 
-export const Store = configureStore({
-  reducer: persistedReducer,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
-    }),
-});
+// export const Store = configureStore({
+//   reducer: persistedReducer,
+//   middleware: (getDefaultMiddleware) =>
+//     getDefaultMiddleware({
+//       serializableCheck: {
+//         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+//       },
+//     }),
+// });
 
 // inside index
-// export const Store = configureStore({
-//   reducer: {
-//     user: userReducer,
-//     deck: deckReducer,
-//     //game: gameReducer
-//   },
-// });
+export const Store = configureStore({
+  reducer: {
+    user: userReducer,
+    deck: deckReducer,
+    game: gameReducer
+  },
+});
 
 //We must export these two things to make our lives easier later
 export type RootState = ReturnType<typeof Store.getState>;
