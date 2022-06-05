@@ -26,7 +26,7 @@ export const StandButton: React.FC = () => {
 
   return (
     <>
-      {gameState.isPlayerBusted == true ? <button disabled={true} className="stand-button" >Stand.</button>
+      {gameState.isPlayerBusted == true || gameState.winner != "none" ? <button disabled={true} className="stand-button" >Stand.</button>
         : <button className="stand-button" onClick={handleStandButton}>Stand.</button>}
     </>
   )

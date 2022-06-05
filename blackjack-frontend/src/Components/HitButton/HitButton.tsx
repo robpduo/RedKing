@@ -45,7 +45,7 @@ export const HitButton: React.FC = () => {
 
   return (
     <>
-      {gameState.isPlayerBusted == true
+      {gameState.isPlayerBusted == true || !gameState.winner.includes("none")
         ? <button className="hit-button" disabled={true} onClick={handleHitButton}>
           Hit!
         </button>

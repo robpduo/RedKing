@@ -34,7 +34,7 @@ const StartGameButton: React.FC = () => {
     if (!userState.user) { //if user does not exist, return to login screen
       navigator('/login');
     } else {
-      dispatch(setWinner('')); //reset winner status
+      dispatch(setWinner('none')); //reset winner status
 
       if (gameState.isPlayerBusted) { //if player is busted reset to false
         dispatch(togglePlayerBusted());
