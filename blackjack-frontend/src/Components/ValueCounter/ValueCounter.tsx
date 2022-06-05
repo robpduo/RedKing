@@ -6,7 +6,7 @@ import { Rank, ICard } from "../../Interfaces/ICard";
 import { access, readlink } from 'fs';
 import './ValueCounter.css';
 
-export const ValueCounter: React.FC<any> = (person: number) => {
+export const ValueCounter: React.FC<any> = (props) => {
     //get members of the state needed to calculate values
     const playerHand = useSelector((state: RootState) => state.deck.playerHand);
     const dealerHand = useSelector((state: RootState) => state.deck.dealerHand);
@@ -14,13 +14,13 @@ export const ValueCounter: React.FC<any> = (person: number) => {
     const [playerCount, setPlayerCount] = useState(0);
     // when the hands change, recalculate and set them
     useEffect(() => {
-        setDealerCount(calcVisibleDealerHandValue(dealerHand));
+        setDealerCount(calcHandValue(dealerHand));
         setPlayerCount(calcHandValue(playerHand));
     }, [playerHand, dealerHand])
     // how the counts are displayed
     return (
         <div className="allHandValues">
-            {person == 0 ? <div className="playerHandValue"><p>{playerCount}</p> </div> : <div className="dealerHandValue"><p>{dealerCount}</p> </div>}
+            {props.propNum == 0 ? <div className="playerHandValue"><p>{playerCount}</p> </div> : <div className="dealerHandValue"><p>{dealerCount}</p> </div>}
         </div>
     );
 };
