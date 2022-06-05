@@ -16,10 +16,11 @@ const StartGameButton: React.FC = () => {
 
   useEffect(()  => {
     if (deckState.startGame) {
-      dispatch(setGameStatus('Game is Initialized'));//change the state of the game to initialized
+      dispatch(setGameStatus('Game is Initialized')); //change the state of the game to initialized
       if (deckState.deck) {
         
-        if(!deckState.playerHand) {
+        if(deckState.playerHand) {
+          console.log("ID: ", deckState.deck.deckId);
           dispatch(getDealPlayer(deckState.deck.deckId));
           dispatch(getDealDealer(deckState.deck.deckId));
           dispatch(getDealPlayer(deckState.deck.deckId));

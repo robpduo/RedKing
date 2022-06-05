@@ -23,7 +23,7 @@ const HighScore: React.FC = () => {
 
   return (
     <div className='page-container'>
-      <Navbar/>
+      <Navbar />
       <div className='score-container'>
         <table className='score-table'>
           <thead>
@@ -34,12 +34,13 @@ const HighScore: React.FC = () => {
               <th>Score</th>
             </tr>
           </thead>
-
-          {userState.users?.map((user: IUser) => {
-            return <ScoreRows {...user} key={user.userId} />;
-          })}
+          <tbody>
+            {userState.users?.map((user: IUser) => {
+              return <ScoreRows {...user} key={user.userId} />;
+            })}
+          </tbody>
         </table>
-        <button className='button'onClick={handleReturn}>Return</button>
+        <button className='button' onClick={handleReturn}>Return</button>
       </div>
     </div>
   );

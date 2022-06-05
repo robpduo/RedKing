@@ -22,6 +22,8 @@ const initialDeckState: DeckSliceState = {
   error: false,
   isDeck: false,
   deck: {},
+  playerHand: [],
+  dealerHand: []
 };
 
 /*
@@ -117,9 +119,9 @@ export const deckSlice = createSlice({
   initialState: initialDeckState,
   reducers: {
     clearDeck: (state) => {
-      state.deck = undefined;
-      state.playerHand = undefined;
-      state.dealerHand = undefined
+      // state.deck = undefined;
+      // state.playerHand = undefined;
+      // state.dealerHand = undefined
     }
   },
   extraReducers: (builder) => {
@@ -129,7 +131,7 @@ export const deckSlice = createSlice({
       state.loading = true;
       state.isDeck = false;
     });
-    
+
     builder.addCase(initializeDeck.rejected, (state, action) => {
       state.loading = false;
       state.error = true;
@@ -171,7 +173,7 @@ export const deckSlice = createSlice({
       state.error = true;
     });
     builder.addCase(getDealPlayer.fulfilled, (state, action) => {
-      state.playerHand= state.playerHand ? [...state.playerHand, action.payload] : action.payload;
+      state.playerHand = state.playerHand ? [...state.playerHand, action.payload] : action.payload;
       state.loading = false;
       state.error = false;
     });
@@ -181,10 +183,12 @@ export const deckSlice = createSlice({
     builder.addCase(getDealDealer.pending, (state, action) => {
       state.loading = true;
     });
+
     builder.addCase(getDealDealer.rejected, (state, action) => {
       state.loading = false;
       state.error = true;
     });
+
     builder.addCase(getDealDealer.fulfilled, (state, action) => {
       state.dealerHand = state.dealerHand ? [...state.dealerHand, action.payload] : action.payload;
       state.loading = false;

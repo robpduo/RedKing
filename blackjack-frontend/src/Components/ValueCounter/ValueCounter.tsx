@@ -34,12 +34,12 @@ export const ValueCounter: React.FC<any> = (person: number) => {
             suit: 3,
         }
     ];*/
-    //when the hands change, recalculate and set them
-    // useEffect(() => {
-    //     setDealerCount(calcVisibleDealerHandValue(dealerHand));
-    //     setPlayerCount(calcHandValue(playerHand));
-    // }, [playerHand, dealerHand])
-    //how the counts are displayed
+    // when the hands change, recalculate and set them
+    useEffect(() => {
+        setDealerCount(calcVisibleDealerHandValue(dealerHand));
+        setPlayerCount(calcHandValue(playerHand));
+    }, [playerHand, dealerHand])
+    // how the counts are displayed
     return (
         <div className = "allHandValues">
         {person == 0 ? <div className = "playerHandValue"><p>{playerCount}</p> </div> : <div className = "dealerHandValue"><p>{dealerCount}</p> </div>}
