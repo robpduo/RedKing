@@ -27,12 +27,18 @@ export const Navbar: React.FC = () => {
           </Link>
 
           <p>{userInfo ? `$${userState.bet}` : '$0.00'}</p>
-          {gameState.gameStatus.includes("Game not Initialized")
-            ? <Link to="/bet">
+          {gameState.gameStatus.includes('Game not Initialized') ? (
+            <Link to="/bet">
               <button className="betBtn">Bet</button>
             </Link>
-            : <>Bets Are Locked!</>
-          }
+          ) : (
+            // <p className="betsLocked">Bets Are Locked!</p>
+            <Link to="/bet">
+              <button className="betnBtnDisabled" disabled={false}>
+                Bet's Locked
+              </button>
+            </Link>
+          )}
 
           <LogOutButton />
         </div>
