@@ -8,7 +8,7 @@ import { StartGameButton } from '../StartGameButton/StartGameButton';
 
 import { AppDispatch, RootState } from '../../Store';
 
-import { HitButton } from '../HitButton/HitButton';
+// import { HitButton } from '../HitButton/HitButton';
 
 // going inside PlaGamePage
 export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
@@ -146,7 +146,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
         <div className="selectionArea">
           <h1>BlacKing</h1>
           <StartGameButton />
-          <HitButton />
+          {/* <HitButton /> */}
 
           <button>Stand</button>
           <button>Value</button>
