@@ -29,11 +29,11 @@ public class MailService {
             boolean html = true;
             String text ="";
             if(mailHelper.getMsgType().equals("Register")){
-                helper.setSubject("Registration for BackJack confirmed");
-                text = "<b>Hello " + mailHelper.getFirstName() +",</b><br><i>You've registered for BackJack.</i>";
+                helper.setSubject("Registration for RedKing confirmed");
+                text = "<b>Hello " + mailHelper.getFirstName() +",</b><br><i>You've registered for RedKing.</i>";
             } else {
-                helper.setSubject("Congratulation for winning BackJack!!!!!!");
-                text = "<b>Congratulation " + mailHelper.getFirstName() +" !!!</b><br><i>You won BackJack.</i>";
+                helper.setSubject("Congratulation for winning RedKing!!!!!!");
+                text = "<b>Congratulation " + mailHelper.getFirstName() +" !!!</b><br><i>You won RedKing.</i>";
             }
 
             helper.setText(text, html);
