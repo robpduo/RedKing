@@ -71,7 +71,7 @@ export const RegisterForm: React.FC<any> = (spinner: any) => {
         msgType: 'Register',
       };
       dispatch(sendMail(data));
-      navigator('/playgame');
+      // navigator('/playgame');
     }
   }, [userInfo]);
   // form submit handler
