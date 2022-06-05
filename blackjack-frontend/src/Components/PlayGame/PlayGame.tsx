@@ -111,7 +111,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
         </div>
 
         <div className="playArea">
-          <h1> dealer </h1>
+          <h1>Dealer</h1>
 
           <div className="dealContainer">
             {isDeck !== false &&
