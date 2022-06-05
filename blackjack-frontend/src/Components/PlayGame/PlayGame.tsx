@@ -43,7 +43,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
   const playerCards = useSelector((state: RootState) => state.deck.playerHand);
 
   const dealerCards = useSelector((state: RootState) => state.deck.dealerHand);
-  
+
   console.log('coming from PlayGame line 36', gameState.winner);
 
   const handleScoreBoard = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -63,19 +63,19 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
       amount: myUserState.bet,
     };
 
-    if (gameState.winner.includes("player")) {
+    if (gameState.winner.includes('player')) {
       amount.amount = myUserState.bet * 2;
-      console.log("WINS: ", amount.amount);
+      console.log('WINS: ', amount.amount);
       dispatch(depositMoney(amount));
       dispatch(userBet(0));
-    } else if (gameState.winner.includes("dealer")) {
-      console.log("Player Loses with", myUserState.bet);
+    } else if (gameState.winner.includes('dealer')) {
+      console.log('Player Loses with', myUserState.bet);
       dispatch(userBet(0));
-    } else if (gameState.winner.includes("tie")) {
-      console.log("Ties", myUserState.bet);
+    } else if (gameState.winner.includes('tie')) {
+      console.log('Ties', myUserState.bet);
       dispatch(userBet(0));
     }
-  }, [gameState.winner])
+  }, [gameState.winner]);
 
   //central place for dealer ai to function
   useEffect(() => {
@@ -143,20 +143,19 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
       }
 
       //if player wins or loses doing something with the bet amount
-
     }
   }, [gameState.isDealersTurn, deckState.dealerHand]);
-  
-  toast.success('Hurray! Login Successfull.', {
-    position: 'top-center',
-    autoClose: 1500,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: 'dark',
-  });
+
+  // toast.success('Hurray! Login Successfull.', {
+  //   position: 'top-center',
+  //   autoClose: 1500,
+  //   hideProgressBar: false,
+  //   closeOnClick: true,
+  //   pauseOnHover: true,
+  //   draggable: true,
+  //   progress: undefined,
+  //   theme: 'dark',
+  // });
 
   type propNum = {
     dealerNum: number;
@@ -214,7 +213,9 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
 
         <div className="playArea">
           <div className="dealContainer">
-            <h1>Dealer: <ValueCounter propNum={num.dealerNum} /></h1>
+            <h1>
+              Dealer: <ValueCounter propNum={num.dealerNum} />
+            </h1>
             {isDeck !== false &&
               dealerCards?.map((card) => {
                 let suit1 = card.suit.toString();
@@ -242,7 +243,9 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
           )}
 
           <div className="userContainer">
-            <h1>User: <ValueCounter propNum={num.playerNum} /></h1>
+            <h1>
+              User: <ValueCounter propNum={num.playerNum} />
+            </h1>
             {isDeck !== false &&
               playerCards?.map((card) => {
                 let suit1 = card.suit.toString();
