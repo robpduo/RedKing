@@ -16,9 +16,6 @@ export const LogOutButton: React.FC = () => {
   const handleLogOut = () => {
     dispatch(logoutUser());
     navigator('/login');
-    // if (deckInfo.isDeck === true) {
-    //   deckInfo.isDeck = false;
-    // }
   };
 
   return (

@@ -83,8 +83,10 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
   };
 
   const handleQuit = (event: React.MouseEvent<HTMLButtonElement>) => {
-    dispatch(setGameStatus('Game not Initialized'));
-    navigator('/playgame');
+    dispatch(setGameStatus('Game not Initialized')); //set game status to not initiated
+    //set deck to null | undefined
+    //clear dealer and hand values
+    navigator('/login');
   };
 
   return (

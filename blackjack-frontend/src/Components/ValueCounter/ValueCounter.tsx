@@ -12,27 +12,6 @@ export const ValueCounter: React.FC<any> = (person: number) => {
     const dealerHand = useSelector((state: RootState) => state.deck.dealerHand);
     const [dealerCount, setDealerCount] = useState(0);
     const [playerCount, setPlayerCount] = useState(0);
-    //sample hands for testing
-    /*let playerHand: ICard[] = [
-        {
-            rank: 0,
-            suit: 0
-        },
-        {
-            rank: 1,
-            suit: 1,
-        }
-    ];
-    let dealerHand: ICard[] = [
-        {
-            rank: 2,
-            suit: 2
-        },
-        {
-            rank: 3,
-            suit: 3,
-        }
-    ];*/
     // when the hands change, recalculate and set them
     useEffect(() => {
         setDealerCount(calcVisibleDealerHandValue(dealerHand));
@@ -51,37 +30,39 @@ export const calcCardValue: (card: ICard) => number = function (
     card: ICard
 ): number {
     let x = card.rank;
-    if (x == Rank.TWO) {
+
+    if (x == "TWO") {
         return 2;
-    } else if (x == Rank.THREE) {
+    } else if (x == "THREE") {
         return 3;
-    } else if (x == Rank.FOUR) {
+    } else if (x == "FOUR") {
         return 4;
-    } else if (x == Rank.FIVE) {
+    } else if (x == "FIVE") {
         return 5;
-    } else if (x == Rank.SIX) {
+    } else if (x == "SIX") {
         return 6;
-    } else if (x == Rank.SEVEN) {
+    } else if (x == "SEVEN") {
         return 7;
-    } else if (x == Rank.EIGHT) {
+    } else if (x == "EIGHT") {
         return 8;
-    } else if (x == Rank.NINE) {
+    } else if (x == "NINE") {
         return 9;
-    } else if (x == Rank.TEN) {
+    } else if (x == "TEN") {
         return 10;
-    } else if (x == Rank.JACK) {
+    } else if (x == "JACK") {
         return 10;
-    } else if (x == Rank.QUEEN) {
+    } else if (x == "QUEEN") {
         return 10;
-    } else if (x == Rank.KING) {
+    } else if (x == "KING") {
         return 10;
-    } else if (x == Rank.ACE) {
+    } else if (x == "ACE") {
         return 1;
     } else {
         return -1;
         console.log("in the negative number");
     }
 };
+
 //takes in a hand and calculates its value
 //always chooses most advantageous ace value
 export const calcHandValue: (hand: ICard[] | undefined) => number = function (
