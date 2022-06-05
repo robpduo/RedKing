@@ -1,10 +1,8 @@
 import React from "react";
-import { createSlice } from "@reduxjs/toolkit";
-
-
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 interface GameSliceState {
-    gameStatus: string,
+    gameStatus: string;
     dealerCount: number,
     playerCount: number,
     isDealersTurn: boolean,
@@ -16,7 +14,7 @@ interface GameSliceState {
 }
 
 const initialGameState: GameSliceState = {
-    gameStatus: "Game Not Initialized",
+    gameStatus: 'Game not Initialized',
     dealerCount: 0,
     playerCount: 0,
     isDealersTurn: false,
@@ -26,6 +24,7 @@ const initialGameState: GameSliceState = {
     isPlayerBusted: false,
     winner: ""
 }
+
 
 export const gameSlice = createSlice({
     name: 'game',

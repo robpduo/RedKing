@@ -3,11 +3,11 @@ import './LoginForm.css';
 
 import { Link } from 'react-router-dom';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { loginUser } from '../../Slices/UserSlice';
-import { AppDispatch } from '../../Store';
+import { AppDispatch, RootState } from '../../Store';
 
 // will go inside LoginPage
 export const LoginForm: React.FC<any> = (spinner: any) => {
@@ -16,6 +16,8 @@ export const LoginForm: React.FC<any> = (spinner: any) => {
 
   const dispatch: AppDispatch = useDispatch();
   const navigator = useNavigate();
+
+  const userState = useSelector(((state:RootState) => state.user));
 
   // input change handler
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,12 +31,16 @@ export const LoginForm: React.FC<any> = (spinner: any) => {
   // form submit handler
   const handleLogin = (event: React.MouseEvent<HTMLButtonElement>) => {
     let credentials = {
-      email: email,
-      password: password,
+      email, 
+      password
     };
 
     dispatch(loginUser(credentials));
-    navigator('/playgame');
+    if (userState.user) {
+      navigator('/playgame');
+    } else {
+      //TODO: Prompt user to try again
+    }
   };
 
   return (

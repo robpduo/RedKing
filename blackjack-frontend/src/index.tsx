@@ -10,7 +10,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { Provider } from 'react-redux';
 import { Store } from './Store';
 
-let persistor = persistStore(Store);
+// let persistor = persistStore(Store);
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -18,8 +18,8 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <Provider store={Store}>
-    <PersistGate persistor={persistor}>
+    {/* <PersistGate persistor={persistor}> */}
       <App />
-    </PersistGate>
+    {/* </PersistGate> */}
   </Provider>
 );
