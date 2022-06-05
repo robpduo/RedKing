@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { userBet, withdrawMoney } from '../../Slices/UserSlice';
+import { toggleLock, userBet, withdrawMoney } from '../../Slices/UserSlice';
 import { AppDispatch, RootState } from '../../Store';
 
 import './Bet.css';
 
 export const Bet: React.FC = () => {
-  const userState = useSelector((state: RootState) => state.user.user);
-  const bet = useSelector((state:RootState) => state.user.bet);
+  const userState = useSelector((state: RootState) => state.user);
+  const bet = useSelector((state: RootState) => state.user.bet);
   const [money, setMoney] = useState<string>('');
 
   const dispatch: AppDispatch = useDispatch();
@@ -20,15 +20,23 @@ export const Bet: React.FC = () => {
 
   const handleSubmit = (event: React.MouseEvent<HTMLInputElement>) => {
     let amount = {
-      userId: userState?.userId ? userState.userId : 0,
+      userId: userState.user?.userId ? userState.user?.userId : 0,
       amount: parseFloat(money),
     };
-    if (userState) {
-        dispatch(withdrawMoney(amount));
-        dispatch(userBet(parseFloat(money)));
+
+    if (userState && userState.user?.money > amount.amount) {
+      dispatch(userBet(parseFloat(money)));
+      console.log("Bets: ", userState.lockBet);
+      //lock bets after user makes one
+      if (!userState.lockBet) { //if bets are not locked
+        dispatch(toggleLock());
       }
-      console.log(bet);
-      navigator('/playgame');
+    } else {
+      dispatch(userBet(0)); //do nothing
+    }
+
+    console.log(bet);
+    navigator('/playgame');
   };
 
   const handleBack = (event: React.MouseEvent<HTMLInputElement>) => {

@@ -17,7 +17,7 @@ import {
 import { getDealDealer, quitGame } from '../../Slices/DeckSlice';
 import { StandButton } from '../StandButton/StandButton';
 import NextRound from '../NextRound/NextRound';
-import { depositMoney, sendMail, userBet } from '../../Slices/UserSlice';
+import { depositMoney, sendMail, toggleLock, userBet, withdrawMoney } from '../../Slices/UserSlice';
 
 import {
   ValueCounter,
@@ -63,17 +63,20 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
       amount: myUserState.bet,
     };
 
-    if (gameState.winner.includes('player')) {
-      amount.amount = myUserState.bet * 2;
-      console.log('WINS: ', amount.amount);
-      dispatch(depositMoney(amount));
-      dispatch(userBet(0));
-    } else if (gameState.winner.includes('dealer')) {
-      console.log('Player Loses with', myUserState.bet);
-      dispatch(userBet(0));
-    } else if (gameState.winner.includes('tie')) {
-      console.log('Ties', myUserState.bet);
-      dispatch(userBet(0));
+    if (!myUserState.lockBet) { //if the bets are not locked, perform the transactions
+      if (gameState.winner.includes("player")) {  //double that amount that the player bets
+        amount.amount = myUserState.bet * 2;
+        dispatch(depositMoney(amount));
+        dispatch(userBet(0));
+
+      } else if (gameState.winner.includes("dealer")) { //withdraw the amount of money the player bets
+        dispatch(withdrawMoney(amount));
+        dispatch(userBet(0));
+
+      } else if (gameState.winner.includes("tie")) { // reset bet amount
+        dispatch(userBet(0));
+
+      }
     }
   }, [gameState.winner]);
 
@@ -101,18 +104,18 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
         } else if (
           calcHandValue(deckState.dealerHand) == 21 &&
           calcHandValue(deckState.playerHand) !=
-            calcHandValue(deckState.dealerHand)
+          calcHandValue(deckState.dealerHand)
         ) {
           dispatch(setWinner('dealer'));
         } else if (
           calcHandValue(deckState.playerHand) <
-            calcHandValue(deckState.dealerHand) &&
+          calcHandValue(deckState.dealerHand) &&
           calcHandValue(deckState.dealerHand) < 21
         ) {
           dispatch(setWinner('dealer'));
         } else if (
           calcHandValue(deckState.playerHand) >
-            calcHandValue(deckState.dealerHand) &&
+          calcHandValue(deckState.dealerHand) &&
           calcHandValue(deckState.playerHand) < 21
         ) {
           dispatch(setWinner('player'));
@@ -134,7 +137,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
         } else if (
           calcHandValue(deckState.playerHand) == 21 &&
           calcHandValue(deckState.playerHand) !=
-            calcHandValue(deckState.dealerHand)
+          calcHandValue(deckState.dealerHand)
         ) {
           dispatch(setWinner('player'));
         } else {
@@ -142,7 +145,11 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
         }
       }
 
-      //if player wins or loses doing something with the bet amount
+      //Unlock the bets
+      if (myUserState.lockBet) {
+        dispatch(toggleLock());
+      }
+
     }
   }, [gameState.isDealersTurn, deckState.dealerHand]);
 
