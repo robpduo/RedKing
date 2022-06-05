@@ -5,31 +5,30 @@ import { getDealPlayer } from "../../Slices/DeckSlice";
 import { AppDispatch, RootState } from "../../Store";
 
 
-export const StandButton:React.FC = () => {
+export const StandButton: React.FC = () => {
 
-    const userInfo = useSelector((state:RootState) => state.user);
-    const deckInfo = useSelector((state:RootState) => state.deck);
-    const playerHand = useSelector((state: RootState) => state.deck.playerHand);
-    const dealerHand = useSelector((state: RootState) => state.deck.dealerHand);
-    const [gameStatus, setGameStatus] = useState("Game not initialized");
-    const dispatch:AppDispatch = useDispatch();
-    const navigator = useNavigate();
-
-
-    const handleStandButton = () => {
-          if (userInfo && deckInfo) {
-            setGameStatus("Dealer Turn");
-          } else {
-            setGameStatus("User not logged in");
-            console.log(gameStatus);
-          }
-        }
+  const userInfo = useSelector((state: RootState) => state.user);
+  const deckInfo = useSelector((state: RootState) => state.deck);
+  const playerHand = useSelector((state: RootState) => state.deck.playerHand);
+  const dealerHand = useSelector((state: RootState) => state.deck.dealerHand);
+  const [gameStatus, setGameStatus] = useState("Game not initialized");
+  const dispatch: AppDispatch = useDispatch();
+  const navigator = useNavigate();
 
 
-    return(
-        <>
-        {gameStatus == "Dealer Turn" ? <button disabled={true} className="stand-button" >Stand.</button>
+  const handleStandButton = () => {
+    if (userInfo && deckInfo) {
+      setGameStatus("Dealer Turn");
+    } else {
+      setGameStatus("User not logged in");
+    }
+  }
+
+
+  return (
+    <>
+      {gameStatus == "Dealer Turn" ? <button disabled={true} className="stand-button" >Stand.</button>
         : <button className="stand-button" onClick={handleStandButton}>Stand.</button>}
-        </>
-    )
+    </>
+  )
 }
