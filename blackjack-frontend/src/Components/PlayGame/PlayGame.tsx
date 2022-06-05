@@ -19,10 +19,14 @@ import { quitGame } from '../../Slices/DeckSlice';
 import { StandButton } from '../StandButton/StandButton';
 import NextRound from '../NextRound/NextRound';
 
+import { ToastContainer, toast, TypeOptions } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 // going inside PlaGamePage
 export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
   const navigator = useNavigate();
   const dispatch: AppDispatch = useDispatch();
+
   const gameState = useSelector((state: RootState) => state.game);
   const deckState = useSelector((state: RootState) => state.deck);
 
@@ -30,10 +34,11 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
   const deckInfo = useSelector((state: RootState) => state.deck.deck);
 
   const playerCards = useSelector((state: RootState) => state.deck.playerHand);
-
   const dealerCards = useSelector((state: RootState) => state.deck.dealerHand);
 
-  console.log('coming from PlayGame line 36', gameState.winner);
+  const userInfo = useSelector((state: RootState) => state.user);
+
+  console.log('coming from PlayGame line 39', userInfo);
 
   const handleScoreBoard = (event: React.MouseEvent<HTMLButtonElement>) => {
     navigator('/scores');
@@ -45,6 +50,29 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
     dispatch(setWinner('none'));
     dispatch(togglePlayerBusted());
   };
+
+  // useEffect(() => {}, [userInfo]);
+
+  // toast('', {
+  //   position: 'top-center',
+  //   autoClose: 1500,
+  //   hideProgressBar: false,
+  //   closeOnClick: true,
+  //   pauseOnHover: true,
+  //   draggable: true,
+  //   progress: undefined,
+  // });
+
+  toast.success('Hurray! Login Successfull.', {
+    position: 'top-center',
+    autoClose: 1500,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: 'dark',
+  });
 
   return (
     <>
@@ -139,6 +167,8 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
               })}
           </div>
         </div>
+
+        <ToastContainer position="top-center" />
       </div>
     </>
   );
