@@ -87,6 +87,8 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
           dispatch(setWinner("dealer"));
           console.log("Dealer won with: ", calcHandValue(deckState.dealerHand));
         } else if (calcHandValue(deckState.playerHand) == 21 && calcHandValue(deckState.playerHand) != calcHandValue(deckState.dealerHand)) {
+          dispatch(setWinner("dealer"));
+          console.log("player wins with: ", calcHandValue(deckState.playerHand));
         } else {
           console.log("No conditions satisfied");
         }
