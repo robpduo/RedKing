@@ -5,11 +5,8 @@ import { Navbar } from '../../Components/Navbar/Navbar';
 import { PlayGame } from '../../Components/PlayGame/PlayGame';
 
 export const PlayGamePage: React.FC = () => {
-
-
   return (
     <>
-      <>Play Game</>
       <Navbar />
       <PlayGame />
     </>
