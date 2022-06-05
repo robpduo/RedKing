@@ -7,27 +7,26 @@ import { AppDispatch, RootState } from "../../Store";
 
 export const StandButton: React.FC = () => {
 
-  const userInfo = useSelector((state: RootState) => state.user);
-  const deckInfo = useSelector((state: RootState) => state.deck);
+  const userState = useSelector((state: RootState) => state.user);
+  const deckState = useSelector((state: RootState) => state.deck);
+  const gameState = useSelector((state: RootState) => state.game);
+
   const playerHand = useSelector((state: RootState) => state.deck.playerHand);
   const dealerHand = useSelector((state: RootState) => state.deck.dealerHand);
-  const [gameStatus, setGameStatus] = useState("Game not initialized");
+
   const dispatch: AppDispatch = useDispatch();
-  const navigator = useNavigate();
 
 
   const handleStandButton = () => {
-    if (userInfo && deckInfo) {
-      setGameStatus("Dealer Turn");
-    } else {
-      setGameStatus("User not logged in");
+    if (userState && deckState) {
+      //give turn to dealer
     }
   }
 
 
   return (
     <>
-      {gameStatus == "Dealer Turn" ? <button disabled={true} className="stand-button" >Stand.</button>
+      {gameState.isPlayerBusted == true ? <button disabled={true} className="stand-button" >Stand.</button>
         : <button className="stand-button" onClick={handleStandButton}>Stand.</button>}
     </>
   )

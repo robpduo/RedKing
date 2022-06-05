@@ -82,7 +82,6 @@ export const getDealPlayer = createAsyncThunk(
   async (deckId: number | undefined, thunkAPI) => {
     try {
       const res = await axios.get(`http://localhost:8000/deck/deal/${deckId}`);
-      console.log('coming from getDealPlayer async line 92 ', res.data);
       return res.data;
     } catch (e) {
       console.log(e);
@@ -94,7 +93,6 @@ export const getDealDealer = createAsyncThunk(
   async (deckId: number | undefined, thunkAPI) => {
     try {
       const res = await axios.get(`http://localhost:8000/deck/deal/${deckId}`);
-      console.log('coming from getDealDealer async line 104 ', res.data);
       return res.data;
     } catch (e) {
       console.log(e);

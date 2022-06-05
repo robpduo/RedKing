@@ -4,14 +4,12 @@ import { useNavigate } from 'react-router-dom';
 
 import './PlayGame.css';
 import { IDeck } from '../../Interfaces/IDeck';
-import heartKing from '../../images/HEARTSKING.png';
-
 
 import { AppDispatch, RootState } from '../../Store';
 import StartGameButton from '../StartGameButton/StartGameButton';
 import { HitButton } from '../HitButton/HitButton';
 
-import { setGameStatus } from '../../Slices/GameSlice';
+import { setGameStatus, togglePlayerBusted } from '../../Slices/GameSlice';
 import { quitGame } from '../../Slices/DeckSlice';
 import { StandButton } from '../StandButton/StandButton';
 
@@ -87,12 +85,8 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
   const handleQuit = (event: React.MouseEvent<HTMLButtonElement>) => {
     dispatch(setGameStatus("Game not Initialized")); //set game status to not initiated
     dispatch(quitGame());
+    dispatch(togglePlayerBusted());
   };
-
-  //Game Logic will go here
-  useEffect(() => {
-    
-  }, [gameState.gameStatus]);
 
   return (
     <>

@@ -22,7 +22,7 @@ const initialGameState: GameSliceState = {
     isHandComplete: true,
     isBlackJack: false,
     isPlayerBusted: false,
-    winner: ""
+    winner: "none"
 }
 
 
@@ -53,7 +53,6 @@ export const gameSlice = createSlice({
             state.winner = action.payload;
         },
         setGameStatus: (state, action) => {
-            console.log("Game-Status: ", action.payload);
             state.gameStatus = action.payload;
         },
         setPlayerCount: (state, action)=>{

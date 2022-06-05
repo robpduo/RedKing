@@ -3,7 +3,7 @@ import { Root } from 'react-dom/client';
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 import { getDealDealer, getDealPlayer, initializeDeck } from '../../Slices/DeckSlice';
-import { setGameStatus } from '../../Slices/GameSlice';
+import { setGameStatus, setWinner, toggleDealerBust, togglePlayerBusted } from '../../Slices/GameSlice';
 import { AppDispatch, RootState } from '../../Store'
 
 const StartGameButton: React.FC = () => {
@@ -16,13 +16,11 @@ const StartGameButton: React.FC = () => {
 
   useEffect(() => {
     if (deckState.startGame) {
-      console.log("STARTED GAME")
       dispatch(setGameStatus('Game is Initialized')); //change the state of the game to initialized
 
       if (deckState.deck) {
 
         if (deckState.playerHand) {
-          console.log("ID: ", deckState.deck.deckId);
           dispatch(getDealPlayer(deckState.deck.deckId));
           dispatch(getDealDealer(deckState.deck.deckId));
           dispatch(getDealPlayer(deckState.deck.deckId));
@@ -33,10 +31,19 @@ const StartGameButton: React.FC = () => {
   }, [deckState.startGame, deckState.deck]);
 
   const handleInitGame = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
     if (!userState.user) { //if user does not exist, return to login screen
       navigator('/login');
     } else {
+      dispatch(setWinner('')); //reset winner status
+
+      if (gameState.isPlayerBusted) { //if player is busted reset to false
+        dispatch(togglePlayerBusted());
+      }
+
+      if (gameState.isDealerBusted) {
+        dispatch(toggleDealerBust()); //if dealer is busted reset to false
+      }
+
       dispatch(initializeDeck(userState.user)); //initialize the game
     }
   }
