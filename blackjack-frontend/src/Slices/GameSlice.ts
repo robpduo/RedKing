@@ -30,10 +30,6 @@ export const gameSlice = createSlice({
     name: 'game',
     initialState: initialGameState,
     reducers: {
-        clearHands: (state) => {
-            state.playerCount = 0;
-            state.dealerCount = 0;
-        },
         toggleDealerTurn: (state) => {
             state.isDealersTurn = !state.isDealersTurn;
         },
@@ -64,6 +60,6 @@ export const gameSlice = createSlice({
     }
 });
 
-export const {clearHands, setDealerCount, setPlayerCount, setGameStatus, setWinner, toggleBlackJack, toggleDealerBust, toggleDealerTurn, toggleHandComplete, togglePlayerBusted} = gameSlice.actions;
+export const {setDealerCount, setPlayerCount, setGameStatus, setWinner, toggleBlackJack, toggleDealerBust, toggleDealerTurn, toggleHandComplete, togglePlayerBusted} = gameSlice.actions;
 
 export default gameSlice.reducer;

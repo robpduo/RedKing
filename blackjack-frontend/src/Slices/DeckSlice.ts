@@ -26,7 +26,7 @@ const initialDeckState: DeckSliceState = {
   isDeck: false,
   deck: {},
   playerHand: [],
-  dealerHand: [],
+  dealerHand: []
 };
 
 // from StartGameButton Component
@@ -82,7 +82,6 @@ export const getDealPlayer = createAsyncThunk(
   async (deckId: number | undefined, thunkAPI) => {
     try {
       const res = await axios.get(`http://localhost:8000/deck/deal/${deckId}`);
-      // console.log('coming from getDealPlayer async line 85 ', res.data);
       return res.data;
     } catch (e) {
       console.log(e);
@@ -94,7 +93,6 @@ export const getDealDealer = createAsyncThunk(
   async (deckId: number | undefined, thunkAPI) => {
     try {
       const res = await axios.get(`http://localhost:8000/deck/deal/${deckId}`);
-      // console.log('coming from getDealDealer async line 97 ', res.data);
       return res.data;
     } catch (e) {
       console.log(e);
@@ -112,6 +110,11 @@ export const deckSlice = createSlice({
       state.dealerHand = [];
       state.startGame = false;
     },
+
+    clearHands: (state) => {
+      state.playerHand = [];
+      state.dealerHand = [];
+    }
   },
 
   extraReducers: (builder) => {
@@ -162,9 +165,7 @@ export const deckSlice = createSlice({
       state.error = true;
     });
     builder.addCase(getDealPlayer.fulfilled, (state, action) => {
-      state.playerHand = state.playerHand
-        ? [...state.playerHand, action.payload]
-        : action.payload;
+      state.playerHand = state.playerHand ? [...state.playerHand, action.payload] : action.payload;
       state.loading = false;
       state.error = false;
     });
@@ -193,6 +194,6 @@ export const deckSlice = createSlice({
   },
 });
 
-export const { quitGame } = deckSlice.actions;
+export const { quitGame, clearHands } = deckSlice.actions;
 
 export default deckSlice.reducer;

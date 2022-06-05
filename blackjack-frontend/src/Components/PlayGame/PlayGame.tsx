@@ -10,9 +10,10 @@ import { AppDispatch, RootState } from '../../Store';
 import StartGameButton from '../StartGameButton/StartGameButton';
 import { HitButton } from '../HitButton/HitButton';
 
-import { setGameStatus, togglePlayerBusted } from '../../Slices/GameSlice';
+import { setGameStatus, setWinner, togglePlayerBusted } from '../../Slices/GameSlice';
 import { quitGame } from '../../Slices/DeckSlice';
 import { StandButton } from '../StandButton/StandButton';
+import NextRound from '../NextRound/NextRound';
 
 // going inside PlaGamePage
 export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
@@ -37,6 +38,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
   const handleQuit = (event: React.MouseEvent<HTMLButtonElement>) => {
     dispatch(setGameStatus('Game not Initialized')); //set game status to not initiated
     dispatch(quitGame());
+    dispatch(setWinner("none"));
     dispatch(togglePlayerBusted());
   };
 
@@ -52,7 +54,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
             <h1>Loading -- Give us a Moment</h1>
           )}
 
-          {gameState.gameStatus.includes('Game not Initialized') ? (
+          {gameState.gameStatus.includes('Game not Initialized') ? 
             //if true (game not initialized)
 
             <div className="buttons-sidepanel">
@@ -66,13 +68,14 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
                 </button>
               )}
             </div>
-          ) : (
-            <div className="game-buttons">
+            :    
+            <div className='game-buttons'>
               <HitButton />
               <StandButton />
+              <NextRound />
               <button onClick={handleQuit}>Quit</button>
             </div>
-          )}
+          }
         </div>
 
         <div className="playArea">
