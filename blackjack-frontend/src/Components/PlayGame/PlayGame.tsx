@@ -61,7 +61,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
           console.log("player wins with: ", calcHandValue(deckState.playerHand));
           dispatch(setWinner("player"));
 
-        } else if (calcHandValue(deckState.dealerHand) == 21 && calcHandValue(deckState.playerHand) != calcHandValue(deckState.dealerHand)) { //dealer 
+        } else if (calcHandValue(deckState.dealerHand) == 21 && calcHandValue(deckState.playerHand) != calcHandValue(deckState.dealerHand)) {
           console.log("dealer wins with: ", calcHandValue(deckState.dealerHand));
           dispatch(setWinner("dealer"));
 
@@ -69,10 +69,10 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
           dispatch(setWinner("dealer"));
           console.log("dealer wins with: ", calcHandValue(deckState.dealerHand));
 
-        } else if (calcHandValue(deckState.playerHand) > calcHandValue(deckState.dealerHand) && !gameState.isPlayerBusted) {
+        } else if (calcHandValue(deckState.playerHand) > calcHandValue(deckState.dealerHand) && calcHandValue(deckState.playerHand) < 21) {
           dispatch(setWinner("player"));
           console.log("player wins with: ", calcHandValue(deckState.playerHand));
-          
+
         } else if (calcHandValue(deckState.dealerHand) > 21 && calcHandValue(deckState.playerHand) > 21) {
           dispatch(setWinner("tie"));
           console.log("Both players busted");
@@ -80,94 +80,98 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
         } else if (calcHandValue(deckState.playerHand) == calcHandValue(deckState.dealerHand)) {
           dispatch(setWinner("tie"));
           console.log("TIE");
-        } else {
-          console.log("No conditions satisfied");
-        }
+        } else if (calcHandValue(deckState.playerHand) > 21 && calcHandValue(deckState.dealerHand) < 21) {
+          dispatch(setWinner("dealer"));
+          console.log("Dealer won with: ", calcHandValue(deckState.dealerHand));
+        } else if (calcHandValue(deckState.playerHand) == 21 && calcHandValue(deckState.playerHand) != calcHandValue(deckState.dealerHand)) {
+      } else {
+        console.log("No conditions satisfied");
       }
     }
+  }
 
   }, [gameState.isDealersTurn, deckState.dealerHand]);
 
 
-  return (
-    <>
-      <div className="gameContainer">
-        <div className="selectionArea">
-          {deckState.loading == false ? (
-            <>
-              <h1>{gameState.gameStatus}</h1>
-            </>
-          ) : (
-            <h1>Loading -- Give us a Moment</h1>
-          )}
+return (
+  <>
+    <div className="gameContainer">
+      <div className="selectionArea">
+        {deckState.loading == false ? (
+          <>
+            <h1>{gameState.gameStatus}</h1>
+          </>
+        ) : (
+          <h1>Loading -- Give us a Moment</h1>
+        )}
 
-          {gameState.gameStatus.includes('Game not Initialized') ?
-            //if true (game not initialized)
+        {gameState.gameStatus.includes('Game not Initialized') ?
+          //if true (game not initialized)
 
-            <div className="buttons-sidepanel">
-              <StartGameButton />
+          <div className="buttons-sidepanel">
+            <StartGameButton />
 
-              {deckState.loading == false ? (
-                <button onClick={handleScoreBoard}>Score</button>
-              ) : (
-                <button onClick={handleScoreBoard} disabled={true}>
-                  Score
-                </button>
-              )}
-            </div>
-            :
-            <div className='game-buttons'>
-              <HitButton />
-              <StandButton />
-              <NextRound />
-              <button onClick={handleQuit}>Quit</button>
-            </div>
-          }
+            {deckState.loading == false ? (
+              <button onClick={handleScoreBoard}>Score</button>
+            ) : (
+              <button onClick={handleScoreBoard} disabled={true}>
+                Score
+              </button>
+            )}
+          </div>
+          :
+          <div className='game-buttons'>
+            <HitButton />
+            <StandButton />
+            <NextRound />
+            <button onClick={handleQuit}>Quit</button>
+          </div>
+        }
+      </div>
+
+      <div className="playArea">
+        <h1>Dealer</h1>
+
+        <div className="dealContainer">
+          {isDeck !== false &&
+            dealerCards?.map((card) => {
+              let suit1 = card.suit.toString();
+              let rank1 = card.rank.toString();
+              let path1 = suit1.split('').join().replace(/,/g, '');
+              let path2 = rank1.split('').join().replace(/,/g, '');
+              let imagePath = '../../images/' + path1 + path2;
+
+              return (
+                <img
+                  key={card.suit + '' + card.rank}
+                  src={`${imagePath}.png`}
+                  alt={`${card.suit}${card.rank}`}
+                />
+              );
+            })}
         </div>
 
-        <div className="playArea">
-          <h1>Dealer</h1>
+        <div className="userContainer">
+          <h1>User</h1>
+          {isDeck !== false &&
+            playerCards?.map((card) => {
+              let suit1 = card.suit.toString();
+              let rank1 = card.rank.toString();
+              let path1 = suit1.split('').join().replace(/,/g, '');
+              let path2 = rank1.split('').join().replace(/,/g, '');
+              let imagePath = '../../images/' + path1 + path2;
 
-          <div className="dealContainer">
-            {isDeck !== false &&
-              dealerCards?.map((card) => {
-                let suit1 = card.suit.toString();
-                let rank1 = card.rank.toString();
-                let path1 = suit1.split('').join().replace(/,/g, '');
-                let path2 = rank1.split('').join().replace(/,/g, '');
-                let imagePath = '../../images/' + path1 + path2;
-
-                return (
-                  <img
-                    key={card.suit + '' + card.rank}
-                    src={`${imagePath}.png`}
-                    alt={`${card.suit}${card.rank}`}
-                  />
-                );
-              })}
-          </div>
-
-          <div className="userContainer">
-            <h1>User</h1>
-            {isDeck !== false &&
-              playerCards?.map((card) => {
-                let suit1 = card.suit.toString();
-                let rank1 = card.rank.toString();
-                let path1 = suit1.split('').join().replace(/,/g, '');
-                let path2 = rank1.split('').join().replace(/,/g, '');
-                let imagePath = '../../images/' + path1 + path2;
-
-                return (
-                  <img
-                    key={card.suit + '' + card.rank}
-                    src={`${imagePath}.png`}
-                    alt={`${card.suit}${card.rank}`}
-                  />
-                );
-              })}
-          </div>
+              return (
+                <img
+                  key={card.suit + '' + card.rank}
+                  src={`${imagePath}.png`}
+                  alt={`${card.suit}${card.rank}`}
+                />
+              );
+            })}
         </div>
       </div>
-    </>
-  );
+    </div>
+  </>
+);
 };

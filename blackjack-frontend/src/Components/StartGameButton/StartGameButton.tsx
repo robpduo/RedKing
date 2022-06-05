@@ -21,6 +21,7 @@ const StartGameButton: React.FC = () => {
       if (deckState.deck) {
 
         if (deckState.playerHand) {
+          console.log("+++++++Initialize++++++++");
           dispatch(getDealPlayer(deckState.deck.deckId));
           dispatch(getDealDealer(deckState.deck.deckId));
           dispatch(getDealPlayer(deckState.deck.deckId));
@@ -40,14 +41,6 @@ const StartGameButton: React.FC = () => {
       dispatch(setWinner('none')); //reset winner status
       if(gameState.isDealersTurn) { //if it was the dealers turn for some reason, give the turn back to the player
         dispatch(toggleDealerTurn())
-      }
-
-      if (gameState.isPlayerBusted) { //if player is busted reset to false
-        dispatch(togglePlayerBusted());
-      }
-
-      if (gameState.isDealerBusted) {
-        dispatch(toggleDealerBust()); //if dealer is busted reset to false
       }
 
       dispatch(initializeDeck(userState.user)); //initialize the game

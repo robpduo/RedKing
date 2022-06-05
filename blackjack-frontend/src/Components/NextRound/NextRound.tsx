@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Root } from 'react-dom/client';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDealDealer, getDealPlayer } from '../../Slices/DeckSlice';
+import { getDealDealer, getDealPlayer, toggleStartGame } from '../../Slices/DeckSlice';
 import { setWinner, toggleDealerBust, toggleDealerTurn, togglePlayerBusted } from '../../Slices/GameSlice';
 import { clearHands } from '../../Slices/DeckSlice';
 import { AppDispatch, RootState } from '../../Store';
@@ -33,7 +33,7 @@ const NextRound: React.FC = () => {
     useEffect(() => {
         //if hands are empty, then deal the initial 4 cards
         console.log("---------", deckState.playerHand, deckState.playerHand?.length, gameState.winner.includes("none"))
-        if (deckState.playerHand && deckState.playerHand?.length == 0 && gameState.winner.includes("none")) {
+        if (deckState.playerHand && deckState.playerHand?.length == 0 && gameState.winner.includes("none") && deckState.startGame == false) {
             console.log("******dealing cards to empty hands*********");
             dispatch(getDealPlayer(deckState.deck?.deckId));
             dispatch(getDealPlayer(deckState.deck?.deckId));
@@ -52,7 +52,10 @@ const NextRound: React.FC = () => {
             console.log("???????????is it dealer's turn????????????: ", gameState.isDealersTurn);
             dispatch(toggleDealerTurn());
         } // if it is dealers turn, change it back to players turn
-
+        
+        if (deckState.startGame) {
+            dispatch(toggleStartGame());
+        }
         dispatch(setWinner("none"));
         dispatch(clearHands());
     }
