@@ -136,6 +136,11 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
           calcHandValue(deckState.playerHand) !=
             calcHandValue(deckState.dealerHand)
         ) {
+          dispatch(setWinner('dealer'));
+          console.log(
+            'player wins with: ',
+            calcHandValue(deckState.playerHand)
+          );
         } else {
           console.log('No conditions satisfied');
         }
