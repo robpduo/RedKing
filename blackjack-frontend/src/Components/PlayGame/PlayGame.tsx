@@ -13,6 +13,7 @@ import { HitButton } from '../HitButton/HitButton';
 
 import { setGameStatus } from '../../Slices/GameSlice';
 import { quitGame } from '../../Slices/DeckSlice';
+import { StandButton } from '../StandButton/StandButton';
 
 // going inside PlaGamePage
 export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
@@ -108,6 +109,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
             :
             <div className='game-buttons'>
               <HitButton />
+              <StandButton />
               <button onClick={handleQuit}>Quit</button>
             </div>
           }
