@@ -4,20 +4,17 @@ import { useNavigate } from 'react-router-dom';
 
 import './PlayGame.css';
 import { IDeck } from '../../Interfaces/IDeck';
-import heartKing from '../../images/HEARTSKING.png';
 
 import { AppDispatch, RootState } from '../../Store';
 import StartGameButton from '../StartGameButton/StartGameButton';
 import { HitButton } from '../HitButton/HitButton';
 
-import {
-  setGameStatus,
-  setWinner,
-  togglePlayerBusted,
-} from '../../Slices/GameSlice';
-import { quitGame } from '../../Slices/DeckSlice';
+import { setGameStatus, setWinner, togglePlayerBusted } from '../../Slices/GameSlice';
+import { getDealDealer, quitGame } from '../../Slices/DeckSlice';
 import { StandButton } from '../StandButton/StandButton';
 import NextRound from '../NextRound/NextRound';
+
+import { ValueCounter, calcCardValue, calcHandValue, calcVisibleDealerHandValue } from '../ValueCounter/ValueCounter';
 
 // going inside PlaGamePage
 export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
@@ -45,6 +42,57 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
     dispatch(setWinner('none'));
     dispatch(togglePlayerBusted());
   };
+
+
+
+  //central place for dealer ai to function
+  useEffect(() => {
+
+    if (gameState.isDealersTurn) {
+
+      console.log("Dealer's Turn: ", gameState.isDealersTurn);
+      if (calcHandValue(deckState.dealerHand) < 17 && gameState.isDealersTurn) { //dealer must draw until 17
+        console.log("dealer draws");
+        dispatch(getDealDealer(deckState.deck?.deckId));
+
+      } else if (calcHandValue(deckState.dealerHand) >= 17 && gameState.isDealersTurn) { //dealer has finished his turn
+        console.log("Iam dealer, and Im done drawing!!");
+
+        //Determine if dealer busts!
+        if (calcHandValue(deckState.dealerHand) > 21 && calcHandValue(deckState.playerHand) < 21) {
+          console.log("player wins with: ", calcHandValue(deckState.playerHand));
+          dispatch(setWinner("player"));
+
+        } else if (calcHandValue(deckState.dealerHand) == 21 && calcHandValue(deckState.playerHand) != calcHandValue(deckState.dealerHand)) {
+          console.log("dealer wins with: ", calcHandValue(deckState.dealerHand));
+          dispatch(setWinner("dealer"));
+
+        } else if (calcHandValue(deckState.playerHand) < calcHandValue(deckState.dealerHand) && calcHandValue(deckState.dealerHand) < 21) {
+          dispatch(setWinner("dealer"));
+          console.log("dealer wins with: ", calcHandValue(deckState.dealerHand));
+
+        } else if (calcHandValue(deckState.playerHand) > calcHandValue(deckState.dealerHand) && calcHandValue(deckState.playerHand) < 21) {
+          dispatch(setWinner("player"));
+          console.log("player wins with: ", calcHandValue(deckState.playerHand));
+
+        } else if (calcHandValue(deckState.dealerHand) > 21 && calcHandValue(deckState.playerHand) > 21) {
+          dispatch(setWinner("tie"));
+          console.log("Both players busted");
+
+        } else if (calcHandValue(deckState.playerHand) == calcHandValue(deckState.dealerHand)) {
+          dispatch(setWinner("tie"));
+          console.log("TIE");
+        } else if (calcHandValue(deckState.playerHand) > 21 && calcHandValue(deckState.dealerHand) < 21) {
+          dispatch(setWinner("dealer"));
+          console.log("Dealer won with: ", calcHandValue(deckState.dealerHand));
+        } else if (calcHandValue(deckState.playerHand) == 21 && calcHandValue(deckState.playerHand) != calcHandValue(deckState.dealerHand)) {
+        } else {
+          console.log("No conditions satisfied");
+        }
+      }
+    }
+
+  }, [gameState.isDealersTurn, deckState.dealerHand]);
 
   return (
     <>
@@ -141,5 +189,5 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
         </div>
       </div>
     </>
-  );
+  )     
 };
