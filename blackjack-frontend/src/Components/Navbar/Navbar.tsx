@@ -11,15 +11,8 @@ export const Navbar: React.FC = () => {
   // const navigator = useNavigate();
 
   const userInfo = useSelector((state: RootState) => state.user.user);
-  // console.log('coming from Navbar line 15 ', userInfo);
-
-  // const handleLogout = () => {
-  //   dispatch(logoutUser());
-  // };
-
-  // useEffect(() => {
-  //   console.log("coming from Navbar line 22 useEffect ", userInfo?.firstName);
-  // }, [userInfo]);
+  const userState = useSelector((state: RootState) => state.user);
+  const gameState = useSelector((state: RootState) => state.game);
 
   return (
     <nav className="navBar">
@@ -32,9 +25,16 @@ export const Navbar: React.FC = () => {
           <Link to="/money">
             <button className="moneyBtn">Money</button>
           </Link>
-          <Link to="/bet">
-            <button className="betBtn">Bet</button>
-          </Link>
+
+          <p>{userInfo ? `$${userState.bet}` : '$0.00'}</p>
+          {gameState.gameStatus.includes("Game not Initialized")
+            ? <Link to="/bet">
+              <button className="betBtn">Bet</button>
+            </Link>
+            : <>Bet Locked!</>
+          }
+
+
 
           <LogOutButton />
         </div>

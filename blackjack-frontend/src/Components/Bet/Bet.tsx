@@ -54,7 +54,7 @@ export const Bet: React.FC = () => {
             type="button"
             className="withdrawBtn"
             id="WithdrawBtn"
-            value="Withdraw"
+            value="Bet"
             onClick={handleSubmit}
           />
           <input
