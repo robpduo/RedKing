@@ -4,97 +4,20 @@ import './PlayGame.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { IDeck } from '../../Interfaces/IDeck';
 
-import { StartGameButton } from '../StartGameButton/StartGameButton';
-
 import { AppDispatch, RootState } from '../../Store';
-
-import cloverTwo from '../../images/CLOVERSTWO.png';
-import diamondQueen from '../../images/DIAMONDSQUEEN.png';
-
-import spadeAce from '../../images/SPADESACE.png';
 import heartKing from '../../images/HEARTSKING.png';
-
-import { HitButton } from '../HitButton/HitButton';
 import { useNavigate } from 'react-router-dom';
+import StartGameButton from '../StartGameButton/StartGameButton';
+import { setGameStatus } from '../../Slices/GameSlice';
+
+
 
 // going inside PlaGamePage
 export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
-  const dispatch: AppDispatch = useDispatch();
   const navigator = useNavigate();
+  const dispatch: AppDispatch = useDispatch();
+  const gameState = useSelector((state: RootState) => state.game);
 
-  const deckInfo = useSelector((state: RootState) => state.deck.deck);
-  const userInfo = useSelector((state: RootState) => state.user);
-
-  const playerHand = useSelector((state: RootState) => state.deck.playerHand);
-
-  const dealerHand = useSelector((state: RootState) => state.deck.dealerHand);
-
-  const isDeck = useSelector((state: RootState) => state.deck.isDeck);
-  console.log('coming from PlayGame line 31 ', deckInfo);
-
-  const [gameStatus, setGameStatus] = useState('Game not initialized');
-  // console.log('coming from PlayGame line 28 ', isDeck);
-
-  // const [chipCount, setChipCount] = useState(1000);
-  // const [betAmount, setBetAmount] = useState(0);
-  // const [lockedBet, setLockedBet] = useState(0);
-  // const [previousBet, setPreviousBet] = useState(0);
-  // const [dealerCount, setDealerCount] = useState(0);
-  // const [playerCount, setPlayerCount] = useState(0);
-  // const [isBlackjack, setIsBlackJack] = useState(false);
-  // const [isPlayerBusted, setIsPlayerBusted] = useState(false);
-  // //const [didDouble, setDidDouble] = useState(false);
-  // const [isDealersTurn, setIsDealersTurn] = useState(false);
-  // const [isDealerBusted, setIsDealerBusted] = useState(false);
-  // const [isHandComplete, setIsHandComplete] = useState(true);
-  // const [winner, setWinner] = useState("");
-
-  /* useEffect(() => {
-      if(dealerCount > 21) {
-        setIsDealerBusted(true);
-        setWinner("player");
-        setIsHandComplete(true);
-      }
-      if(dealerCount >= 17 && dealerCount < 22 && isDealersTurn) {
-        if(dealerCount > playerCount) {
-          setWinner("dealer");
-          setIsHandComplete(true);
-        }
-        if(dealerCount < playerCount && !isPlayerBusted) {
-          setWinner("player")
-          setIsHandComplete(true)
-        }
-        if(dealerCount === playerCount && !isPlayerBusted) {
-          setWinner("push")
-          setIsHandComplete(true)
-        }
-      }
-      if(dealerCount < 17 && isDealersTurn && !isPlayerBusted) {
-        setTimeout(() => {
-          dispatch(getDealDealer())
-        }, 500);
-      }
-    }, [dealerCount]) */
-
-  // const [id, setId] = useState(userInfo.user?.id)
-  // const [lockedBet, setLockedBet] = useState(0)
-  // const [previousBet, setPreviousBet] = useState(0)
-  // const [dealerCount, setDealerCount] = useState(0)
-  // const [playerCount, setPlayerCount] = useState(0)
-
-  // const handleStandButton = () => {
-
-  //   if (deckInfo && playerHand) {
-  //     dispatch(getDealDealer);
-  //   }
-
-  // }
-
-  // useEffect(() => {
-  //   console.log('coming from PlayGame line 93 ', deckInfo);
-  // }, [deckInfo]);
-
-  // let imgPath = '../../images';
   let imageArray = [
     { suit: 'SPADES', rank: 'ACE', path: '../../images/SPADESACE.png' },
     { suit: 'SPADES', rank: 'TWO', path: '../../images/SPADESTWO.png' },
@@ -154,68 +77,39 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
     navigator('/scores');
   };
 
+  const handleQuit = (event: React.MouseEvent<HTMLButtonElement>) => {
+    console.log(gameState.gameStatus);
+    dispatch(setGameStatus('Game not Initialized'));
+  };
+
   return (
     <>
       <div className="gameContainer">
         <div className="selectionArea">
           <h1>BlacKing</h1>
-          <StartGameButton />
-          <HitButton />
+          {gameState.gameStatus.includes('Game not Initialized')
+            ? //if true (game not initialized)
 
-          <button>Stand</button>
-          <button>Value</button>
-          <button onClick={handleScoreBoard}>Score</button>
+            <div className='buttons-sidepanel'>
+              <StartGameButton />
+              <button onClick={handleScoreBoard}>Score</button>
+            </div>
+
+            : 
+
+            <div className='game-buttons'>
+              <button onClick={handleQuit}>Quit</button>
+            </div>
+          }
+
         </div>
 
         <div className="playArea">
           <h1> dealer </h1>
-          {isDeck !== false &&
-            deckInfo?.cards?.slice(0, 2)?.map((card: any) => {
-              let imagePath = imageArray.find((imgArr) => {
-                return imgArr.rank === card.rank && imgArr.suit === card.suit
-                  ? imgArr.path
-                  : '../../images/DIAMONDSKING.png';
-              });
-
-              console.log('coming from imagePath line 180 ', imagePath?.path);
-
-              return (
-                <div className="dealContainer" key={card.id}>
-                  <img
-                    key={card.id}
-                    src={imagePath?.path}
-                    // src={`../../images/${card.suit}${card.rank}.png`}
-                    alt={`${card.suit}${card.rank}`}
-                  />
-                  {/* <p>{card.suit}</p> */}
-                </div>
-              );
-            })}
-
           <div className="userContainer">
-            <h1>User</h1>
-            <img src={spadeAce} />
             <img src={heartKing} />
           </div>
         </div>
-
-        {/* {isDeck !== false && (
-          <div className="playArea">
-            <h1> dealer </h1>
-            {playerHand?.map((hand) => {
-              <div className="dealContainer" key={hand.id}>
-                <img src={`../../images/${hand.suit}${hand.rank}`} />
-
-              </div>;
-            })}
-
-            <div className="userContainer">
-              <h1>User</h1>
-              <img src={spadeAce} />
-              <img src={heartKing} />
-            </div>
-          </div>
-        )} */}
       </div>
     </>
   );

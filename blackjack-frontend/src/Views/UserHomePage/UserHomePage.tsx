@@ -1,25 +1,20 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Rules } from "../../Components/Rules/Rules";
-import { StartGameButton } from "../../Components/StartGameButton/StartGameButton";
 
-
-export const UserHomePage:React.FC = () => {
-
-
+export const UserHomePage: React.FC = () => {
+    const navigator = useNavigate();
     const [showRules, setShowRules] = useState(false);
 
-
-    const handleShowRules = (event:React.MouseEvent<HTMLButtonElement>) => {
+    const handleShowRules = (event: React.MouseEvent<HTMLButtonElement>) => {
         setShowRules(!showRules);
     }
 
-    return(
+    return (
         <>
-        <div className="user-home-page">
-              { <StartGameButton/>}
-              {/* {ViewHighScores} */}
-               {showRules ? <button className="rules-btn" onClick={handleShowRules}></button>:<Rules/>}
-        </div>
+            <div className="user-home-page">
+                {showRules ? <button className="rules-btn" onClick={handleShowRules}></button> : <Rules />}
+            </div>
         </>
     )
 }
