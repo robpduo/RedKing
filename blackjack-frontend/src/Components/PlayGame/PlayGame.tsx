@@ -41,10 +41,10 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
   const deckInfo = useSelector((state: RootState) => state.deck.deck);
 
   const playerCards = useSelector((state: RootState) => state.deck.playerHand);
-
   const dealerCards = useSelector((state: RootState) => state.deck.dealerHand);
 
-  console.log('coming from PlayGame line 36', gameState.winner);
+  console.log('coming from PlayGame line 46 ', gameState);
+  console.log('coming from PlayGame line 47', myUserState);
 
   const handleScoreBoard = (event: React.MouseEvent<HTMLButtonElement>) => {
     navigator('/scores');
@@ -214,7 +214,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
         <div className="playArea">
           <div className="dealContainer">
             <h1>
-              Dealer: <ValueCounter propNum={num.dealerNum} />
+              <ValueCounter propNum={num.dealerNum} />
             </h1>
             {isDeck !== false &&
               dealerCards?.map((card) => {
@@ -238,13 +238,15 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
             <></>
           ) : (
             <div className="winnerContainer">
-              <h1>{gameState.winner.toLocaleUpperCase()} wins</h1>
+              <h1>
+                {myUserState.user?.firstName} {myUserState.user?.lastName} wins
+              </h1>
             </div>
           )}
 
           <div className="userContainer">
             <h1>
-              User: <ValueCounter propNum={num.playerNum} />
+              <ValueCounter propNum={num.playerNum} />
             </h1>
             {isDeck !== false &&
               playerCards?.map((card) => {

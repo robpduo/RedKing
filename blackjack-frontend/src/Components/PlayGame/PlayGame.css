@@ -86,7 +86,8 @@
 }
 
 .dealContainer h1 {
-  margin: 12px 0;
+  margin-top: 24px;
+  margin-bottom: 12px;
 }
 
 .dealContainer img {
