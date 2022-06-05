@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getDealPlayer } from "../../Slices/DeckSlice";
+import { toggleDealerTurn } from "../../Slices/GameSlice";
 import { AppDispatch, RootState } from "../../Store";
 
 
@@ -16,17 +17,16 @@ export const StandButton: React.FC = () => {
 
   const dispatch: AppDispatch = useDispatch();
 
-
+  //set to dealer turn
   const handleStandButton = () => {
-    if (userState && deckState) {
-      //give turn to dealer
-    }
+      //give turn to the dealer
+      console.log("Stand Clicked");
+      dispatch(toggleDealerTurn());
   }
-
 
   return (
     <>
-      {gameState.isPlayerBusted == true || gameState.winner != "none" ? <button disabled={true} className="stand-button" >Stand.</button>
+      {gameState.isPlayerBusted == true || gameState.winner != "none" || gameState.isDealersTurn? <button disabled={true} className="stand-button" >Stand.</button>
         : <button className="stand-button" onClick={handleStandButton}>Stand.</button>}
     </>
   )

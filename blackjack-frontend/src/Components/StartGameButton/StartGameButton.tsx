@@ -3,7 +3,7 @@ import { Root } from 'react-dom/client';
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 import { getDealDealer, getDealPlayer, initializeDeck } from '../../Slices/DeckSlice';
-import { setGameStatus, setWinner, toggleDealerBust, togglePlayerBusted } from '../../Slices/GameSlice';
+import { setGameStatus, setWinner, toggleDealerBust, toggleDealerTurn, togglePlayerBusted } from '../../Slices/GameSlice';
 import { AppDispatch, RootState } from '../../Store'
 
 const StartGameButton: React.FC = () => {
@@ -26,8 +26,11 @@ const StartGameButton: React.FC = () => {
           dispatch(getDealPlayer(deckState.deck.deckId));
           dispatch(getDealDealer(deckState.deck.deckId));
         }
+
       }
+
     }
+
   }, [deckState.startGame, deckState.deck]);
 
   const handleInitGame = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -35,6 +38,9 @@ const StartGameButton: React.FC = () => {
       navigator('/login');
     } else {
       dispatch(setWinner('none')); //reset winner status
+      if(gameState.isDealersTurn) { //if it was the dealers turn for some reason, give the turn back to the player
+        dispatch(toggleDealerTurn())
+      }
 
       if (gameState.isPlayerBusted) { //if player is busted reset to false
         dispatch(togglePlayerBusted());

@@ -7,8 +7,6 @@ interface GameSliceState {
     playerCount: number,    //player hand value
     isDealersTurn: boolean,
     isDealerBusted: boolean,
-    isHandComplete: boolean,
-    isBlackJack: boolean,
     isPlayerBusted: boolean,
     winner: string
 }
@@ -19,8 +17,6 @@ const initialGameState: GameSliceState = {
     playerCount: 0,
     isDealersTurn: false,
     isDealerBusted: false,
-    isHandComplete: true,
-    isBlackJack: false,
     isPlayerBusted: false,
     winner: "none"
 }
@@ -35,12 +31,6 @@ export const gameSlice = createSlice({
         },
         toggleDealerBust: (state) => {
             state.isDealerBusted = !state.isDealerBusted;
-        },
-        toggleHandComplete: (state) => {
-            state.isHandComplete = !state.isHandComplete;
-        },
-        toggleBlackJack: (state) => {
-            state.isBlackJack = !state.isBlackJack;
         },
         togglePlayerBusted: (state) => {
             state.isPlayerBusted = !state.isPlayerBusted;
@@ -60,6 +50,6 @@ export const gameSlice = createSlice({
     }
 });
 
-export const {setDealerCount, setPlayerCount, setGameStatus, setWinner, toggleBlackJack, toggleDealerBust, toggleDealerTurn, toggleHandComplete, togglePlayerBusted} = gameSlice.actions;
+export const {setDealerCount, setPlayerCount, setGameStatus, setWinner, toggleDealerBust, toggleDealerTurn, togglePlayerBusted} = gameSlice.actions;
 
 export default gameSlice.reducer;
