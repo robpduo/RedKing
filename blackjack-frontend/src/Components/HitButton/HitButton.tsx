@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getDealDealer, getDealPlayer } from '../../Slices/DeckSlice';
-import { clearHands, setDealerCount, setGameStatus, setPlayerCount, setWinner, toggleDealerBust, toggleHandComplete, togglePlayerBusted } from '../../Slices/GameSlice';
+import { setDealerCount, setGameStatus, setPlayerCount, setWinner, toggleDealerBust, toggleHandComplete, togglePlayerBusted } from '../../Slices/GameSlice';
 import { AppDispatch, RootState } from '../../Store';
 
 import {

@@ -9,9 +9,10 @@ import { AppDispatch, RootState } from '../../Store';
 import StartGameButton from '../StartGameButton/StartGameButton';
 import { HitButton } from '../HitButton/HitButton';
 
-import { setGameStatus, togglePlayerBusted } from '../../Slices/GameSlice';
+import { setGameStatus, setWinner, togglePlayerBusted } from '../../Slices/GameSlice';
 import { quitGame } from '../../Slices/DeckSlice';
 import { StandButton } from '../StandButton/StandButton';
+import NextRound from '../NextRound/NextRound';
 
 // going inside PlaGamePage
 export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
@@ -85,6 +86,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
   const handleQuit = (event: React.MouseEvent<HTMLButtonElement>) => {
     dispatch(setGameStatus("Game not Initialized")); //set game status to not initiated
     dispatch(quitGame());
+    dispatch(setWinner("none"));
     dispatch(togglePlayerBusted());
   };
 
@@ -112,10 +114,11 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
               }
 
             </div>
-            :
+            :    
             <div className='game-buttons'>
               <HitButton />
               <StandButton />
+              <NextRound />
               <button onClick={handleQuit}>Quit</button>
             </div>
           }
