@@ -20,6 +20,9 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
   const gameState = useSelector((state: RootState) => state.game);
   const deckState = useSelector((state: RootState) => state.deck);
 
+  const isDeck = useSelector((state: RootState) => state.deck.isDeck);
+  const deckInfo = useSelector((state: RootState) => state.deck.deck);
+
   let imageArray = [
     { suit: 'SPADES', rank: 'ACE', path: '../../images/SPADESACE.png' },
     { suit: 'SPADES', rank: 'TWO', path: '../../images/SPADESTWO.png' },
@@ -81,6 +84,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
 
   const handleQuit = (event: React.MouseEvent<HTMLButtonElement>) => {
     dispatch(setGameStatus('Game not Initialized'));
+    navigator('/playgame');
   };
 
   return (
@@ -88,6 +92,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
       <div className="gameContainer">
         <div className="selectionArea">
           <h1>BlacKing</h1>
+
           {gameState.gameStatus.includes('Game not Initialized')
             ? //if true (game not initialized)
 
@@ -95,7 +100,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
               <StartGameButton />
               <button onClick={handleScoreBoard}>Score</button>
             </div>
-            : 
+            :
             <div className='game-buttons'>
               <HitButton />
               <button onClick={handleQuit}>Quit</button>
@@ -106,8 +111,44 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
 
         <div className="playArea">
           <h1> dealer </h1>
+
+          <div className="dealContainer">
+            {isDeck !== false &&
+              deckInfo?.cards?.slice(0, 2)?.map((card) => {
+                let suit1 = card.suit.toString();
+                let rank1 = card.rank.toString();
+                let path1 = suit1.split('').join().replace(/,/g, '');
+                let path2 = rank1.split('').join().replace(/,/g, '');
+                let imagePath = '../../images/' + path1 + path2;
+
+                return (
+                  <img
+                    key={card.suit + '' + card.rank}
+                    src={`${imagePath}.png`}
+                    alt={`${card.suit}${card.rank}`}
+                  />
+                );
+              })}
+          </div>
+
           <div className="userContainer">
-            <img src={heartKing} />
+            <h1>User</h1>
+            {isDeck !== false &&
+              deckInfo?.cards?.slice(0, 2)?.map((card) => {
+                let suit1 = card.suit.toString();
+                let rank1 = card.rank.toString();
+                let path1 = suit1.split('').join().replace(/,/g, '');
+                let path2 = rank1.split('').join().replace(/,/g, '');
+                let imagePath = '../../images/' + path1 + path2;
+
+                return (
+                  <img
+                    key={card.suit + '' + card.rank}
+                    src={`${imagePath}.png`}
+                    alt={`${card.suit}${card.rank}`}
+                  />
+                );
+              })}
           </div>
         </div>
       </div>
