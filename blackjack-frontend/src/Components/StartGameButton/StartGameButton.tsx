@@ -21,7 +21,6 @@ const StartGameButton: React.FC = () => {
       if (deckState.deck) {
 
         if (deckState.playerHand) {
-          console.log("+++++++Initialize++++++++");
           dispatch(getDealPlayer(deckState.deck.deckId));
           dispatch(getDealDealer(deckState.deck.deckId));
           dispatch(getDealPlayer(deckState.deck.deckId));

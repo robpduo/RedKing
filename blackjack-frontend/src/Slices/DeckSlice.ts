@@ -109,6 +109,7 @@ export const deckSlice = createSlice({
       state.playerHand = [];
       state.dealerHand = [];
       state.startGame = false;
+      state.isDeck = false;
     },
 
     clearHands: (state) => {

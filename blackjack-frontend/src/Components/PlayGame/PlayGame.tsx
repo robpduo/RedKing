@@ -86,7 +86,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
         } else if (
           calcHandValue(deckState.dealerHand) == 21 &&
           calcHandValue(deckState.playerHand) !=
-            calcHandValue(deckState.dealerHand)
+          calcHandValue(deckState.dealerHand)
         ) {
           console.log(
             'dealer wins with: ',
@@ -95,7 +95,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
           dispatch(setWinner('dealer'));
         } else if (
           calcHandValue(deckState.playerHand) <
-            calcHandValue(deckState.dealerHand) &&
+          calcHandValue(deckState.dealerHand) &&
           calcHandValue(deckState.dealerHand) < 21
         ) {
           dispatch(setWinner('dealer'));
@@ -105,7 +105,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
           );
         } else if (
           calcHandValue(deckState.playerHand) >
-            calcHandValue(deckState.dealerHand) &&
+          calcHandValue(deckState.dealerHand) &&
           calcHandValue(deckState.playerHand) < 21
         ) {
           dispatch(setWinner('player'));
@@ -134,7 +134,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
         } else if (
           calcHandValue(deckState.playerHand) == 21 &&
           calcHandValue(deckState.playerHand) !=
-            calcHandValue(deckState.dealerHand)
+          calcHandValue(deckState.dealerHand)
         ) {
           dispatch(setWinner('dealer'));
           console.log(
@@ -148,7 +148,6 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
     }
   }, [gameState.isDealersTurn, deckState.dealerHand]);
 
-  // comment out this useEffect that was accepting as current changes
   // useEffect(() => {
   //   if (userState) {
   //     let mailData = {
@@ -186,11 +185,9 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
         >
           {deckState.loading == false ? (
             <>
-              {/* <h1>{gameState.gameStatus}</h1> */}
               <h1>BlacKing</h1>
             </>
           ) : (
-            // <h1>Loading -- Give us a Moment</h1>
             <h1>Shuffling Your Deck</h1>
           )}
 
