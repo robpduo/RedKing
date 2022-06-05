@@ -73,6 +73,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
       dispatch(userBet(0));
     } else if (gameState.winner.includes("tie")) {
       console.log("Ties", myUserState.bet);
+      dispatch(depositMoney(amount));
       dispatch(userBet(0));
     }
   }, [gameState.winner])
