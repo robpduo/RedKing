@@ -33,7 +33,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
 
   const dealerCards = useSelector((state: RootState) => state.deck.dealerHand);
 
-  console.log('coming from PlayGame line 31', typeof playerCards);
+  console.log('coming from PlayGame line 36', gameState.winner);
 
   const handleScoreBoard = (event: React.MouseEvent<HTMLButtonElement>) => {
     navigator('/scores');
@@ -91,9 +91,8 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
         </div>
 
         <div className="playArea">
-          <h1>Dealer</h1>
-
           <div className="dealContainer">
+            <h1>Dealer</h1>
             {isDeck !== false &&
               dealerCards?.map((card) => {
                 let suit1 = card.suit.toString();
@@ -111,6 +110,14 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
                 );
               })}
           </div>
+
+          {gameState.winner === 'none' ? (
+            <></>
+          ) : (
+            <div className="winnerContainer">
+              <h1>{gameState.winner.toLocaleUpperCase()} wins</h1>
+            </div>
+          )}
 
           <div className="userContainer">
             <h1>User</h1>
