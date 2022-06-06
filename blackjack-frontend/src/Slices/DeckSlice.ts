@@ -106,15 +106,15 @@ export const deckSlice = createSlice({
   reducers: {
     quitGame: (state) => {
       state.deck = undefined;
-      state.playerHand = undefined;
-      state.dealerHand = undefined;
+      state.playerHand = [];
+      state.dealerHand = [];
       state.startGame = false;
       state.isDeck = false;
     },
 
     clearHands: (state) => {
-      state.playerHand = undefined;
-      state.dealerHand = undefined;
+      state.playerHand = [];
+      state.dealerHand = [];
     }, 
 
     toggleStartGame: (state) => {
