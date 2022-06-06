@@ -18,7 +18,13 @@ import {
 import { getDealDealer, quitGame } from '../../Slices/DeckSlice';
 import { StandButton } from '../StandButton/StandButton';
 import NextRound from '../NextRound/NextRound';
-import { depositMoney, sendMail, toggleLock, userBet, withdrawMoney } from '../../Slices/UserSlice';
+import {
+  depositMoney,
+  sendMail,
+  toggleLock,
+  userBet,
+  withdrawMoney,
+} from '../../Slices/UserSlice';
 
 import {
   ValueCounter,
@@ -44,7 +50,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
   const playerCards = useSelector((state: RootState) => state.deck.playerHand);
   const dealerCards = useSelector((state: RootState) => state.deck.dealerHand);
 
-  console.log('coming from PlayGame line 46 ', gameState);
+  console.log('coming from PlayGame line 53 ', gameState);
   console.log('coming from PlayGame line 47', myUserState);
 
   const handleScoreBoard = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -64,19 +70,20 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
       amount: myUserState.bet,
     };
 
-    if (!myUserState.lockBet) { //if the bets are not locked, perform the transactions
-      if (gameState.winner.includes("player")) {  //double that amount that the player bets
+    if (!myUserState.lockBet) {
+      //if the bets are not locked, perform the transactions
+      if (gameState.winner.includes('player')) {
+        //double that amount that the player bets
         amount.amount = myUserState.bet * 2;
         dispatch(depositMoney(amount));
         dispatch(userBet(0));
-
-      } else if (gameState.winner.includes("dealer")) { //withdraw the amount of money the player bets
+      } else if (gameState.winner.includes('dealer')) {
+        //withdraw the amount of money the player bets
         dispatch(withdrawMoney(amount));
         dispatch(userBet(0));
-
-      } else if (gameState.winner.includes("tie")) { // reset bet amount
+      } else if (gameState.winner.includes('tie')) {
+        // reset bet amount
         dispatch(userBet(0));
-
       }
     }
   }, [gameState.winner]);
@@ -105,18 +112,18 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
         } else if (
           calcHandValue(deckState.dealerHand) == 21 &&
           calcHandValue(deckState.playerHand) !=
-          calcHandValue(deckState.dealerHand)
+            calcHandValue(deckState.dealerHand)
         ) {
           dispatch(setWinner('dealer'));
         } else if (
           calcHandValue(deckState.playerHand) <
-          calcHandValue(deckState.dealerHand) &&
+            calcHandValue(deckState.dealerHand) &&
           calcHandValue(deckState.dealerHand) < 21
         ) {
           dispatch(setWinner('dealer'));
         } else if (
           calcHandValue(deckState.playerHand) >
-          calcHandValue(deckState.dealerHand) &&
+            calcHandValue(deckState.dealerHand) &&
           calcHandValue(deckState.playerHand) < 21
         ) {
           dispatch(setWinner('player'));
@@ -138,7 +145,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
         } else if (
           calcHandValue(deckState.playerHand) == 21 &&
           calcHandValue(deckState.playerHand) !=
-          calcHandValue(deckState.dealerHand)
+            calcHandValue(deckState.dealerHand)
         ) {
           dispatch(setWinner('player'));
         } else {
@@ -150,7 +157,6 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
       if (myUserState.lockBet) {
         dispatch(toggleLock());
       }
-
     }
   }, [gameState.isDealersTurn, deckState.dealerHand]);
 
@@ -170,7 +176,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
       }
     }
 
-    if (gameState.winner !== 'none') {
+    if (gameState.winner !== 'none' && gameState.winner !== 'tie') {
       {
         toast.info('Hurray! You Won.', {
           position: 'top-center',
