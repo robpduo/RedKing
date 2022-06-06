@@ -17,7 +17,8 @@ A Game similar to BlackJack, with slight alteration to the rules to win. As with
 ## Technologies Used
 - Java version 1.8.0
 - React
-- AWS S3
+- AWS S3 Bucket (Hosts Front-End)
+- AWS EC2 (Hosts Back-End)
 - Hibernate,
 - Spring Boot
 - Spring Data
