@@ -50,9 +50,9 @@ const NextRound: React.FC = () => {
             dispatch(toggleStartGame());
         }
         //reset deck if deck of cards read < 10 cards
-        if (userState.user) {
-            dispatch(initializeDeck(userState.user));
-        }
+        // if (userState.user) {
+        //     dispatch(initializeDeck(userState.user));
+        // }
 
         dispatch(setWinner("none"));
         dispatch(clearHands());
