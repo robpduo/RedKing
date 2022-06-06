@@ -280,14 +280,32 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
               })}
           </div>
 
-          {gameState.winner === 'none' ? (
-            <></>
-          ) : (
+          {gameState.winner === 'player' ? (
             <div className="winnerContainer">
-              <h1>
-                {myUserState.user?.firstName} {myUserState.user?.lastName} wins
-              </h1>
-            </div>
+            <h1>
+              { myUserState.user?.firstName} {myUserState.user?.lastName} wins
+            </h1>
+          </div>
+          ) : (
+            <></>
+          )}
+          {gameState.winner === 'dealer' ? (
+            <div className="winnerContainer">
+            <h1>
+             Dealer wins
+            </h1>
+          </div>
+          ) : (
+            <></>
+          )}
+          {gameState.winner === 'tie' ? (
+            <div className="winnerContainer">
+            <h1>
+             It's a Tie
+            </h1>
+          </div>
+          ) : (
+            <></>
           )}
 
           <div className="userContainer">
