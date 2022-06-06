@@ -4,6 +4,7 @@ import com.revature.exceptions.DeckIsEmptyException;
 import com.revature.exceptions.NoDeckInPlay;
 import com.revature.models.*;
 import com.revature.repository.DeckRepo;
+import com.revature.utils.LoggingUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,6 +46,7 @@ public class DeckService {
         deck.setCards(lCards);
         deck.setUser(user);
         deck.setDeckSize(52);
+        LoggingUtil.logger.info("Deck Initialized by " + user.getEmail());
         return dr.save(deck);
     }
 
@@ -76,6 +78,7 @@ public class DeckService {
             throw new DeckIsEmptyException();
         }
         dr.save(deck);
+        LoggingUtil.logger.info("Deck successfully retrieved");
         return card;
     }
 
