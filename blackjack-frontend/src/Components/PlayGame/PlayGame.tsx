@@ -18,7 +18,13 @@ import {
 import { getDealDealer, quitGame } from '../../Slices/DeckSlice';
 import { StandButton } from '../StandButton/StandButton';
 import NextRound from '../NextRound/NextRound';
-import { depositMoney, sendMail, toggleLock, userBet, withdrawMoney } from '../../Slices/UserSlice';
+import {
+  depositMoney,
+  sendMail,
+  toggleLock,
+  userBet,
+  withdrawMoney,
+} from '../../Slices/UserSlice';
 
 import {
   ValueCounter,
@@ -57,7 +63,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
     dispatch(quitGame());
     dispatch(setWinner('none'));
     dispatch(togglePlayerBusted());
-    if(gameState.isDealersTurn){
+    if (gameState.isDealersTurn) {
       dispatch(toggleDealerTurn());
     }
   };
@@ -68,22 +74,23 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
       amount: myUserState.bet,
     };
 
-    if (!myUserState.lockBet) { //if the bets are not locked, perform the transactions
-      if (gameState.winner.includes("player")) {  //double that amount that the player bets
+    if (!myUserState.lockBet) {
+      //if the bets are not locked, perform the transactions
+      if (gameState.winner.includes('player')) {
+        //double that amount that the player bets
         amount.amount = myUserState.bet * 2;
         dispatch(depositMoney(amount));
         dispatch(userBet(0));
-
-      } else if (gameState.winner.includes("dealer")) { //withdraw the amount of money the player bets
+      } else if (gameState.winner.includes('dealer')) {
+        //withdraw the amount of money the player bets
         dispatch(withdrawMoney(amount));
         dispatch(userBet(0));
-
-      } else if (gameState.winner.includes("tie")) { // reset bet amount
+      } else if (gameState.winner.includes('tie')) {
+        // reset bet amount
         dispatch(userBet(0));
-
       }
     }
-  }, [gameState.winner])
+  }, [gameState.winner]);
 
   //central place for dealer ai to function
   useEffect(() => {
@@ -109,18 +116,18 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
         } else if (
           calcHandValue(deckState.dealerHand) == 21 &&
           calcHandValue(deckState.playerHand) !=
-          calcHandValue(deckState.dealerHand)
+            calcHandValue(deckState.dealerHand)
         ) {
           dispatch(setWinner('dealer'));
         } else if (
           calcHandValue(deckState.playerHand) <
-          calcHandValue(deckState.dealerHand) &&
+            calcHandValue(deckState.dealerHand) &&
           calcHandValue(deckState.dealerHand) < 21
         ) {
           dispatch(setWinner('dealer'));
         } else if (
           calcHandValue(deckState.playerHand) >
-          calcHandValue(deckState.dealerHand) &&
+            calcHandValue(deckState.dealerHand) &&
           calcHandValue(deckState.playerHand) < 21
         ) {
           dispatch(setWinner('player'));
@@ -142,7 +149,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
         } else if (
           calcHandValue(deckState.playerHand) == 21 &&
           calcHandValue(deckState.playerHand) !=
-          calcHandValue(deckState.dealerHand)
+            calcHandValue(deckState.dealerHand)
         ) {
           dispatch(setWinner('player'));
         } else {
@@ -154,7 +161,6 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
       if (myUserState.lockBet) {
         dispatch(toggleLock());
       }
-
     }
   }, [gameState.isDealersTurn, deckState.dealerHand]);
   // useEffect(() => {
@@ -194,7 +200,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
           {deckState.loading == false ? (
             <>
               {/* <h1>{gameState.gameStatus}</h1> */}
-              <h1>BlacKing</h1>
+              <h1>RedKing</h1>
             </>
           ) : (
             // <h1>Loading -- Give us a Moment</h1>
@@ -227,7 +233,9 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
 
         <div className="playArea">
           <div className="dealContainer">
-            <h1><ValueCounter propNum={num.dealerNum} /></h1>
+            <h1>
+              <ValueCounter propNum={num.dealerNum} />
+            </h1>
             {isDeck !== false &&
               dealerCards?.map((card) => {
                 let suit1 = card.suit.toString();
@@ -247,29 +255,33 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
           </div>
 
           {gameState.winner === 'dealer' ? (
-           <div className="winnerContainer">
-           <h1>{gameState.winner.toLocaleUpperCase()} wins</h1>
-         </div>
+            <div className="winnerContainer">
+              <h1>{gameState.winner.toLocaleUpperCase()} wins</h1>
+            </div>
           ) : (
-             <></>
+            <></>
           )}
           {gameState.winner === 'player' ? (
-           <div className="winnerContainer">
-           <h1>{userState?.firstName} {userState?.lastName} wins</h1>
-         </div>
+            <div className="winnerContainer">
+              <h1>
+                {userState?.firstName} {userState?.lastName} wins
+              </h1>
+            </div>
           ) : (
-             <></>
+            <></>
           )}
           {gameState.winner === 'tie' ? (
-           <div className="winnerContainer">
-           <h1>It's a Tie!</h1>
-         </div>
+            <div className="winnerContainer">
+              <h1>It's a Tie!</h1>
+            </div>
           ) : (
-             <></>
+            <></>
           )}
 
           <div className="userContainer">
-            <h1><ValueCounter propNum={num.playerNum} /></h1>
+            <h1>
+              <ValueCounter propNum={num.playerNum} />
+            </h1>
             {isDeck !== false &&
               playerCards?.map((card) => {
                 let suit1 = card.suit.toString();

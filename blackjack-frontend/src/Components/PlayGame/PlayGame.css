@@ -95,6 +95,8 @@
   width: 150px;
   height: 150px;
   /* cursor: pointer; */
+  /* transform: rotate(360deg) !important;
+  -webkit-transform: rotate(360deg); */
 }
 
 .winnerContainer {

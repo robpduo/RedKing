@@ -61,7 +61,7 @@ export const LoginForm: React.FC<any> = (spinner: any) => {
     <div className="login">
       {/* text container */}
       <div className="textContainer">
-        <h1 className="loginHeader">BlacKing</h1>
+        <h1 className="loginHeader">RedKing</h1>
       </div>
 
       <form className="loginForm">
