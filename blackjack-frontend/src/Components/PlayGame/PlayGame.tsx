@@ -227,7 +227,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
 
         <div className="playArea">
           <div className="dealContainer">
-            <h1>Dealer: <ValueCounter propNum={num.dealerNum} /></h1>
+            <h1><ValueCounter propNum={num.dealerNum} /></h1>
             {isDeck !== false &&
               dealerCards?.map((card) => {
                 let suit1 = card.suit.toString();
@@ -246,16 +246,30 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
               })}
           </div>
 
-          {gameState.winner === 'none' ? (
-            <></>
+          {gameState.winner === 'dealer' ? (
+           <div className="winnerContainer">
+           <h1>{gameState.winner.toLocaleUpperCase()} wins</h1>
+         </div>
           ) : (
-            <div className="winnerContainer">
-              <h1>{gameState.winner.toLocaleUpperCase()} wins</h1>
-            </div>
+             <></>
+          )}
+          {gameState.winner === 'player' ? (
+           <div className="winnerContainer">
+           <h1>{userState?.firstName} {userState?.lastName} wins</h1>
+         </div>
+          ) : (
+             <></>
+          )}
+          {gameState.winner === 'tie' ? (
+           <div className="winnerContainer">
+           <h1>It's a Tie!</h1>
+         </div>
+          ) : (
+             <></>
           )}
 
           <div className="userContainer">
-            <h1>User: <ValueCounter propNum={num.playerNum} /></h1>
+            <h1><ValueCounter propNum={num.playerNum} /></h1>
             {isDeck !== false &&
               playerCards?.map((card) => {
                 let suit1 = card.suit.toString();
