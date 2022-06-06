@@ -28,5 +28,5 @@ A Game similar to BlackJack, with slight alteration to the rules to win. As with
 
 ## Usage
 1. Players may login or register a new account<br/>
-![image](https://user-images.githubusercontent.com/101683611/171944639-b03c942a-02e1-4cd7-aaba-ccd06fb79eaf.png)<br/>
+![image](https://user-images.githubusercontent.com/101683611/172219055-bf0743e1-457b-47c3-87a3-1841dd598b06.png)<br/>
 
