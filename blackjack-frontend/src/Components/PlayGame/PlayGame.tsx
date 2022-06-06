@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import './PlayGame.css';
-
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
+import './PlayGame.css';
 import { IDeck } from '../../Interfaces/IDeck';
 
 import { AppDispatch, RootState } from '../../Store';
@@ -18,13 +17,7 @@ import {
 import { getDealDealer, quitGame } from '../../Slices/DeckSlice';
 import { StandButton } from '../StandButton/StandButton';
 import NextRound from '../NextRound/NextRound';
-import {
-  depositMoney,
-  sendMail,
-  toggleLock,
-  userBet,
-  withdrawMoney,
-} from '../../Slices/UserSlice';
+import { depositMoney, sendMail, toggleLock, userBet, withdrawMoney } from '../../Slices/UserSlice';
 
 import {
   ValueCounter,
@@ -48,10 +41,10 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
   const deckInfo = useSelector((state: RootState) => state.deck.deck);
 
   const playerCards = useSelector((state: RootState) => state.deck.playerHand);
-  const dealerCards = useSelector((state: RootState) => state.deck.dealerHand);
 
-  console.log('coming from PlayGame line 53 ', gameState);
-  console.log('coming from PlayGame line 47', myUserState);
+  const dealerCards = useSelector((state: RootState) => state.deck.dealerHand);
+  const userState = useSelector((state: RootState) => state.user.user);
+  console.log('coming from PlayGame line 36', gameState.winner);
 
   const handleScoreBoard = (event: React.MouseEvent<HTMLButtonElement>) => {
     navigator('/scores');
@@ -66,27 +59,26 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
 
   useEffect(() => {
     let amount = {
-      userId: myUserState.user?.userId ? myUserState.user.userId : 0,
+      userId: userState?.userId ? userState.userId : 0,
       amount: myUserState.bet,
     };
 
-    if (!myUserState.lockBet) {
-      //if the bets are not locked, perform the transactions
-      if (gameState.winner.includes('player')) {
-        //double that amount that the player bets
+    if (!myUserState.lockBet) { //if the bets are not locked, perform the transactions
+      if (gameState.winner.includes("player")) {  //double that amount that the player bets
         amount.amount = myUserState.bet * 2;
         dispatch(depositMoney(amount));
         dispatch(userBet(0));
-      } else if (gameState.winner.includes('dealer')) {
-        //withdraw the amount of money the player bets
+
+      } else if (gameState.winner.includes("dealer")) { //withdraw the amount of money the player bets
         dispatch(withdrawMoney(amount));
         dispatch(userBet(0));
-      } else if (gameState.winner.includes('tie')) {
-        // reset bet amount
+
+      } else if (gameState.winner.includes("tie")) { // reset bet amount
         dispatch(userBet(0));
+
       }
     }
-  }, [gameState.winner]);
+  }, [gameState.winner])
 
   //central place for dealer ai to function
   useEffect(() => {
@@ -112,18 +104,18 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
         } else if (
           calcHandValue(deckState.dealerHand) == 21 &&
           calcHandValue(deckState.playerHand) !=
-            calcHandValue(deckState.dealerHand)
+          calcHandValue(deckState.dealerHand)
         ) {
           dispatch(setWinner('dealer'));
         } else if (
           calcHandValue(deckState.playerHand) <
-            calcHandValue(deckState.dealerHand) &&
+          calcHandValue(deckState.dealerHand) &&
           calcHandValue(deckState.dealerHand) < 21
         ) {
           dispatch(setWinner('dealer'));
         } else if (
           calcHandValue(deckState.playerHand) >
-            calcHandValue(deckState.dealerHand) &&
+          calcHandValue(deckState.dealerHand) &&
           calcHandValue(deckState.playerHand) < 21
         ) {
           dispatch(setWinner('player'));
@@ -145,7 +137,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
         } else if (
           calcHandValue(deckState.playerHand) == 21 &&
           calcHandValue(deckState.playerHand) !=
-            calcHandValue(deckState.dealerHand)
+          calcHandValue(deckState.dealerHand)
         ) {
           dispatch(setWinner('player'));
         } else {
@@ -157,51 +149,22 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
       if (myUserState.lockBet) {
         dispatch(toggleLock());
       }
+
     }
   }, [gameState.isDealersTurn, deckState.dealerHand]);
+  // useEffect(() => {
+  //   if (userState) {
+  //     let mailData = {
+  //       firstName: userState?.firstName,
+  //       email: userState?.email,
+  //       msgType: "Win"
+  //     }
 
-  useEffect(() => {
-    if (gameState.winner === 'tie') {
-      {
-        toast.info('Wow! its a tie.', {
-          position: 'top-center',
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'dark',
-        });
-      }
-    }
-
-    if (gameState.winner !== 'none' && gameState.winner !== 'tie') {
-      {
-        toast.info('Hurray! You Won.', {
-          position: 'top-center',
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'dark',
-        });
-      }
-    }
-  }, [gameState.winner]);
-
-  // toast.success('Hurray! Login Successfull.', {
-  //   position: 'top-center',
-  //   autoClose: 1500,
-  //   hideProgressBar: false,
-  //   closeOnClick: true,
-  //   pauseOnHover: true,
-  //   draggable: true,
-  //   progress: undefined,
-  //   theme: 'dark',
-  // });
+  //     if (gameState.winner !== 'none' && gameState.winner !== 'dealer') {
+  //       dispatch(sendMail(mailData))
+  //     }
+  //   }
+  // }, [gameState.winner]);
 
   type propNum = {
     dealerNum: number;
@@ -259,9 +222,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
 
         <div className="playArea">
           <div className="dealContainer">
-            <h1>
-              <ValueCounter propNum={num.dealerNum} />
-            </h1>
+            <h1>Dealer: <ValueCounter propNum={num.dealerNum} /></h1>
             {isDeck !== false &&
               dealerCards?.map((card) => {
                 let suit1 = card.suit.toString();
@@ -280,38 +241,16 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
               })}
           </div>
 
-          {gameState.winner === 'player' ? (
-            <div className="winnerContainer">
-            <h1>
-              { myUserState.user?.firstName} {myUserState.user?.lastName} wins
-            </h1>
-          </div>
-          ) : (
+          {gameState.winner === 'none' ? (
             <></>
-          )}
-          {gameState.winner === 'dealer' ? (
-            <div className="winnerContainer">
-            <h1>
-             Dealer wins
-            </h1>
-          </div>
           ) : (
-            <></>
-          )}
-          {gameState.winner === 'tie' ? (
             <div className="winnerContainer">
-            <h1>
-             It's a Tie
-            </h1>
-          </div>
-          ) : (
-            <></>
+              <h1>{gameState.winner.toLocaleUpperCase()} wins</h1>
+            </div>
           )}
 
           <div className="userContainer">
-            <h1>
-              <ValueCounter propNum={num.playerNum} />
-            </h1>
+            <h1>User: <ValueCounter propNum={num.playerNum} /></h1>
             {isDeck !== false &&
               playerCards?.map((card) => {
                 let suit1 = card.suit.toString();
@@ -331,7 +270,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
           </div>
         </div>
 
-        <ToastContainer />
+        <ToastContainer position="top-center" />
       </div>
     </>
   );
