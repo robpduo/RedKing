@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import './PlayGame.css';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import './PlayGame.css';
 import { IDeck } from '../../Interfaces/IDeck';
 
 import { AppDispatch, RootState } from '../../Store';
@@ -146,6 +147,38 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
     }
   }, [gameState.isDealersTurn, deckState.dealerHand]);
 
+  useEffect(() => {
+    if (gameState.winner === 'tie') {
+      {
+        toast.info('Wow! its a tie.', {
+          position: 'top-center',
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'dark',
+        });
+      }
+    }
+
+    if (gameState.winner !== 'none') {
+      {
+        toast.info('Hurray! You Won.', {
+          position: 'top-center',
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'dark',
+        });
+      }
+    }
+  }, [gameState.winner]);
+
   // toast.success('Hurray! Login Successfull.', {
   //   position: 'top-center',
   //   autoClose: 1500,
@@ -267,7 +300,7 @@ export const PlayGame: React.FC<IDeck> = (deck: IDeck) => {
           </div>
         </div>
 
-        <ToastContainer position="top-center" />
+        <ToastContainer />
       </div>
     </>
   );
