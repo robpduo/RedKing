@@ -15,7 +15,7 @@ export const HomeScreen: React.FC = () => {
       {/* <Navbar /> */}
       <section className="homeScreen">
         <div className="logregContainer">
-          <h3 className="blackingHeader">BlacKing</h3>
+          <h3 className="blackingHeader">RedKing</h3>
 
           <div className="buttonContainer">
             <Link to="/user">
