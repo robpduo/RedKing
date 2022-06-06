@@ -8,6 +8,7 @@ import com.revature.models.DepositHelper;
 import com.revature.models.User;
 import com.revature.models.WithdrawHelper;
 import com.revature.repository.UserRepo;
+import com.revature.utils.LoggingUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,6 +42,7 @@ public class UserService {
             throw new UserEmailAlreadyExistsException();
         } else {
             User u = new User(email, firstName, lastName, password, money);
+            LoggingUtil.logger.info("user created " + u.getEmail());
             return ur.save(u);
         }
     }

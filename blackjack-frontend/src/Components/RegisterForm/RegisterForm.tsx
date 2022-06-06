@@ -61,20 +61,19 @@ export const RegisterForm: React.FC<any> = (spinner: any) => {
     console.log('coming from handleRegister line 41 ', credentials);
 
     dispatch(registerUser(credentials));
-    
   };
 
-  useEffect(()=>{
-    if(userInfo){
+  useEffect(() => {
+    if (userInfo) {
       let data = {
         firstName: userInfo.firstName,
         email: userInfo.email,
-        msgType: "Register"
-      }
+        msgType: 'Register',
+      };
       dispatch(sendMail(data));
-      navigator('/playgame');
+      // navigator('/playgame');
     }
-  },[userInfo])
+  }, [userInfo]);
   // form submit handler
   const handleUpdate = (event: React.MouseEvent<HTMLButtonElement>) => {
     let userUpdate = {

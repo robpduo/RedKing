@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.LinkedHashMap;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
 public class MailController {
 
     private MailService mailService;

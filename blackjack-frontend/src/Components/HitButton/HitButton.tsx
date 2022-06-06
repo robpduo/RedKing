@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getDealDealer, getDealPlayer } from '../../Slices/DeckSlice';
 import { setDealerCount, setGameStatus, setPlayerCount, setWinner, toggleDealerBust, toggleDealerTurn, togglePlayerBusted } from '../../Slices/GameSlice';
+import { sendMail } from '../../Slices/UserSlice';
 import { AppDispatch, RootState } from '../../Store';
 
 import { ValueCounter, calcCardValue, calcHandValue, calcVisibleDealerHandValue } from '../ValueCounter/ValueCounter';
@@ -14,12 +15,24 @@ export const HitButton: React.FC = () => {
 
   const playerHand = useSelector((state: RootState) => state.deck.playerHand);
   const dealerHand = useSelector((state: RootState) => state.deck.dealerHand);
-
+  
   const dispatch: AppDispatch = useDispatch();
 
+  
   useEffect(() => {
-    console.log('Winner: ', gameState.winner);
+    if (userState.user) {
+      let mailData = {
+        firstName: userState?.user?.firstName,
+        email: userState?.user?.email,
+        msgType: "Win"
+      }
+
+      if (gameState.winner !== 'none' && gameState.winner !== 'dealer') {
+        dispatch(sendMail(mailData))
+      }
+    }
   }, [gameState.winner]);
+
 
   useEffect( () => {
     console.log("Player Hand Value: ", calcHandValue(playerHand));
