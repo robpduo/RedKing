@@ -62,6 +62,15 @@ A Game similar to BlackJack, with slight alteration to the rules to win. As with
 9. To Update the user infomation (username, first name, last name ... ), the user may click on their name on the top left corner to bring up a form
 ![image](https://user-images.githubusercontent.com/101683611/172267187-431f753b-3dd8-41c0-8c35-b685d1f7ac52.png)<br/>
 
+## Contributors
+Kong (Robert) Duong - GitHub: https://github.com/robpduo
+Nabil Ahmed- GitHub: https://github.com/nabilgj
+Parth Kikani - GitHub: https://github.com/tron-stack
+Kenneth Fish - GitHub: https://github.com/kenneth-fish
+Mohammad Moniruzzaman - Github: https://github.com/zamanuap
+
+
+
 
 
 
