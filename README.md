@@ -60,7 +60,7 @@ A Game similar to BlackJack, with slight alteration to the rules to win. As with
 8. The after quiting the game, the player can view their score (in terms of money) and compare their score with other players in the system by clicking the score button
 ![image](https://user-images.githubusercontent.com/101683611/172273833-aba08df6-a6a3-4f02-81ae-4893b16f9f06.png)<br/><br/>
 9. To Update the user infomation (username, first name, last name ... ), the user may click on their name on the top left corner to bring up a form
-![image](https://user-images.githubusercontent.com/101683611/172267187-431f753b-3dd8-41c0-8c35-b685d1f7ac52.png)<br/>
+![image](https://user-images.githubusercontent.com/101683611/172514313-a7b3ec61-793a-4064-98fd-8d5694df9130.png)<br/><br/>
 
 ## Contributors
 Kong (Robert) Duong - GitHub: https://github.com/robpduo<br/>
