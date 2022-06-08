@@ -63,11 +63,11 @@ A Game similar to BlackJack, with slight alteration to the rules to win. As with
 ![image](https://user-images.githubusercontent.com/101683611/172267187-431f753b-3dd8-41c0-8c35-b685d1f7ac52.png)<br/>
 
 ## Contributors
-Kong (Robert) Duong - GitHub: https://github.com/robpduo
-Nabil Ahmed- GitHub: https://github.com/nabilgj
-Parth Kikani - GitHub: https://github.com/tron-stack
-Kenneth Fish - GitHub: https://github.com/kenneth-fish
-Mohammad Moniruzzaman - Github: https://github.com/zamanuap
+Kong (Robert) Duong - GitHub: https://github.com/robpduo<br/>
+Nabil Ahmed- GitHub: https://github.com/nabilgj<br/>
+Parth Kikani - GitHub: https://github.com/tron-stack<br/>
+Kenneth Fish - GitHub: https://github.com/kenneth-fish<br/>
+Mohammad Moniruzzaman - Github: https://github.com/zamanuap<br/>
 
 
 
