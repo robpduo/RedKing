@@ -16,7 +16,8 @@ A Game similar to BlackJack, with slight alteration to the rules to win. As with
 ## Todo List
 - Implement admin features to monitor users for suspicous activity
 - Add multipler features 
-- Implement different difficulty settings that will adjust the winnings multiplier (for instance: hiding dealer card values during the player's turn, multiple dealers, initializing a deck of more than 52 cards to reduce the chance of counting cards to win)  
+- Implement different difficulty settings that will adjust the winnings multiplier (for instance: hiding dealer card values during the player's turn, multiple dealers, initializing a deck of more than 52 cards to reduce the chance of counting cards to win)
+- Track the amount of wins and losses associated with the user  
 
 ## Technologies Used
 - Javalin, version 4.1.1
@@ -50,9 +51,10 @@ A Game similar to BlackJack, with slight alteration to the rules to win. As with
 ![image](https://user-images.githubusercontent.com/101683611/172511586-5233f8fa-99b5-4ca4-819d-726433923aca.png)<br/><br/>
 4. If the player clicks on "stand", the turn will be passed to the dealer and the dealer will draw until it has a hand value of 17 or more
 5. Clicking on next will start a new round, on the same deck of 52 cards, the deck will be reinitialized at 10 or less cards and shuffled
-![image](https://user-images.githubusercontent.com/101683611/172266261-9acb9f9d-9aba-4d65-881d-d3ee90ba4e91.png)<br/>
-
+![image](https://user-images.githubusercontent.com/101683611/172266261-9acb9f9d-9aba-4d65-881d-d3ee90ba4e91.png)<br/><br/>
+6. Clicking on the "money" button in the nav bar will bring up a form and any amount can be added to the players account
 ![image](https://user-images.githubusercontent.com/101683611/172266926-c7410081-75e1-4b56-84a3-4d0deaf63d66.png)<br/>
+7. 
 ![image](https://user-images.githubusercontent.com/101683611/172266990-56f0e6e0-6af4-41dc-9e8c-1ad7d4dfb181.png)<br/>
 ![image](https://user-images.githubusercontent.com/101683611/172267101-63ccca7a-00d7-4a4d-86ed-40ea437941f8.png)<br/>
 ![image](https://user-images.githubusercontent.com/101683611/172267187-431f753b-3dd8-41c0-8c35-b685d1f7ac52.png)<br/>
