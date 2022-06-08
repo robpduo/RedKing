@@ -15,7 +15,9 @@ A Game similar to BlackJack, with slight alteration to the rules to win. As with
 7. user's may withdraw their money at the homepage
 
 ## Technologies Used
-- Java version 1.8.0
+- Javalin, version 4.1.1
+- Java, version 1.8.0
+- slf4j version 1.7.32
 - React
 - AWS S3
 - Hibernate,
