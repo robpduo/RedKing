@@ -17,7 +17,7 @@ A Game similar to BlackJack, with slight alteration to the rules to win. As with
 - Implement admin features to monitor users for suspicous activity
 - Add multipler features 
 - Implement different difficulty settings that will adjust the winnings multiplier (for instance: hiding dealer card values during the player's turn, multiple dealers, initializing a deck of more than 52 cards to reduce the chance of counting cards to win)
-- Track the amount of wins and losses associated with the user  
+- Track the amount of wins and losses associated with the player  
 
 ## Technologies Used
 - Javalin, version 4.1.1
