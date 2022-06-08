@@ -42,9 +42,9 @@ A Game similar to BlackJack, with slight alteration to the rules to win. As with
 ![image](https://user-images.githubusercontent.com/101683611/172219055-bf0743e1-457b-47c3-87a3-1841dd598b06.png)<br/><br/>
 1b. Registration page after clicking on "Not Registered Yet"
 ![image](https://user-images.githubusercontent.com/101683611/172267260-024bcf45-b544-4b47-8de3-3ee974a9b2cf.png)<br/><br/>
-2. After loging players can start a new game which initializes a deck of 52 cards and alternatively deals 2 cards to the player and 2 cards to the dealer
+2a. After loging players can start a new game which initializes a deck of 52 cards and alternatively deals 2 cards to the player and 2 cards to the dealer
 ![image](https://user-images.githubusercontent.com/101683611/172511233-a72a0ac9-c363-4710-b5de-6f60b49690f1.png)<br/><br/>
- 
+2b. When the game starts, bets are locked!
 ![image](https://user-images.githubusercontent.com/101683611/172266261-9acb9f9d-9aba-4d65-881d-d3ee90ba4e91.png)<br/>
 ![image](https://user-images.githubusercontent.com/101683611/172266926-c7410081-75e1-4b56-84a3-4d0deaf63d66.png)<br/>
 ![image](https://user-images.githubusercontent.com/101683611/172266967-fda92b67-846c-4e9b-96c1-667bbfaaa8c5.png)<br/>
