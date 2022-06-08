@@ -5,7 +5,6 @@ A Game similar to BlackJack, with slight alteration to the rules to win. As with
 
 ## Features
 
-### Users
 1. Users may register for a new account and log into the system with the credentials provided
 2. Users may deposit/withdraw money into their account
 3. Users may start a new game which initializes a new deck of 52 shuffled cards
@@ -14,6 +13,11 @@ A Game similar to BlackJack, with slight alteration to the rules to win. As with
 6. during each game, users may bet a certain amount of money. If they win the round, they will receive double the amount the have betted
 7. user's may withdraw their money at the homepage
 
+## Todo List
+- Implement admin features to monitor users for suspicous activity
+- Add multipler features 
+- Implement different difficulty settings that will adjust the winnings multiplier (for instance: hiding dealer card values during the player's turn, multiple dealers, initializing a deck of more than 52 cards to reduce the chance of counting cards to win)  
+
 ## Technologies Used
 - Javalin, version 4.1.1
 - Java, version 1.8.0
@@ -21,7 +25,7 @@ A Game similar to BlackJack, with slight alteration to the rules to win. As with
 - React
 - AWS S3 Bucket (Hosts Front-End)
 - AWS EC2 (Hosts Back-End)
-- Hibernate,
+- Hibernate
 - Spring Boot
 - Spring Data
 - PostgreSQL
