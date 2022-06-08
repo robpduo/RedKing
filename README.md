@@ -34,6 +34,8 @@ A Game similar to BlackJack, with slight alteration to the rules to win. As with
 - JUnit
 
 ## Getting Started
+1. Database, Back-End, Front-End is hosted on Amazon Web Service wth RDS, EC2, and S3 bucket respectively
+2. Follow the link to the launch page when the EC2 server is up at: http://redking-frontend.s3-website.us-east-2.amazonaws.com/login 
 
 ## Usage
 1. Players may login or register a new account<br/>
