@@ -56,7 +56,8 @@ A Game similar to BlackJack, with slight alteration to the rules to win. As with
 ![image](https://user-images.githubusercontent.com/101683611/172266926-c7410081-75e1-4b56-84a3-4d0deaf63d66.png)<br/>
 7. When the round finishes, the player can make a bet based on how much money they have. The player may not bet 100% of their money or bet an amount greater than what they have
 ![image](https://user-images.githubusercontent.com/101683611/172266990-56f0e6e0-6af4-41dc-9e8c-1ad7d4dfb181.png)<br/>
-![image](https://user-images.githubusercontent.com/101683611/172267101-63ccca7a-00d7-4a4d-86ed-40ea437941f8.png)<br/>
+![image](https://user-images.githubusercontent.com/101683611/172267101-63ccca7a-00d7-4a4d-86ed-40ea437941f8.png)<br/><br/>
+8. The after quiting the game, the player can view their score (in terms of money) and compare their score with other players in the system by clicking the score button
 ![image](https://user-images.githubusercontent.com/101683611/172267187-431f753b-3dd8-41c0-8c35-b685d1f7ac52.png)<br/>
 ![image](https://user-images.githubusercontent.com/101683611/172273833-aba08df6-a6a3-4f02-81ae-4893b16f9f06.png)<br/>
 
